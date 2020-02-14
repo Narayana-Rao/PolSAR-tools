@@ -123,11 +123,19 @@ class Worker(QtCore.QObject):
                 
                 stopi= int(nrows-inci)-1 # Stop row for window processing
                 stopj= int(ncols-incj)-1 # Stop column for window processing
+                        # %% Elementary targets
+                
+                M_d = np.array([[1,0,0,0], [ 0,1,0,0], [ 0,0,-1,0], [ 0,0,0,1]])
+                M_nd = np.array([[0.625,0.375,0,0], [ 0.375,0.625,0,0], [ 0,0,-0.5,0], [ 0,0,0,0.5]])
+                M_t = np.array([[1,0,0,0], [ 0,1,0,0], [ 0,0,1,0], [ 0, 0,0,-1]])
+                M_c = np.array([[0.625,0.375,0,0], [ 0.375,0.625,0,0], [0,0,0.5,0], [ 0,0,0,-0.5]])
+                M_lh = np.array([[1,0,0,-1], [ 0,0,0,0], [ 0,0,0,0], [ -1,0,0,1]])
+                M_rh = np.array([[1,0,0,1], [ 0,0,0,0], [ 0,0,0,0], [ 1,0,0,1]])
                 
                 for ii in np.arange(startj,stopj+1):
         
-                    # self.progress.emit(str(i))
-                    self.pBar.emit((ii/np.size(T3_stack,0))*100)
+                    # self.progress.emit(str(ii)+'/'+str(nrows))
+                    self.pBar.emit(int((ii/nrows)*100))
                     for jj in np.arange(starti,stopi+1):
                 
                         t11s = np.nanmean(t11_T1[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
@@ -147,9 +155,9 @@ class Worker(QtCore.QObject):
                         #Coherency matrix
                         C_T1 = np.matmul(np.matmul((D.T),T_T1),D);
                         
-                        span[ii,jj] = t11s + t22s + t33s
+                        span[ii,jj] = np.real(t11s + t22s + t33s)
                         temp_span = span[ii,jj]
-                
+                        # self.progress.emit(str('span Done'))
                         Temp_T1 = T_T1
                         
                         t11 = Temp_T1[0,0]; t12 = Temp_T1[0,1];        t13 = Temp_T1[0,2]
@@ -172,15 +180,6 @@ class Worker(QtCore.QObject):
                         m41 = -1j*(t23-t32); m42 = -1j*(t13-t31); m43 = 1j*(t12-t21); m44 = -t11+t22+t33;
                         
                         M_T = 0.5*np.array([[m11, m12, m13, m14], [m21, m22, m23, m24], [m31, m32, m33, m34], [m41, m42, m43, m44]]);
-                
-                        # %% Elementary targets
-                        
-                        M_d = np.array([[1,0,0,0], [ 0,1,0,0], [ 0,0,-1,0], [ 0,0,0,1]])
-                        M_nd = np.array([[0.625,0.375,0,0], [ 0.375,0.625,0,0], [ 0,0,-0.5,0], [ 0,0,0,0.5]])
-                        M_t = np.array([[1,0,0,0], [ 0,1,0,0], [ 0,0,1,0], [ 0, 0,0,-1]])
-                        M_c = np.array([[0.625,0.375,0,0], [ 0.375,0.625,0,0], [0,0,0.5,0], [ 0,0,0,-0.5]])
-                        M_lh = np.array([[1,0,0,-1], [ 0,0,0,0], [ 0,0,0,0], [ -1,0,0,1]])
-                        M_rh = np.array([[1,0,0,1], [ 0,0,0,0], [ 0,0,0,0], [ 1,0,0,1]])
                         
                         
                         M_T_theta = M_T;
@@ -204,8 +203,8 @@ class Worker(QtCore.QObject):
                 
                         # %% Gamma/Rho
                         
-                        gamma = C0[0,0]/C0[2,2]; rho = 1/3;
-                        temp_gamma[ii,jj]= gamma; #% variable to save
+                        gamma = np.real(C0[0,0]/C0[2,2]); rho = 1/3;
+                        temp_gamma[ii,jj]= np.real(gamma); #% variable to save
                         
                         # %% Covariance matrix
                         
@@ -215,7 +214,7 @@ class Worker(QtCore.QObject):
                         
                         R = (3/2)*(1 + gamma) - rho*np.sqrt(gamma);
                         C1 = (1/R)*np.array([[c11, c12, c13], [c21, c22, c23], [c31, c32, c33]]);
-                
+                        # self.progress.emit(str('gamma and R Done'))
                         # %% Coherency matrix
                         
                         T1 = np.matmul(np.matmul(D,C1),(D.T));
@@ -242,9 +241,9 @@ class Worker(QtCore.QObject):
                         den1 = np.sqrt(abs(np.trace(np.matmul(((M_T_theta).T),M_T_theta))));
                         den2 = np.sqrt(abs(np.trace(np.matmul(((M_rv).T),M_rv))));
                         den = den1*den2;
-                        temp_aa = 2*np.arccos(num/den)*180/np.pi;
-                        GD_t1_rv[ii,jj] = temp_aa/180;
-                
+                        temp_aa = np.real(2*np.arccos(num/den)*180/np.pi);
+                        GD_t1_rv[ii,jj] = np.real(temp_aa/180);
+                        # self.progress.emit(str('GD volume Done'))
                         # %% GD ALL
                         
                         num1 = np.matmul(((M_T_theta).T),M_c); #% cylinder
@@ -252,16 +251,18 @@ class Worker(QtCore.QObject):
                         den1 = np.sqrt(abs(np.trace(np.matmul(((M_T_theta).T),M_T_theta))));
                         den2 = np.sqrt(abs(np.trace(np.matmul(((M_c).T),M_c))));
                         den = den1*den2;
-                        temp_aa = 2*np.arccos(num/den)*180/np.pi;
-                        GD_t1_c[ii,jj] = temp_aa/180;
-                
+                        temp_aa = np.real(2*np.arccos(num/den)*180/np.pi);
+                        GD_t1_c[ii,jj] = np.real(temp_aa/180);
+                        # self.progress.emit(str('GD cylider Done'))
+                        
                         num1 = np.matmul(((M_T_theta).T),M_t); #% trihedral
                         num = np.trace(num1);
                         den1 = np.sqrt(abs(np.trace(np.matmul(((M_T_theta).T),M_T_theta))));
                         den2 = np.sqrt(abs(np.trace(np.matmul(((M_t).T),M_t))));
                         den = den1*den2;
                         temp_aa = 2*np.arccos(num/den)*180/np.pi;
-                        GD_t1_t[ii,jj] = temp_aa/180;
+                        GD_t1_t[ii,jj] = np.real(temp_aa/180);
+                        # self.progress.emit(str('GD trihedral Done'))
                         
                         num1 = np.matmul(((M_T_theta).T),M_d); #% dihedral
                         num = np.trace(num1);
@@ -269,7 +270,8 @@ class Worker(QtCore.QObject):
                         den2 = np.sqrt(abs(np.trace(np.matmul(((M_d).T),M_d))));
                         den = den1*den2;
                         temp_aa = 2*np.arccos(num/den)*180/np.pi;
-                        GD_t1_d[ii,jj] = temp_aa/180;
+                        GD_t1_d[ii,jj] = np.real(temp_aa/180);
+                        # self.progress.emit(str('GD dihedral Done'))
                         
                         num1 = np.matmul(((M_T_theta).T),M_nd); #% n-dihedral
                         num = np.trace(num1);
@@ -277,7 +279,8 @@ class Worker(QtCore.QObject):
                         den2 = np.sqrt(abs(np.trace(np.matmul(((M_nd).T),M_nd))));
                         den = den1*den2;
                         temp_aa = 2*np.arccos(num/den)*180/np.pi;
-                        GD_t1_nd[ii,jj] = temp_aa/180;
+                        GD_t1_nd[ii,jj] = np.real(temp_aa/180);
+                        # self.progress.emit(str('GD n-dihedral Done'))
                         
                         # %% VI
                         
@@ -289,11 +292,17 @@ class Worker(QtCore.QObject):
                         a[ii,jj] = np.nanmax([t_t, t_d, t_c, t_nd]);
                         b[ii,jj] = np.nanmin([t_t, t_d, t_c, t_nd]);
                         beta[ii,jj] = (b[ii,jj]/a[ii,jj])**2;
-                        
+                        # self.progress.emit(str('Beta val Done'))
                         # %% RVI
-                        
+                        if np.isnan(np.real(T_T1)).any() or np.isinf(np.real(T_T1)).any() or np.isneginf(np.real(T_T1)).any():
+                            T_T1 = np.array([[0,0],[0,0]])
+                            temp_rvi[ii,jj] = 0
+                            # self.progress.emit(str('invalid Value encountered!!'))
+                            continue
+                            
                         e_v = -np.sort(-np.linalg.eigvals(T_T1)); # sorting in descending order
                         e_v1 = e_v[0]; e_v2 = e_v[1]; e_v3 = e_v[2];
+                        # self.progress.emit(str('Eigen val Done'))
                         
                         p1 = e_v1/(e_v1 + e_v2 + e_v3);
                         p2 = e_v2/(e_v1 + e_v2 + e_v3);
@@ -307,7 +316,9 @@ class Worker(QtCore.QObject):
                         p2=1 if p2>1 else p2
                         p3=1 if p3>1 else p3
                         
-                        temp_rvi[ii,jj] = (4*p3)/(p1 + p2 + p3);
+                        
+                        
+                        temp_rvi[ii,jj] = np.real((4*p3)/(p1 + p2 + p3));
                 
                 # %% GRVI
                 
@@ -337,7 +348,7 @@ class Worker(QtCore.QObject):
                 ofilegrvi = self.iFolder+'/GRVI.bin'
                 write_bin(ofilegrvi,vi,infile)     
                 self.pBar.emit(100)
-                self.progress.emit('    Finished GRVI calculation!!')
+                self.progress.emit('>>> Finished GRVI calculation!!')
                 # self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
                 # self.iface.addRasterLayer(self.inFolder+'\GRVI.bin')
                 # return rvi,vi 
@@ -349,7 +360,7 @@ class Worker(QtCore.QObject):
                 for i in range(np.size(T3,0)):
                     # self.progress.emit('Processed column '+str(i))
                     # stdout.write("\r[%.2f/%d] DOP" % ((i/np.size(T3,0))*100, 100)) 
-                    self.progress.emit(str(i))
+                    # self.progress.emit(str(i))
                     self.pBar.emit((i/np.size(T3,0))*100)
                     for j in range(np.size(T3,1)):
                         det = np.abs(np.linalg.det(T3[i,j,:].reshape((3, 3))))
@@ -590,7 +601,6 @@ class MRSLab(object):
         self.dlg.clear_terminal.clicked.connect(self.clear_log)
         # self.dlg.pb_dop.clicked.connect(lambda: Worker.dop_fp(self.T3_stack))
         self.dlg.cb_mat_type.currentIndexChanged.connect(self.Cob_mode)
-        
         self.ws = int(self.dlg.sb_ws.value())
         
         self.dlg.pb_process.clicked.connect(self.startWorker)
@@ -694,23 +704,64 @@ class MRSLab(object):
         log = self.dlg.terminal
         log.append(str(signal))  
         
-
+    def T3_C3(self,T3_stack):
+        nrows = np.size(T3_stack,0)
+        ncols = np.size(T3_stack,1)
+        C3_stack = np.zeros(np.shape(T3_stack),dtype=np.complex64)
+        "Special Unitary Matrix"
+        D = (1/np.sqrt(2))*np.array([[1,0,1], [1,0,-1],[0,np.sqrt(2),0]])
+        for i in range(nrows):
+            # self.dlg.terminal.append('>>> '+str(i)+'/'+str(nrows))
+            self.dlg.progressBar.setValue(int((i/nrows)*100))
+            for j in range(ncols):
+                T3 = T3_stack[i,j,:]
+                T3 = np.reshape(T3,(3,3))
+                C3 = np.matmul(np.matmul((D.T),T3),D);
+                C3_stack[i,j,:] = C3.flatten()
+                
+        self.dlg.progressBar.setValue(100)
+        return C3_stack
+    
+    def C3_T3(self,C3_stack):
+        nrows = np.size(C3_stack,0)
+        ncols = np.size(C3_stack,1)
+        T3_stack = np.zeros(np.shape(C3_stack),dtype=np.complex64)
+        "Special Unitary Matrix"
+        D = (1/np.sqrt(2))*np.array([[1,0,1], [1,0,-1],[0,np.sqrt(2),0]])
+        for i in range(nrows):
+            # self.dlg.terminal.append('>>> '+str(i)+'/'+str(nrows))
+            self.dlg.progressBar.setValue(int((i/nrows)*100))
+            for j in range(ncols):
+                C3 = C3_stack[i,j,:]
+                C3 = np.reshape(C3,(3,3))
+                T3 = np.matmul(np.matmul((D),C3),D.T);
+                T3_stack[i,j,:] = T3.flatten()
+        self.dlg.progressBar.setValue(100)
+        return T3_stack
+    
     def openRaster(self):
         """Open raster from file dialog"""
-        # inFolder=str(QFileDialog.getOpenFileName(caption="Open raster", filter="Rasters (*.tif)")[0])
-        self.inFolder =str(QFileDialog.getExistingDirectory(self.dlg, "Select Folder"))
+        
+        self.inFolder =str(QFileDialog.getExistingDirectory(self.dlg, "Select T3/C3 Folder"))
         self.dlg.le_infolder.setText(self.inFolder)
         # print(self.inFolder)
         mat_type = self.dlg.cb_mat_type.currentIndex()
+        logger = self.dlg.terminal
         
         if self.inFolder is not None and mat_type==1:
+            
             self.T3_stack = self.load_T3(self.inFolder)
+            logger.append('>>> T3 Loaded \nConverting T3 to C3...')
+            self.C3_stack  = self.T3_C3(self.T3_stack)
+            logger.append('>>> Ready to process.')
+            
         elif self.inFolder is not None and mat_type==2:
-            # self.terminal.append('C3 selected')
-            logger = self.dlg.terminal
-            logger.append('     C3 selected')
+
+            logger.append('>>> C3 selected')
             self.C3_stack = self.load_C3(self.inFolder)
-            logger.append('     C3 Loaded')
+            logger.append('>>> C3 Loaded \nConverting C3 to T3...')
+            self.T3_stack  = self.C3_T3(self.C3_stack)
+            logger.append('>>> Ready to process.')
             
     def load_C3(self,folder):
         
@@ -799,6 +850,12 @@ class MRSLab(object):
     
     def startWorker(self):
         # worker = Worker(ip_user, custom, custom_names, browse, browse_selected_obj, browse_selected_ext_obj, browse_selected_mode, shape_path, if_clip)
+        
+        # mat_type=self.dlg.cb_mat_type.currentIndex()
+        # if mat_type==2:
+        #     self.
+        
+        self.dlg.terminal.append('>>> Calculating GRVI...')
         worker = Worker(self.inFolder,self.T3_stack,self.ws)
 
         # start the worker in a new thread
@@ -825,7 +882,7 @@ class MRSLab(object):
 
     def workerFinished(self,finish_cond):
         logger = self.dlg.terminal
-        logger.append('Process completed with window size of '+str(self.ws))
+        logger.append('>>> Process completed with window size of '+str(self.ws))
         # clean up the worker and thread
         self.viewData()
         self.worker.deleteLater()
@@ -834,11 +891,11 @@ class MRSLab(object):
         self.thread.deleteLater()
 
         if finish_cond == 0:
-            logger.append('Process stopped in between ! You are good to go again.')
+            logger.append('>>> Process stopped in between ! You are good to go again.')
 
     def workerError(self, e, exception_string):
         logger = self.dlg.terminal
-        logger.append(':-( Error:\n\n %s' %str(exception_string))
+        logger.append('>>> :-( Error:\n\n %s' %str(exception_string))
     
     
     
