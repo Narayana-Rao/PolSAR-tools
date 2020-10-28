@@ -57,6 +57,7 @@ from .mod_DpRVI import DpRVI
 from .mod_NM3CF import NM3CF
 from .mod_NM3CC import NM3CC
 from .mod_GRVI import GRVI
+from .mod_PRVI import PRVI
 #############################
 
 # Create a lock for multiprocess
@@ -251,6 +252,9 @@ class MRSLab(object):
         if indX==4:
             logger.append('--------------------')
             self.startDpRVI()
+        if indX==5:
+            logger.append('--------------------')
+            self.startPRVI()
         else:
             pass
         
@@ -294,6 +298,12 @@ class MRSLab(object):
             # self.dlg.pb_browse.setEnabled(True)
             # self.dlg.sb_ws.setEnabled(True)
             self.dlg.pb_process.setEnabled(True)
+        elif parm == 5:
+            logger.append('\n     PRVI\n')
+            # self.dlg.le_infolder.setEnabled(True)
+            # self.dlg.pb_browse.setEnabled(True)
+            # self.dlg.sb_ws.setEnabled(True)
+            self.dlg.pb_process.setEnabled(True)
         else:
             # self.dlg.le_infolder.setEnabled(False)
             self.dlg.pb_process.setEnabled(False)
@@ -318,6 +328,11 @@ class MRSLab(object):
             self.dlg.le_infolder.setEnabled(True)
             self.dlg.pb_browse.setEnabled(True)
             self.dlg.sb_ws.setEnabled(True)
+        elif mat_type == 3:
+            logger.append('\n     Selected Matrix type: C2\n')
+            self.dlg.le_infolder.setEnabled(True)
+            self.dlg.pb_browse.setEnabled(True)
+            self.dlg.sb_ws.setEnabled(True)
         else:
             self.dlg.le_infolder.setEnabled(False)
             self.dlg.pb_browse.setEnabled(False)
@@ -334,15 +349,16 @@ class MRSLab(object):
         
         if self.inFolder is not None and mat_type==1:
             # self.loadRasters()
-            self.iface.addRasterLayer(self.inFolder+'\T11.bin')
-            self.iface.addRasterLayer(self.inFolder+'\T22.bin')
-            self.iface.addRasterLayer(self.inFolder+'\T33.bin')
-            self.iface.addRasterLayer(self.inFolder+'\T12_imag.bin')
-            self.iface.addRasterLayer(self.inFolder+'\T12_real.bin')
-            self.iface.addRasterLayer(self.inFolder+'\T13_imag.bin')
-            self.iface.addRasterLayer(self.inFolder+'\T13_real.bin')
-            self.iface.addRasterLayer(self.inFolder+'\T23_imag.bin')
-            self.iface.addRasterLayer(self.inFolder+'\T23_real.bin')
+            if os.path.isfile(self.inFolder+'\T11.bin'):
+                self.iface.addRasterLayer(self.inFolder+'\T11.bin')
+                self.iface.addRasterLayer(self.inFolder+'\T22.bin')
+                self.iface.addRasterLayer(self.inFolder+'\T33.bin')
+                self.iface.addRasterLayer(self.inFolder+'\T12_imag.bin')
+                self.iface.addRasterLayer(self.inFolder+'\T12_real.bin')
+                self.iface.addRasterLayer(self.inFolder+'\T13_imag.bin')
+                self.iface.addRasterLayer(self.inFolder+'\T13_real.bin')
+                self.iface.addRasterLayer(self.inFolder+'\T23_imag.bin')
+                self.iface.addRasterLayer(self.inFolder+'\T23_real.bin')
 
             if os.path.isfile(self.inFolder+'\RVI.bin'):
                 self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
@@ -350,19 +366,32 @@ class MRSLab(object):
                 self.iface.addRasterLayer(self.inFolder+'\GRVI.bin')
                 
         elif self.inFolder is not None and mat_type==2:
-            self.iface.addRasterLayer(self.inFolder+'\C11.bin')
-            self.iface.addRasterLayer(self.inFolder+'\C22.bin')
-            self.iface.addRasterLayer(self.inFolder+'\C33.bin')
-            self.iface.addRasterLayer(self.inFolder+'\C12_imag.bin')
-            self.iface.addRasterLayer(self.inFolder+'\C12_real.bin')
-            self.iface.addRasterLayer(self.inFolder+'\C13_imag.bin')
-            self.iface.addRasterLayer(self.inFolder+'\C13_real.bin')
-            self.iface.addRasterLayer(self.inFolder+'\C23_imag.bin')
-            self.iface.addRasterLayer(self.inFolder+'\C23_real.bin')
+            if os.path.isfile(self.inFolder+'\C11.bin'):
+                self.iface.addRasterLayer(self.inFolder+'\C11.bin')
+                self.iface.addRasterLayer(self.inFolder+'\C22.bin')
+                self.iface.addRasterLayer(self.inFolder+'\C33.bin')
+                self.iface.addRasterLayer(self.inFolder+'\C12_imag.bin')
+                self.iface.addRasterLayer(self.inFolder+'\C12_real.bin')
+                self.iface.addRasterLayer(self.inFolder+'\C13_imag.bin')
+                self.iface.addRasterLayer(self.inFolder+'\C13_real.bin')
+                self.iface.addRasterLayer(self.inFolder+'\C23_imag.bin')
+                self.iface.addRasterLayer(self.inFolder+'\C23_real.bin')
             if os.path.isfile(self.inFolder+'\RVI.bin'):
                 self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
             if os.path.isfile(self.inFolder+'\GRVI.bin'):
                 self.iface.addRasterLayer(self.inFolder+'\GRVI.bin')
+                
+        elif self.inFolder is not None and mat_type==3:
+            if os.path.isfile(self.inFolder+'\C11.bin'):
+                self.iface.addRasterLayer(self.inFolder+'\C11.bin')
+                self.iface.addRasterLayer(self.inFolder+'\C22.bin')
+                self.iface.addRasterLayer(self.inFolder+'\C12_imag.bin')
+                self.iface.addRasterLayer(self.inFolder+'\C12_real.bin')
+                
+            if os.path.isfile(self.inFolder+'\DpRVI.bin'):
+                self.iface.addRasterLayer(self.inFolder+'\DpRVI.bin')
+            if os.path.isfile(self.inFolder+'\RVI_dp.bin'):
+                self.iface.addRasterLayer(self.inFolder+'\RVI_dp.bin')
             
     def clear_log(self):
         self.dlg.terminal.clear()
@@ -442,6 +471,27 @@ class MRSLab(object):
             self.T3_stack  = self.C3_T3(self.C3_stack)
             logger.append('>>> Ready to process.')
             
+        elif self.inFolder is not None and mat_type==3:
+            logger.append('>>> C2 selected')
+            self.C2_stack = self.load_C2(self.inFolder)
+            logger.append('>>> Ready to process.')
+            
+            
+            
+            
+###############################################################
+    def load_C2(self,folder):
+    
+        C11 = self.read_bin(folder+"\C11.bin")
+        C22 = self.read_bin(folder+"\C22.bin")
+    
+        C12_i = self.read_bin(folder+'\C12_imag.bin')
+        C12_r = self.read_bin(folder+'\C12_real.bin')
+    
+        C12 = C12_r + 1j*C12_i
+    
+        return np.dstack((C11,C12,np.conj(C12),C22))
+
     def load_C3(self,folder):
         
         C11 = self.read_bin(folder+"\C11.bin")
@@ -525,6 +575,28 @@ class MRSLab(object):
         logger.append('       Let\'s get started --> Start with Selecting polarimetric matrix\n')
         
 
+    def startPRVI(self):  
+        self.dlg.terminal.append('>>> Calculating PRVI...')
+        worker = PRVI(self.inFolder,self.T3_stack,self.ws)
+
+        # start the worker in a new thread
+        thread = QtCore.QThread()
+        worker.moveToThread(thread)
+        # self.workerFinished =1
+        worker.finished.connect(self.workerFinished)
+        worker.error.connect(self.workerError)
+
+        worker.progress.connect(self.showmsg)
+        worker.pBar.connect(self.pBarupdate)
+        thread.started.connect(worker.run)
+        thread.start()
+        
+        self.thread = thread
+        self.worker = worker
+        # time.sleep(0.1)
+        # worker.
+
+
     def startNM3CC(self):
         
         self.dlg.terminal.append('>>> Calculating NM3CC...')
@@ -550,7 +622,7 @@ class MRSLab(object):
     def startDpRVI(self):
         
         self.dlg.terminal.append('>>> Calculating DpRVI... ')
-        worker = DpRVI(self.inFolder,self.T3_stack,self.ws)
+        worker = DpRVI(self.inFolder,self.C2_stack,self.ws)
 
         # start the worker in a new thread
         thread = QtCore.QThread()
@@ -622,7 +694,8 @@ class MRSLab(object):
         logger = self.dlg.terminal
         logger.append('>>> Process completed with window size of '+str(self.ws))
         # clean up the worker and thread
-        self.viewData()
+        
+        self.viewData() # Load data into QGIS
         pB = self.dlg.progressBar
         pB.setValue(0)
         self.worker.deleteLater()

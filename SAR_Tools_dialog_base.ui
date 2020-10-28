@@ -80,6 +80,11 @@
            <string>C3</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>C2</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item>
@@ -263,6 +268,11 @@
          <item>
           <property name="text">
            <string>DpRVI</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PRVI</string>
           </property>
          </item>
         </widget>
