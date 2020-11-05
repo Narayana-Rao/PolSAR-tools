@@ -21,9 +21,6 @@
  *                                                                         *
  ***************************************************************************/
 """
-# from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
-# from qgis.PyQt.QtGui import QIcon
-# from qgis.PyQt.QtWidgets import QAction
 from qgis.PyQt.QtCore import *
 from qgis.PyQt.QtWidgets import *
 from qgis.PyQt.QtGui import *
@@ -34,17 +31,6 @@ import requests
 import numpy as np
 import multiprocessing
 
-# from PyQt5.QtWidgets import QAction, QMessageBox,QFileDialog
-# from qgis.core import (QgsCoordinateReferenceSystem,
-#                        QgsCoordinateTransform,
-#                        QgsProject,
-#                        QgsRectangle,
-#                        QgsPointXY,
-#                        QgsGeometry,
-#                        QgsVectorLayer,
-#                        QgsFeature,
-#                        QgsMessageLog)
-# Initialize Qt resources from file resources.py
 from .resources import *
 # Import the code for the dialog
 from .SAR_Tools_dialog import MRSLabDialog
@@ -66,8 +52,6 @@ p_lock = multiprocessing.Lock()
 ############################################################################################################################################
 ############################################################################################################################################
 
-############################################################################################################################################
-############################################################################################################################################
 class MRSLab(object):
     """QGIS Plugin Implementation."""
 
@@ -212,31 +196,34 @@ class MRSLab(object):
         self.actions.append(action)
         self.Startup()
         global  logger
-        
-
-        
+               
         
         self.dlg.pb_browse.clicked.connect(self.openRaster)
         self.dlg.pb_view.clicked.connect(self.viewData)
         self.dlg.clear_terminal.clicked.connect(self.clear_log)
-        # self.dlg.pb_dop.clicked.connect(lambda: Worker.dop_fp(self.T3_stack))
+        
         self.dlg.cb_mat_type.currentIndexChanged.connect(self.Cob_mode)
+        
         self.ws = int(self.dlg.sb_ws.value())
+        
+        self.dlg.sb_ws.valueChanged.connect(self.ws_update)
+
+        
         # self.dlg.cb_parm.currentIndexChanged.connect(self.Cob_mode)
-        self.dlg.cb_parm.currentIndexChanged.connect(self.Cob_parm)
-        # logger = self.dlg.terminal
-        # logger.append(parm)
-        
-                
+        self.dlg.cb_parm.currentIndexChanged.connect(self.Cob_parm)            
         self.dlg.pb_process.clicked.connect(self.startProcess)
-        
-        # self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
-        # self.iface.addRasterLayer(self.inFolder+'\GRVI.bin')
-        # logger = self.dlg.terminal
-        # logger.append('Completed Processing!!')
         
         return action
             
+               
+    def ws_update(self):
+        self.ws = int(self.dlg.sb_ws.value())
+        if self.ws%2==0:
+            self.ws+=1
+        logger = self.dlg.terminal
+        logger.append('Window size: '+str(self.ws))
+        
+        
     def startProcess(self):
         logger = self.dlg.terminal
         indX =self.dlg.cb_parm.currentIndex()
@@ -532,13 +519,10 @@ class MRSLab(object):
         return np.dstack((T11,T12,T13,np.conj(T12),T22,T23,np.conj(T13),np.conj(T23),T33))
     
     def read_bin(self,file):
-
-        # data, geodata=load_data(file_name, gdal_driver='GTiff')
         ds = gdal.Open(file)
         band = ds.GetRasterBand(1)
         arr = band.ReadAsArray()
-        # [cols, rows] = arr.shape
-    
+   
         return arr 
 
     def unload(self):
@@ -571,7 +555,8 @@ class MRSLab(object):
     def Startup(self):
         # For terminal outputs
         logger = self.dlg.terminal
-        logger.append('   Welcome to SARtools. A QGIS plugin to calculate GRVI (Generalized Volume Vegetation Index) \n')
+        logger.append('   \tWelcome to SARtools.\n\
+                      A QGIS plugin to calculate SAR derived parameters \n')
         logger.append('       Let\'s get started --> Start with Selecting polarimetric matrix\n')
         
 
@@ -710,10 +695,6 @@ class MRSLab(object):
         logger = self.dlg.terminal
         logger.append('>>> :-( Error:\n\n %s' %str(exception_string))
     
-    
-    
-    # progress = QtCore.pyqtSignal(str)
-        
         
         
         
