@@ -297,12 +297,10 @@ class GRVI(QtCore.QObject):
                 vi[idx1] = 0;
                 vi[~idx1] = vi[~idx1];
                 
-                # %% RVI scaled (0 - 1)
-                
-                rvi = temp_rvi;
-                
+                # %% RVI scaled (0 - 1)   
+                rvi = temp_rvi;   
                 idx = np.argwhere(rvi>1)
-                
+           
                 rvi[idx] = (3/4)*rvi[idx];
                 rvi[~idx] = rvi[~idx];
                 rvi[rvi==0] = np.NaN
@@ -315,69 +313,14 @@ class GRVI(QtCore.QObject):
                 write_bin(ofilegrvi,vi,infile)     
                 self.pBar.emit(100)
                 self.progress.emit('>>> Finished GRVI calculation!!')
-                # self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
-                # self.iface.addRasterLayer(self.inFolder+'\GRVI.bin')
-                # return rvi,vi 
             
-            
-            def dop_fp(T3):
-        
-                DOP = np.zeros([np.size(T3,0),np.size(T3,1)])
-                for i in range(np.size(T3,0)):
-                    # self.progress.emit('Processed column '+str(i))
-                    # stdout.write("\r[%.2f/%d] DOP" % ((i/np.size(T3,0))*100, 100)) 
-                    # self.progress.emit(str(i))
-                    self.pBar.emit((i/np.size(T3,0))*100)
-                    for j in range(np.size(T3,1)):
-                        det = np.abs(np.linalg.det(T3[i,j,:].reshape((3, 3))))
-                        trace = np.abs(np.trace(T3[i,j,:].reshape((3, 3))))
-                        if trace==0:
-                            DOP[i][j]=0
-                        # elif((27*det/trace**3)>1.0):
-                        #     DOP[i][j]=0
-                        else:
-                            DOP[i][j] = np.sqrt(1-((27*det)/trace**3))
-                            # print(DOP[i][j])
-                    # stdout.flush()# clear the screen
-                        #%%
-                # self.progress.connect(self.showmsg)
-                dop=DOP
-                fname = 'DOP.bin'
-                # f1= open(folder+'/'+fname, 'wb')
-                # f1.write(bytearray(dop))
-                # f1.close()
-                dop.astype('float32').tofile(self.inFolder+'/'+fname)
-                f2= open(self.inFolder+'/'+fname+'.hdr', 'w')
-                header = ["ENVI\n",\
-                          "description = {\n",\
-                          " File Imported into ENVI.}\n",\
-                          "samples = %d\n"%np.size(dop,1),\
-                          "lines   = %d\n"%np.size(dop,0),\
-                          "bands   = 1\n",\
-                          "header offset = 0\n",\
-                          "file type = ENVI Standard\n",\
-                          "data type = 4\n",\
-                          "interleave = bsq\n",\
-                          "sensor type = Unknown\n",\
-                          "byte order = 0\n",\
-                          "wavelength units = Unknown\n"]
-                f2.writelines(header)
-                f2.close()
-                # self.iface.addRasterLayer(self.inFolder+'\DOP.bin')
-                self.progress.emit('Finished DOP calculation!!')
-            # return DOP
-                
             def read_bin(file):
-            
-                # data, geodata=load_data(file_name, gdal_driver='GTiff')
                 ds = gdal.Open(file)
                 band = ds.GetRasterBand(1)
                 arr = band.ReadAsArray()
-                # [cols, rows] = arr.shape
                 return arr
             
-            def write_bin(file,wdata,refData):
-                
+            def write_bin(file,wdata,refData):    
                 ds = gdal.Open(refData)
                 [cols, rows] = wdata.shape
             
@@ -391,9 +334,7 @@ class GRVI(QtCore.QObject):
                 # outdata.GetRasterBand(1).SetNoDataValue(np.NaN)##if you want these values transparent
                 outdata.FlushCache() ##saves to disk!!    
         
-            # self.dop_fp(self.T3)
             GRVI_fn(self.T3,self.ws)
-            
             finish_cond = 1
             
         

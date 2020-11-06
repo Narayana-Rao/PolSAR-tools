@@ -44,12 +44,8 @@ class DpRVI(QtCore.QObject):
                 C21 = C2_stack[:,:,2]
                 C22 = C2_stack[:,:,3]
                 
-                # dop_dual = np.zeros((ncols,nrows));
-                # beta1 = np.zeros((ncols,nrows));
-                # beta2 = np.zeros((ncols,nrows));
-                # beta3 = np.zeros((ncols,nrows));
                 dprvi = np.zeros((ncols,nrows));
-                # A_d = np.zeros((ncols,nrows));
+                
                 dop_b = np.zeros((ncols,nrows));
                 fp22 = np.zeros((ncols,nrows));
                 rvi = np.zeros((ncols,nrows));
@@ -67,7 +63,7 @@ class DpRVI(QtCore.QObject):
                 stopj= int(ncols-incj)-1 # Stop column for window processing
             
                 for ii in np.arange(startj,stopj+1):
-                    # print(str(ii)+'/'+str(ncols))
+                    
                     self.pBar.emit(int((ii/ncols)*100))
                     for jj in np.arange(starti,stopi+1):
                         
@@ -77,7 +73,7 @@ class DpRVI(QtCore.QObject):
                         C22c = np.nanmean(C22[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
              
                         C0 = np.array([[C11c,C12c], [C21c, C22c]]);
-                        # print(C0)
+                        
                         # %% GD_VI -- VV-VH/VV-HH
                         if np.isnan(np.real(C0)).any() or np.isinf(np.real(C0)).any() or np.isneginf(np.real(C0)).any():
                             C0 = np.array([[0,0],[0,0]])
@@ -95,8 +91,6 @@ class DpRVI(QtCore.QObject):
                         
                         rvi[ii, jj] = 4*C11c/span_c; #%RVI dual-pol for comparison for S1
                         
-                        
-                         
                 
                 """Write files to disk"""
                 
@@ -104,8 +98,10 @@ class DpRVI(QtCore.QObject):
                 
                 ofiledprvi = self.iFolder+'/DpRVI.bin'
                 write_bin(ofiledprvi,dprvi,infile)
+                
                 ofilervidp = self.iFolder+'/RVI_dp.bin'
                 write_bin(ofilervidp,rvi,infile)
+                
                 self.pBar.emit(100)
                 self.progress.emit('>>> Finished DpRVI calculation!!')
                 

@@ -30,7 +30,7 @@ class NM3CF(QtCore.QObject):
         self.T3 = T3
         self.ws=ws
         self.killed = False
-        # self.mainObj = MRSLab()
+       
     def run(self):
         finish_cond = 0
         try:
@@ -48,15 +48,13 @@ class NM3CF(QtCore.QObject):
                 
                 nrows  = np.shape(T3_stack)[1]
                 ncols = np.shape(T3_stack)[0]
-                # nrows  = 100
-                # ncols = 100
-               
+                
                 theta_FP = np.zeros((ncols,nrows))
                 Pd_FP = np.zeros((ncols,nrows))
                 Pv_FP = np.zeros((ncols,nrows))
                 Ps_FP = np.zeros((ncols,nrows))
                 
-                # D = (1/np.sqrt(2))*np.array([[1,0,1], [1,0,-1],[0,np.sqrt(2),0]])
+                
                 # %% for window processing
                 wsi=wsj=ws
                 
@@ -69,7 +67,6 @@ class NM3CF(QtCore.QObject):
                 
                 stopi= int(nrows-inci)-1 # Stop row for window processing
                 stopj= int(ncols-incj)-1 # Stop column for window processing
-                        # %% Elementary targets
                              
                 for ii in np.arange(startj,stopj+1):
         
@@ -106,24 +103,23 @@ class NM3CF(QtCore.QObject):
                 
                 
                 """Write files to disk"""
-                # ofilervi = self.iFolder+'/RVI.bin'
                 infile = self.iFolder+'/T11.bin'
-                # write_bin(ofilervi,rvi,infile)
+                
                 ofilegrvi = self.iFolder+'/Theta_FP.bin'
                 write_bin(ofilegrvi,theta_FP,infile)
+                
                 ofilegrvi1 = self.iFolder+'/Pd_FP.bin'
                 write_bin(ofilegrvi1,Pd_FP,infile)
+                
                 ofilegrvi2 = self.iFolder+'/Ps_FP.bin'
                 write_bin(ofilegrvi2,Ps_FP,infile)
+                
                 ofilegrvi3 = self.iFolder+'/Pv_FP.bin'
                 write_bin(ofilegrvi3,Pv_FP,infile)     
+                
                 self.pBar.emit(100)
                 self.progress.emit('>>> Finished NM3CF calculation!!')
-                # self.pBar.emit(0)
-                # self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
-                # self.iface.addRasterLayer(self.inFolder+'\GRVI.bin')
-                # return rvi,vi 
-            
+                
             
             
             
