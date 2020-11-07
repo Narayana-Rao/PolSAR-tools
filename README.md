@@ -1,9 +1,9 @@
 # sar_tools
+### A python based [QGIS](https://qgis.org/en/site/index.html) plugin
 
-	A QGIS plugin
- This plugin generates SAR vegetation indices and polarimetric decomposition parameters from input polarimetric matrix. 
+This plugin generates derived SAR parameters (viz. vegetation indices, polarimetric decomposition parameters) from input polarimetric matrix (C3, T3, C2, T2). The input data needs to be in [PolSARpro](https://earth.esa.int/web/polsarpro/home)/[ENVI](https://www.l3harrisgeospatial.com/Software-Technology/ENVI) format (\*.bin and \*.hdr). It requires [numpy](https://numpy.org/), [matplotlib](https://matplotlib.org/) python libraries pre-installed.
 
-	Avialble functionalities:
+### Avialble functionalities:
 	
   **Indices**
   - Radar Vegetation Index (RVI)
@@ -15,7 +15,7 @@
   - Non-Model 3-Component decomposition for full-pol data (NM3CF).
   - Non-Model 3-Component decomposition for compact-pol data (NM3CC) 
 	
-		References
+### References
 	
 Ratha, D., Mandal, D., Kumar, V., McNairn, H., Bhattacharya, A. and Frery, A.C., 2019. A generalized volume scattering model-based vegetation index from polarimetric SAR data. IEEE Geoscience and Remote Sensing Letters, 16(11), pp.1791-1795.
 
