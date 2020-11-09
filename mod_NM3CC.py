@@ -81,7 +81,7 @@ class NM3CC(QtCore.QObject):
                 
                         C0 = np.array([[C11c,C12c], [C21c, C22c]]);
                         
-                        m1 = np.real(np.sqrt(1-(4*(np.linalg.det(C0)/(np.trace(C0)**3)))))
+                        m1 = np.real(np.sqrt(1-(4*(np.linalg.det(C0)/(np.trace(C0)**2)))))
                         
                         # Stokes Parameter
                         s0 = C11c + C22c;
