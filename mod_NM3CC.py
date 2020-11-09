@@ -116,7 +116,7 @@ class NM3CC(QtCore.QObject):
                 ofilegrvi1 = self.iFolder+'/Pd_CP.bin'
                 write_bin(ofilegrvi1,Pd_CP,infile)
                 ofilegrvi2 = self.iFolder+'/Ps_CP.bin'
-                write_bin(ofilegrvi2,Ps_DP,infile)
+                write_bin(ofilegrvi2,Ps_CP,infile)
                 ofilegrvi3 = self.iFolder+'/Pv_CP.bin'
                 write_bin(ofilegrvi3,Pv_CP,infile)     
                 # ofilegrvi4 = self.iFolder+'/t11s.bin'
