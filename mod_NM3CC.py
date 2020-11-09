@@ -101,7 +101,7 @@ class NM3CC(QtCore.QObject):
                         
                         span = C11c + C22c
                         
-                        val = ((m1*s0*h))./((SC*OC + (m1**2)*(s0**2)))
+                        val = ((m1*s0*h))/((SC*OC + (m1**2)*(s0**2)))
                         thet = np.real(np.arctan(val))
                         # thet = np.rad2deg(thet)
                         theta_CP[ii,jj] = np.rad2deg(thet)
