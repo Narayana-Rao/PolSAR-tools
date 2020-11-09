@@ -37,7 +37,7 @@ from .SAR_Tools_dialog import MRSLabDialog
 import os.path
 from osgeo import gdal
 import time
-import os.path
+
 #################
 from .mod_DpRVI import DpRVI
 from .mod_NM3CF import NM3CF
@@ -335,17 +335,17 @@ class MRSLab(object):
         mat_type = self.dlg.cb_mat_type.currentIndex()
         
         if self.inFolder is not None and mat_type==1:
-            # self.loadRasters()
-            if os.path.isfile(self.inFolder+'\T11.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\T11.bin')
-                self.iface.addRasterLayer(self.inFolder+'\T22.bin')
-                self.iface.addRasterLayer(self.inFolder+'\T33.bin')
-                self.iface.addRasterLayer(self.inFolder+'\T12_imag.bin')
-                self.iface.addRasterLayer(self.inFolder+'\T12_real.bin')
-                self.iface.addRasterLayer(self.inFolder+'\T13_imag.bin')
-                self.iface.addRasterLayer(self.inFolder+'\T13_real.bin')
-                self.iface.addRasterLayer(self.inFolder+'\T23_imag.bin')
-                self.iface.addRasterLayer(self.inFolder+'\T23_real.bin')
+            
+            # if os.path.isfile(self.inFolder+'\T11.bin'):
+            #     self.iface.addRasterLayer(self.inFolder+'\T11.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\T22.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\T33.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\T12_imag.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\T12_real.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\T13_imag.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\T13_real.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\T23_imag.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\T23_real.bin')
 
             if os.path.isfile(self.inFolder+'\RVI.bin'):
                 self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
@@ -353,27 +353,27 @@ class MRSLab(object):
                 self.iface.addRasterLayer(self.inFolder+'\GRVI.bin')
                 
         elif self.inFolder is not None and mat_type==2:
-            if os.path.isfile(self.inFolder+'\C11.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\C11.bin')
-                self.iface.addRasterLayer(self.inFolder+'\C22.bin')
-                self.iface.addRasterLayer(self.inFolder+'\C33.bin')
-                self.iface.addRasterLayer(self.inFolder+'\C12_imag.bin')
-                self.iface.addRasterLayer(self.inFolder+'\C12_real.bin')
-                self.iface.addRasterLayer(self.inFolder+'\C13_imag.bin')
-                self.iface.addRasterLayer(self.inFolder+'\C13_real.bin')
-                self.iface.addRasterLayer(self.inFolder+'\C23_imag.bin')
-                self.iface.addRasterLayer(self.inFolder+'\C23_real.bin')
+            # if os.path.isfile(self.inFolder+'\C11.bin'):
+            #     self.iface.addRasterLayer(self.inFolder+'\C11.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\C22.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\C33.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\C12_imag.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\C12_real.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\C13_imag.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\C13_real.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\C23_imag.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\C23_real.bin')
             if os.path.isfile(self.inFolder+'\RVI.bin'):
                 self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
             if os.path.isfile(self.inFolder+'\GRVI.bin'):
                 self.iface.addRasterLayer(self.inFolder+'\GRVI.bin')
                 
         elif self.inFolder is not None and mat_type==3:
-            if os.path.isfile(self.inFolder+'\C11.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\C11.bin')
-                self.iface.addRasterLayer(self.inFolder+'\C22.bin')
-                self.iface.addRasterLayer(self.inFolder+'\C12_imag.bin')
-                self.iface.addRasterLayer(self.inFolder+'\C12_real.bin')
+            # if os.path.isfile(self.inFolder+'\C11.bin'):
+            #     self.iface.addRasterLayer(self.inFolder+'\C11.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\C22.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\C12_imag.bin')
+            #     self.iface.addRasterLayer(self.inFolder+'\C12_real.bin')
                 
             if os.path.isfile(self.inFolder+'\DpRVI.bin'):
                 self.iface.addRasterLayer(self.inFolder+'\DpRVI.bin')
@@ -680,7 +680,11 @@ class MRSLab(object):
         logger.append('>>> Process completed with window size of '+str(self.ws))
         # clean up the worker and thread
         
-        self.viewData() # Load data into QGIS
+        # self.viewData() # Load data into QGIS
+        #Open output folder after finishing the process
+        path = os.path.realpath(self.inFolder)
+        os.startfile(path)
+        #set progress bar to Zero
         pB = self.dlg.progressBar
         pB.setValue(0)
         self.worker.deleteLater()

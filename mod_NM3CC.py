@@ -106,7 +106,7 @@ class NM3CC(QtCore.QObject):
                 
                 self.pBar.emit(90)                        
                 
-                
+                self.progress.emit('>>> Write files to disk...')
                 """Write files to disk"""
                 # ofilervi = self.iFolder+'/RVI.bin'
                 infile = self.iFolder+'/C11.bin'
@@ -122,7 +122,7 @@ class NM3CC(QtCore.QObject):
                 # ofilegrvi4 = self.iFolder+'/t11s.bin'
                 # write_bin(ofilegrvi4,np.real(t2_trace),infile)     
                 self.pBar.emit(100)
-                self.progress.emit('>>> Finished NM3CD calculation!!')
+                self.progress.emit('>>> Finished NM3CC calculation!!')
 
                 # self.pBar.emit(0)
                 # self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
