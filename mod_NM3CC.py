@@ -35,80 +35,65 @@ class NM3CC(QtCore.QObject):
         finish_cond = 0
         try:
             def NM3CC_fn(C2_stack,ws):
-        
-                C11 = C2_stack[:,:,0]
-                C12 = C2_stack[:,:,1]
-                C21 = C2_stack[:,:,2]
-                C22 = C2_stack[:,:,3]
+
+                chi_in = -45
+
+                kernel = np.ones((ws,ws),np.float32)/(ws*ws)
+                c11_T1 = C2_stack[:,:,0]
+                c12_T1 = C2_stack[:,:,1]
+                c21_T1 = C2_stack[:,:,2]
+                c22_T1 = C2_stack[:,:,3]
+            
+                c11_T1r = self.conv2d(np.real(c11_T1),kernel)
+                c11_T1i = self.conv2d(np.imag(c11_T1),kernel)
+                c11s = c11_T1r+1j*c11_T1i
+
+                c12_T1r = self.conv2d(np.real(c12_T1),kernel)
+                c12_T1i = self.conv2d(np.imag(c12_T1),kernel)
+                c12s = c12_T1r+1j*c12_T1i
+                self.pBar.emit(25)
+
+                c21_T1r = self.conv2d(np.real(c21_T1),kernel)
+                c21_T1i = self.conv2d(np.imag(c21_T1),kernel)
+                c21s = c21_T1r+1j*c21_T1i
+
+
+                c22_T1r = self.conv2d(np.real(c22_T1),kernel)
+                c22_T1i = self.conv2d(np.imag(c22_T1),kernel)
+                c22s = c22_T1r+1j*c22_T1i
+
+                self.pBar.emit(50)
+
+                c2_det = (c11s*c22s-c12s*c21s)
+                c2_trace = c11s+c22s
+                # t2_span = t11s*t22s
+                m1 = np.real(np.sqrt(1.0-(4.0*c2_det/np.power(c2_trace,2))))
+
+                # Stokes Parameter
+                s0 = c11s + c22s;
+                s1 = c11s - c22s;
+                s2 = (c12s + c21s);
+
+                if (chi_in >= 0):
+                    s3 = (1j*(c12s - c21s)); # The sign is according to RC or LC sign !!
+                if (chi_in < 0):
+                    s3 = -(1j*(c12s - c21s)); # The sign is according to RC or LC sign !!
                 
-                nrows  = np.shape(C2_stack)[1]
-                ncols = np.shape(C2_stack)[0]
-                # nrows  = 100
-                # ncols = 100
+                SC = ((s0)-(s3))/2;
+                OC = ((s0)+(s3))/2;
+
+                h = (OC-SC)
+                span = c11s + c22s
+
+                val = ((m1*s0*h))/((SC*OC + (m1**2)*(s0**2)))
+                thet = np.real(np.arctan(val))
+                theta_CP = np.rad2deg(thet)
+
+                Ps_CP= (((m1*(span)*(1.0+np.sin(2*thet))/2)))
+                Pd_CP= (((m1*(span)*(1.0-np.sin(2*thet))/2)))
+                Pv_CP= (span*(1.0-m1))
                 
-                chi_in = -45 # change this to input from user
-               
-                theta_CP = np.zeros((ncols,nrows))
-                Pd_CP = np.zeros((ncols,nrows))
-                Pv_CP = np.zeros((ncols,nrows))
-                Ps_CP = np.zeros((ncols,nrows))
-                
-                # D = (1/np.sqrt(2))*np.array([[1,0,1], [1,0,-1],[0,np.sqrt(2),0]])
-                # %% for window processing
-                wsi=wsj=ws
-                
-                inci=int(np.fix(wsi/2)) # Up & down movement margin from the central row
-                incj=int(np.fix(wsj/2)) # Left & right movement from the central column
-                # % Starting row and column fixed by the size of the patch extracted from the image of 21/10/1999
-                
-                starti=int(np.fix(wsi/2)) # Starting row for window processing
-                startj=int(np.fix(wsj/2)) # Starting column for window processing
-                
-                stopi= int(nrows-inci)-1 # Stop row for window processing
-                stopj= int(ncols-incj)-1 # Stop column for window processing
-                        # %% Elementary targets
-                             
-                for ii in np.arange(startj,stopj+1):
-        
-                    # self.progress.emit(str(ii)+'/'+str(nrows))
-                    self.pBar.emit(int((ii/ncols)*100))
-                    for jj in np.arange(starti,stopi+1):
-                
-                        C11c = np.nanmean(C11[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                        C12c = np.nanmean(C12[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                        C21c = np.nanmean(C21[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                        C22c = np.nanmean(C22[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                
-                        C0 = np.array([[C11c,C12c], [C21c, C22c]]);
-                        
-                        m1 = np.real(np.sqrt(1-(4*(np.linalg.det(C0)/(np.trace(C0)**2)))))
-                        
-                        # Stokes Parameter
-                        s0 = C11c + C22c;
-                        s1 = C11c - C22c;
-                        s2 = (C12c + C21c);
-                        
-                        if (chi_in >= 0):
-                            s3 = (1j*(C12c - Bin_C21)); # The sign is according to RC or LC sign !!
-        
-                        if (chi_in < 0):
-                            s3 = -(1j*(Bin_C12 - Bin_C21)); # The sign is according to RC or LC sign !!
-                    
-                        SC = ((s0)-(s3))/2;
-                        OC = ((s0)+(s3))/2;
-                        
-                        h = (OC-SC)
-                        
-                        span = C11c + C22c
-                        
-                        val = ((m1*s0*h))/((SC*OC + (m1**2)*(s0**2)))
-                        thet = np.real(np.arctan(val))
-                        # thet = np.rad2deg(thet)
-                        theta_CP[ii,jj] = np.rad2deg(thet)
-                        Ps_CP[ii,jj] = (((m1*(span)*(1+np.sin(2*thet))/2)))
-                        Pd_CP[ii,jj] = (((m1*(span)*(1-np.sin(2*thet))/2)))
-                        Pv_CP[ii,jj] = (span*(1-m1))
-                        
+                self.pBar.emit(90)                        
                 
                 
                 """Write files to disk"""
@@ -120,11 +105,14 @@ class NM3CC(QtCore.QObject):
                 ofilegrvi1 = self.iFolder+'/Pd_CP.bin'
                 write_bin(ofilegrvi1,Pd_CP,infile)
                 ofilegrvi2 = self.iFolder+'/Ps_CP.bin'
-                write_bin(ofilegrvi2,Ps_CP,infile)
+                write_bin(ofilegrvi2,Ps_DP,infile)
                 ofilegrvi3 = self.iFolder+'/Pv_CP.bin'
                 write_bin(ofilegrvi3,Pv_CP,infile)     
+                # ofilegrvi4 = self.iFolder+'/t11s.bin'
+                # write_bin(ofilegrvi4,np.real(t2_trace),infile)     
                 self.pBar.emit(100)
-                self.progress.emit('>>> Finished NM3CC calculation!!')
+                self.progress.emit('>>> Finished NM3CD calculation!!')
+
                 # self.pBar.emit(0)
                 # self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
                 # self.iface.addRasterLayer(self.inFolder+'\GRVI.bin')
