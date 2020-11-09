@@ -585,7 +585,7 @@ class MRSLab(object):
     def startNM3CC(self):
         
         self.dlg.terminal.append('>>> Calculating NM3CC...')
-        worker = NM3CC(self.inFolder,self.T3_stack,self.ws)
+        worker = NM3CC(self.inFolder,self.C2_stack,self.ws)
 
         # start the worker in a new thread
         thread = QtCore.QThread()
