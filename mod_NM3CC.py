@@ -31,6 +31,17 @@ class NM3CC(QtCore.QObject):
         self.ws=ws
         self.killed = False
         # self.mainObj = MRSLab()
+        
+    def conv2d(self,a, f):
+        filt = np.zeros(a.shape)
+        wspad = int(f.shape[0]/2)
+        s = f.shape + tuple(np.subtract(a.shape, f.shape) + 1)
+        strd = np.lib.stride_tricks.as_strided
+        subM = strd(a, shape = s, strides = a.strides * 2)
+        filt_data = np.einsum('ij,ijkl->kl', f, subM)
+        filt[wspad:wspad+filt_data.shape[0],wspad:wspad+filt_data.shape[1]] = filt_data
+        return filt
+    
     def run(self):
         finish_cond = 0
         try:
