@@ -29,69 +29,75 @@ class DpRVI(QtCore.QObject):
         self.ws=ws
         self.killed = False
         # self.mainObj = MRSLab()
+    def conv2d(self,a, f):
+        filt = np.zeros(a.shape)
+        wspad = int(f.shape[0]/2)
+        s = f.shape + tuple(np.subtract(a.shape, f.shape) + 1)
+        strd = np.lib.stride_tricks.as_strided
+        subM = strd(a, shape = s, strides = a.strides * 2)
+        filt_data = np.einsum('ij,ijkl->kl', f, subM)
+        filt[wspad:wspad+filt_data.shape[0],wspad:wspad+filt_data.shape[1]] = filt_data
+        return filt
+    
+    def eig22(self,c2):
+        c11 = c2[:,:,0].flatten()
+        c12 = c2[:,:,1].flatten()
+        c21 = c2[:,:,2].flatten()
+        c22 = c2[:,:,3].flatten()
+        trace = -(c11+c22)
+        det = c11*c22-c12*c21
+        # const= 1
+        sqdiscr = np.sqrt(trace*trace - 4*det);
+        lambda1 = -(trace + sqdiscr)*0.5;
+        lambda2 = -(trace - sqdiscr)*0.5;
+        
+        return lambda1,lambda2
+
     def run(self):
         finish_cond = 0
         try:
             def DpRVI_fn(C2_stack,ws):
-                """Note:
-                ncols=no.of rows 
-                nrows=no.of cols"""
-                nrows  = np.shape(C2_stack)[1]
-                ncols = np.shape(C2_stack)[0]
                 
-                C11 = C2_stack[:,:,0]
-                C12 = C2_stack[:,:,1]
-                C21 = C2_stack[:,:,2]
-                C22 = C2_stack[:,:,3]
-                
-                dprvi = np.zeros((ncols,nrows));
-                
-                dop_b = np.zeros((ncols,nrows));
-                fp22 = np.zeros((ncols,nrows));
-                rvi = np.zeros((ncols,nrows));
-                
-                wsi=wsj=ws
-                
-                inci=int(np.fix(wsi/2)) # Up & down movement margin from the central row
-                incj=int(np.fix(wsj/2)) # Left & right movement from the central column
+                kernel = np.ones((ws,ws),np.float32)/(ws*ws)
+                c11_T1 = C2_stack[:,:,0]
+                c12_T1 = C2_stack[:,:,1]
+                c21_T1 = C2_stack[:,:,2]
+                c22_T1 = C2_stack[:,:,3]
             
-                
-                starti=int(np.fix(wsi/2)) # Starting row for window processing
-                startj=int(np.fix(wsj/2)) # Starting column for window processing
-                
-                stopi= int(nrows-inci)-1 # Stop row for window processing
-                stopj= int(ncols-incj)-1 # Stop column for window processing
+                c11_T1r = self.conv2d(np.real(c11_T1),kernel)
+                c11_T1i = self.conv2d(np.imag(c11_T1),kernel)
+                c11s = c11_T1r+1j*c11_T1i
+
+                c12_T1r = self.conv2d(np.real(c12_T1),kernel)
+                c12_T1i = self.conv2d(np.imag(c12_T1),kernel)
+                c12s = c12_T1r+1j*c12_T1i
+                self.pBar.emit(25)
+
+                c21_T1r = self.conv2d(np.real(c21_T1),kernel)
+                c21_T1i = self.conv2d(np.imag(c21_T1),kernel)
+                c21s = c21_T1r+1j*c21_T1i
+
+
+                c22_T1r = self.conv2d(np.real(c22_T1),kernel)
+                c22_T1i = self.conv2d(np.imag(c22_T1),kernel)
+                c22s = c22_T1r+1j*c22_T1i
+
+                self.pBar.emit(50)
+
+                c2_det = (c11s*c22s-c12s*c21s)
+                c2_trace = c11s+c22s
+                # t2_span = t11s*t22s
+                m = (np.sqrt(1.0-(4.0*c2_det/np.power(c2_trace,2))))
+                self.pBar.emit(70)
+                egv1,egv2 = self.eig22(np.dstack([c11s,c12s,c21s,c22s]))
+                egf = np.vstack([egv1,egv2])
+                egfmax = egf.max(axis=0)#.reshape(np.shape(C2_stack[:,:,0]))
+                beta = (egfmax/(egv1+egv2)).reshape(np.shape(C2_stack[:,:,0]))
+                self.pBar.emit(80)
+                dprvi = 1-(m*beta)
+                rvi = 4*c11s/c2_trace
             
-                for ii in np.arange(startj,stopj+1):
-                    
-                    self.pBar.emit(int((ii/ncols)*100))
-                    for jj in np.arange(starti,stopi+1):
-                        
-                        C11c = np.nanmean(C11[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                        C12c = np.nanmean(C12[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                        C21c = np.nanmean(C21[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                        C22c = np.nanmean(C22[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-             
-                        C0 = np.array([[C11c,C12c], [C21c, C22c]]);
-                        
-                        # %% GD_VI -- VV-VH/VV-HH
-                        if np.isnan(np.real(C0)).any() or np.isinf(np.real(C0)).any() or np.isneginf(np.real(C0)).any():
-                            C0 = np.array([[0,0],[0,0]])
-                            
-                        e_v = -np.sort(-np.linalg.eigvals(C0)); # sorting in descending order
-                        e_v1 = e_v[0]; e_v2 = e_v[1];
-                        x_1 = e_v1/(e_v1 + e_v2);
-                        fp22[ii,jj] = x_1;
-                        
-                         #%% dop Barakat-DPRVI
-                        dop_b[ii,jj] = np.real(np.sqrt(1 - (4*np.linalg.det(C0)/(np.trace(C0)**2))));
-                        span_c = C11c + C22c;
-                        
-                        dprvi[ii,jj] = 1 - dop_b[ii,jj]*(fp22[ii,jj]); #% c22c for S1/c11c for others
-                        
-                        rvi[ii, jj] = 4*C11c/span_c; #%RVI dual-pol for comparison for S1
-                        
-                
+                self.pBar.emit(90)
                 """Write files to disk"""
                 
                 infile = self.iFolder+'/C11.bin'
@@ -101,6 +107,12 @@ class DpRVI(QtCore.QObject):
                 
                 ofilervidp = self.iFolder+'/RVI_dp.bin'
                 write_bin(ofilervidp,rvi,infile)
+                self.pBar.emit(95)
+                ofiledop = self.iFolder+'/dop_dp.bin'
+                write_bin(ofiledop,m,infile)
+
+                # ofilebt = self.iFolder+'/beta_dp.bin'
+                # write_bin(ofilebt,beta,infile)                
                 
                 self.pBar.emit(100)
                 self.progress.emit('>>> Finished DpRVI calculation!!')
