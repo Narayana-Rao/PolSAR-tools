@@ -1,31 +1,32 @@
-# This file contains metadata for your plugin.
+# This file contains metadata for the plugin.
 
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
 name=SAR tools
 qgisMinimumVersion=3.0
-description=Processing SAR data
+description=This plugin generates derived SAR parameters from input polarimetric matrix (C3, T3, C2, T2).
 version=0.1
-author=MRSLab
+author=Narayanarao; Subhadip; Dipankar
 email=bnarayanarao@iitb.ac.in
+owners=bnarayanarao
 
-about=Provide a brief description of the plugin and its purpose.
+about=This plugin generates derived SAR parameters (viz. vegetation indices, polarimetric decomposition parameters) from input polarimetric matrix (C3, T3, C2, T2). The input data needs to be in in PolSARpro/ENVI format (*.bin and *.hdr). It requires numpy, scipy, matplotlib python libraries pre-installed.
 
-tracker=http://bugs
-repository=http://repo
+tracker=https://github.com/Narayana-Rao/sar_tools/issues
+repository=https://github.com/Narayana-Rao/sar_tools.git
 # End of mandatory metadata
 
 # Recommended items:
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
-# changelog=
+changelog= update DpRVI performance
 
 # Tags are comma separated with spaces allowed
-tags=python
+tags=sar,plosar,raster,python
 
-homepage=http://mrslab.in
+homepage=https://github.com/Narayana-Rao/sar_tools/blob/master/README.md
 category=Plugins
 icon=icon.png
 # experimental flag
