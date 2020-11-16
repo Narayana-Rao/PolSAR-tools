@@ -258,15 +258,15 @@ class MRSLab(object):
     #@pyqtSlot()  
     def ontabChange(self,i): #changed!
         if i==0:
-            logger.append("Full-pol")
+            logger.append("->> Full-pol")
             pol_mode = i            
             # logger.append(str(pol_mode))
         if i==1:
-            logger.append("Compact-pol")
+            logger.append("->> Compact-pol")
             pol_mode = i
             # logger.append(str(pol_mode))
         if i==2:
-            logger.append("Dual-pol")
+            logger.append("->> Dual-pol")
             pol_mode = i
             # logger.append(str(pol_mode))
     def fpt3_state_changed(self, i):
@@ -326,7 +326,7 @@ class MRSLab(object):
         if self.ws%2==0:
             self.ws+=1
         # logger = self.dlg.terminal
-        logger.append('Window size: '+str(self.ws))
+        logger.append('->> Window size: '+str(self.ws))
         
         
     def startProcess(self):
@@ -340,13 +340,13 @@ class MRSLab(object):
             indX =self.dlg.fp_parm.currentIndex()          
             
             if indX==1:
-                logger.append('--------------------')
+                logger.append('->> --------------------')
                 self.startGRVI()
             if indX==2:
-                logger.append('--------------------')
+                logger.append('->> --------------------')
                 self.startNM3CF()
             if indX==3:
-                logger.append('--------------------')
+                logger.append('->> --------------------')
                 self.startPRVI()
             else:
                 pass
@@ -356,7 +356,7 @@ class MRSLab(object):
             # if(self.fp_cb_C3.isChecked()):
             indX =self.dlg.cp_parm.currentIndex()  
             if indX==1:
-                logger.append('--------------------')
+                logger.append('->> --------------------')
                 self.startNM3CC()
             else:
                 pass
@@ -365,7 +365,7 @@ class MRSLab(object):
             # if(self.fp_cb_C3.isChecked()):
             indX =self.dlg.dp_parm.currentIndex()   
             if indX==1:
-                logger.append('--------------------')
+                logger.append('->> --------------------')
                 self.startDpRVI()
             else:
                 pass
@@ -381,28 +381,24 @@ class MRSLab(object):
             parent=self.iface.mainWindow())
 
     def Cob_parm(self):
-        # For terminal outputs
-        # logger = self.dlg.terminal
-        # global mat_type
-        # global parm
+        # For terminal and UI update
         
-        logger.append('cob_parm'+str(self.dlg.tabWidget.currentIndex()))
         if self.dlg.tabWidget.currentIndex() == 0:
             parm =self.dlg.fp_parm.currentIndex()
             if parm == 1:
-                logger.append('\n     GRVI\n')
+                logger.append('->>      GRVI')
                 # self.dlg.inFolder_fp.setEnabled(True)
                 # self.dlg.pb_browse.setEnabled(True)
                 # self.dlg.fp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             elif parm == 2:
-                logger.append('\n     NM3CF\n')
+                logger.append('->>      NM3CF')
                 # self.dlg.inFolder_fp.setEnabled(True)
                 # self.dlg.pb_browse.setEnabled(True)
                 # self.dlg.fp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             elif parm == 3:
-                logger.append('\n     PRVI\n')
+                logger.append('->>      PRVI')
                 # self.dlg.inFolder_fp.setEnabled(True)
                 # self.dlg.pb_browse.setEnabled(True)
                 # self.dlg.fp_ws.setEnabled(True)
@@ -416,7 +412,7 @@ class MRSLab(object):
         if self.dlg.tabWidget.currentIndex() == 1:
             parm =self.dlg.cp_parm.currentIndex()
             if parm == 1:
-                logger.append('\n     NM3CC\n')
+                logger.append('->>     NM3CC')
                 # self.dlg.inFolder_fp.setEnabled(True)
                 # self.dlg.pb_browse.setEnabled(True)
                 # self.dlg.fp_ws.setEnabled(True)
@@ -430,7 +426,7 @@ class MRSLab(object):
         if self.dlg.tabWidget.currentIndex() == 2:
             parm =self.dlg.dp_parm.currentIndex()
             if parm == 1:
-                logger.append('\n     DpRVI\n')
+                logger.append('->>      DpRVI')
                 # self.dlg.inFolder_fp.setEnabled(True)
                 # self.dlg.pb_browse.setEnabled(True)
                 # self.dlg.fp_ws.setEnabled(True)
@@ -446,7 +442,7 @@ class MRSLab(object):
             
     def viewData(self):
         # log_text = self.dlg.terminal
-        # log_text.append('Data loaded in to QGIS\n')
+        # log_text.append('->> Data loaded in to QGIS\n')
         
         file_filter = "bin (*.bin);;GeoTiFF (*.tif);;All (*.*)"
                                           
@@ -468,62 +464,13 @@ class MRSLab(object):
                     logger.append(str(names[0][i]))
 
                 except:
-                    logger.append("invalid file type!!")
+                    logger.append("->> invalid file type!!")
 
         # logger.append(str(np.size(list(names[0][0:]))))
-        # logger.append(str(f_path))
+        # logger.append(str(f_path))    
         
         
-        
-        
-        
-        # mat_type = self.dlg.cb_mat_type.currentIndex()
-        mat_type =1 
-        if self.inFolder is not None and mat_type==1:
-            
-            # if os.path.isfile(self.inFolder+'\T11.bin'):
-            #     self.iface.addRasterLayer(self.inFolder+'\T11.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T22.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T33.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T12_imag.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T12_real.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T13_imag.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T13_real.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T23_imag.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T23_real.bin')
-
-            if os.path.isfile(self.inFolder+'\RVI.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
-            if os.path.isfile(self.inFolder+'\GRVI.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\GRVI.bin')
-                
-        elif self.inFolder is not None and mat_type==2:
-            # if os.path.isfile(self.inFolder+'\C11.bin'):
-            #     self.iface.addRasterLayer(self.inFolder+'\C11.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C22.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C33.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C12_imag.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C12_real.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C13_imag.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C13_real.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C23_imag.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C23_real.bin')
-            if os.path.isfile(self.inFolder+'\RVI.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
-            if os.path.isfile(self.inFolder+'\GRVI.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\GRVI.bin')
-                
-        elif self.inFolder is not None and mat_type==3:
-            # if os.path.isfile(self.inFolder+'\C11.bin'):
-            #     self.iface.addRasterLayer(self.inFolder+'\C11.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C22.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C12_imag.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C12_real.bin')
-                
-            if os.path.isfile(self.inFolder+'\DpRVI.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\DpRVI.bin')
-            if os.path.isfile(self.inFolder+'\RVI_dp.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\RVI_dp.bin')
+  
             
     def clear_log(self):
         self.dlg.terminal.clear()
@@ -599,16 +546,21 @@ class MRSLab(object):
             self.dlg.inFolder_fp.setText(self.inFolder)
             
             if self.inFolder and self.dlg.fp_cb_C3.isChecked():
-                self.C3_stack = self.load_C3(self.inFolder)
-                logger.append('>>> C3 Loaded \nConverting C3 to T3...')
-                self.T3_stack  = self.C3_T3(self.C3_stack)
-                logger.append('>>> Ready to process.')
-
+                try:
+                    self.C3_stack = self.load_C3(self.inFolder)
+                    logger.append('->> C3 Loaded \nConverting C3 to T3...')
+                    self.T3_stack  = self.C3_T3(self.C3_stack)
+                    logger.append('->> Ready to process.')
+                except:
+                    logger.append('->> Error! Please check the matrix type and folder')
             if self.inFolder and self.dlg.fp_cb_T3.isChecked():
-                self.T3_stack = self.load_T3(self.inFolder)
-                # logger.append('>>> T3 Loaded \nConverting T3 to C3...')
-                # self.C3_stack  = self.T3_C3(self.T3_stack)
-                logger.append('>>> Ready to process.')
+                try:
+                    self.T3_stack = self.load_T3(self.inFolder)
+                    # logger.append('>>> T3 Loaded \nConverting T3 to C3...')
+                    # self.C3_stack  = self.T3_C3(self.T3_stack)
+                    logger.append('->> Ready to process.')
+                except:
+                    logger.append('->> Error! Please check the matrix type and folder')
             
             
             if self.inFolder:
@@ -621,6 +573,15 @@ class MRSLab(object):
                             self.dlg, "Select T2/C2 Folder"))
             self.dlg.inFolder_cp.setText(self.inFolder)
             
+            
+            if self.inFolder and self.dlg.cp_cb_C2.isChecked():
+                try:
+                    logger.append('->> C2 selected')
+                    self.C2_stack = self.load_C2(self.inFolder)
+                    logger.append('->> Ready to process.')
+                except:
+                    logger.append('->> Error! Please check the matrix type and folder')
+            
             if self.inFolder:
                 self.dlg.cp_ws.setEnabled(True)
                 self.dlg.cp_parm.setEnabled(True)
@@ -629,38 +590,20 @@ class MRSLab(object):
             self.inFolder = str(QFileDialog.getExistingDirectory(
                             self.dlg, "Select T2/C2 Folder"))                   
             self.dlg.inFolder_dp.setText(self.inFolder)
-
+            
+            if self.inFolder and self.dlg.dp_cb_C2.isChecked():
+                try:
+                    logger.append('->> C2 selected')
+                    self.C2_stack = self.load_C2(self.inFolder)
+                    logger.append('->> Ready to process.')
+                except:
+                    logger.append('->> Error! Please check the matrix type and folder')
+            
             if self.inFolder:
                 self.dlg.dp_ws.setEnabled(True)
                 self.dlg.dp_parm.setEnabled(True)
-        # print(self.inFolder)
-            
-        # mat_type = self.dlg.cb_mat_type.currentIndex()
-        mat_type =0 
-        # logger = self.dlg.terminal
-        
-        if self.inFolder is not None and mat_type==1:
-            
-            self.T3_stack = self.load_T3(self.inFolder)
-            # logger.append('>>> T3 Loaded \nConverting T3 to C3...')
-            # self.C3_stack  = self.T3_C3(self.T3_stack)
-            logger.append('>>> Ready to process.')
-            
-        elif self.inFolder is not None and mat_type==2:
+ 
 
-            logger.append('>>> C3 selected')
-            self.C3_stack = self.load_C3(self.inFolder)
-            logger.append('>>> C3 Loaded \nConverting C3 to T3...')
-            self.T3_stack  = self.C3_T3(self.C3_stack)
-            logger.append('>>> Ready to process.')
-            
-        elif self.inFolder is not None and mat_type==3:
-            logger.append('>>> C2 selected')
-            self.C2_stack = self.load_C2(self.inFolder)
-            logger.append('>>> Ready to process.')
-        else:
-            pass
-            
             
 ###############################################################
     def load_C2(self,folder):
@@ -757,7 +700,7 @@ class MRSLab(object):
         
 
     def startPRVI(self):  
-        self.dlg.terminal.append('>>> Calculating PRVI...')
+        self.dlg.terminal.append('->> Calculating PRVI...')
         worker = PRVI(self.inFolder,self.T3_stack,self.ws)
 
         # start the worker in a new thread
@@ -780,7 +723,7 @@ class MRSLab(object):
 
     def startNM3CC(self):
         
-        self.dlg.terminal.append('>>> Calculating NM3CC...')
+        self.dlg.terminal.append('->> Calculating NM3CC...')
         worker = NM3CC(self.inFolder,self.C2_stack,self.ws)
 
         # start the worker in a new thread
@@ -802,7 +745,7 @@ class MRSLab(object):
         
     def startDpRVI(self):
         
-        self.dlg.terminal.append('>>> Calculating DpRVI... ')
+        self.dlg.terminal.append('->> Calculating DpRVI... ')
         worker = DpRVI(self.inFolder,self.C2_stack,self.ws)
 
         # start the worker in a new thread
@@ -824,7 +767,7 @@ class MRSLab(object):
             
     def startNM3CF(self):
         
-        self.dlg.terminal.append('>>> Calculating NM3CF...')
+        self.dlg.terminal.append('->> Calculating NM3CF...')
         worker = NM3CF(self.inFolder,self.T3_stack,self.ws)
 
         # start the worker in a new thread
@@ -846,7 +789,7 @@ class MRSLab(object):
         
     def startGRVI(self):
         
-        self.dlg.terminal.append('>>> Calculating GRVI...')
+        self.dlg.terminal.append('->> Calculating GRVI...')
         worker = GRVI(self.inFolder,self.T3_stack,self.ws)
 
         # start the worker in a new thread
@@ -873,7 +816,7 @@ class MRSLab(object):
 
     def workerFinished(self,finish_cond):
         logger = self.dlg.terminal
-        logger.append('>>> Process completed with window size of '+str(self.ws))
+        logger.append('->> Process completed with ' +str(self.ws)+' x ' +str(self.ws)+' window ')
         # clean up the worker and thread
         
         # self.viewData() # Load data into QGIS
@@ -889,11 +832,11 @@ class MRSLab(object):
         self.thread.deleteLater()
 
         if finish_cond == 0:
-            logger.append('>>> Process stopped in between ! You are good to go again.')
+            logger.append('->> Process stopped in between ! You are good to go again.')
 
     def workerError(self, e, exception_string):
         logger = self.dlg.terminal
-        logger.append('>>> :-( Error:\n\n %s' %str(exception_string))
+        logger.append('->> :-( Error:\n\n %s' %str(exception_string))
     
         
         

@@ -218,8 +218,14 @@
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
             <widget class="QCheckBox" name="fp_cb_T3">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
              <property name="text">
               <string>T3</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -384,12 +390,18 @@
              <property name="text">
               <string>T2</string>
              </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
             <widget class="QCheckBox" name="cp_cb_C2">
              <property name="text">
               <string>C2</string>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
              </property>
             </widget>
            </item>
@@ -594,6 +606,9 @@
             <widget class="QCheckBox" name="dp_cb_C2">
              <property name="text">
               <string>C2</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
