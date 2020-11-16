@@ -12,8 +12,8 @@ This plugin generates derived SAR parameters (viz. vegetation indices, polarimet
   - Dual-pol Radar Vegetation Index (DpRVI)
 
   **Polarimetric Decomposition**
-  - Non-Model 3-Component decomposition for full-pol data (NM3CF).
-  - Non-Model 3-Component decomposition for compact-pol data (NM3CC) 
+  - Model free 3-Component decomposition for full-pol data (NM3CF).
+  - Model free 3-Component decomposition for compact-pol data (NM3CC) 
 	
 ### References
 	
