@@ -6,14 +6,15 @@ This plugin generates derived SAR parameters (viz. vegetation indices, polarimet
 ### Available functionalities:
 	
   **Indices**
-  - Radar Vegetation Index (RVI)
+  - Radar Vegetation Index (RVI) (Full-pol and dual-pol)
   - Generalized volume Radar Vegetation Index (GRVI)
-  - Polarimetric Radar Vegetation Index (PRVI)  
+  - Polarimetric Radar Vegetation Index (PRVI) (Full-pol and dual-pol) 
   - Dual-pol Radar Vegetation Index (DpRVI)
+  - Degree of Polarization (DOP) (Full-pol and dual-pol)
 
   **Polarimetric Decomposition**
-  - Model free 3-Component decomposition for full-pol data (NM3CF).
-  - Model free 3-Component decomposition for compact-pol data (NM3CC) 
+  - Model free 3-Component decomposition for full-pol data (MF3CF).
+  - Model free 3-Component decomposition for compact-pol data (MF3CC) 
 	
 ### References
 	
