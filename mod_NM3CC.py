@@ -23,12 +23,13 @@ import os.path
 
 class NM3CC(QtCore.QObject):
     '''NM3CC '''
-    def __init__(self,iFolder,C2,ws):
+    def __init__(self,iFolder,C2,ws,tau):
         QtCore.QObject.__init__(self)
 
         self.iFolder = iFolder
         self.C2 = C2
         self.ws=ws
+        self.tau=tau
         self.killed = False
         # self.mainObj = MRSLab()
         
@@ -47,7 +48,10 @@ class NM3CC(QtCore.QObject):
         try:
             def NM3CC_fn(C2_stack,ws):
 
-                chi_in = -45
+                if self.tau==0:                    
+                    chi_in = -45.0
+                else:
+                    chi_in = 45.0
 
                 kernel = np.ones((ws,ws),np.float32)/(ws*ws)
                 c11_T1 = C2_stack[:,:,0]
@@ -106,7 +110,7 @@ class NM3CC(QtCore.QObject):
                 
                 self.pBar.emit(90)                        
                 
-                self.progress.emit('>>> Write files to disk...')
+                self.progress.emit('->> Write files to disk...')
                 """Write files to disk"""
                 # ofilervi = self.iFolder+'/RVI.bin'
                 infile = self.iFolder+'/C11.bin'
@@ -119,28 +123,13 @@ class NM3CC(QtCore.QObject):
                 write_bin(ofilegrvi2,Ps_CP,infile)
                 ofilegrvi3 = self.iFolder+'/Pv_CP.bin'
                 write_bin(ofilegrvi3,Pv_CP,infile)     
-                # ofilegrvi4 = self.iFolder+'/t11s.bin'
-                # write_bin(ofilegrvi4,np.real(t2_trace),infile)     
+    
                 self.pBar.emit(100)
-                self.progress.emit('>>> Finished NM3CC calculation!!')
+                self.progress.emit('->> Finished MF3CC calculation!!')
 
-                # self.pBar.emit(0)
-                # self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
-                # self.iface.addRasterLayer(self.inFolder+'\GRVI.bin')
-                # return rvi,vi 
+
             
-            
-            
-            
-            def read_bin(file):
-            
-                # data, geodata=load_data(file_name, gdal_driver='GTiff')
-                ds = gdal.Open(file)
-                band = ds.GetRasterBand(1)
-                arr = band.ReadAsArray()
-                # [cols, rows] = arr.shape
-                return arr
-            
+
             def write_bin(file,wdata,refData):
                 
                 ds = gdal.Open(refData)

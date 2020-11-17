@@ -38,6 +38,7 @@ import os.path
 # import os
 from osgeo import gdal
 import time
+from PyQt5 import QtWidgets
 # import QtCore
 #################
 from .mod_DpRVI import DpRVI
@@ -45,6 +46,9 @@ from .mod_NM3CF import NM3CF
 from .mod_NM3CC import NM3CC
 from .mod_GRVI import GRVI
 from .mod_PRVI import PRVI
+from .mod_PRVI_dp import PRVI_dp
+from .mod_dop_fp import dop_FP
+from .mod_dop_dp import dop_dp
 #############################
 
 # Create a lock for multiprocess
@@ -104,15 +108,43 @@ class MRSLab(object):
         
         # self.dlg.fp_browse.setEnabled(True)
         # self.dlg.inFolder_fp.setEnabled(False)
-        self.dlg.fp_ws.setEnabled(False)
-        self.dlg.cp_ws.setEnabled(False)
-        self.dlg.dp_ws.setEnabled(False)
-        self.dlg.fp_parm.setEnabled(False)
-        self.dlg.cp_parm.setEnabled(False)
-        self.dlg.dp_parm.setEnabled(False)
+        self.dlg.inFolder_fp.setEnabled(False)
+        self.dlg.fp_browse.setEnabled(False)
+        self.dlg.fp_cb_C3.setEnabled(False)
+        self.dlg.fp_cb_T3.setEnabled(False)
+       
+        self.dlg.inFolder_cp.setEnabled(False)
+        self.dlg.cp_browse.setEnabled(False)
+        self.dlg.cp_cb_C2.setEnabled(False)
+        self.dlg.cp_cb_T2.setEnabled(False)
+        
+        self.dlg.inFolder_dp.setEnabled(False)
+        self.dlg.dp_browse.setEnabled(False)
+        self.dlg.dp_cb_C2.setEnabled(False)
+        self.dlg.dp_cb_T2.setEnabled(False)
+                     
+        
+        self.dlg.fp_ws.setEnabled(True)
+        self.dlg.cp_ws.setEnabled(True)
+        self.dlg.dp_ws.setEnabled(True)
+        self.dlg.fp_parm.setEnabled(True)
+        self.dlg.cp_parm.setEnabled(True)
+        self.dlg.dp_parm.setEnabled(True)
         # self.dlg.lineEdit.clear()
-
+        
         self.dlg.pb_process.setEnabled(False)
+        # self.dlg.cp_cb_tau.setCurrentText('Tau')
+        # Set active tab background colour  
+        self.dlg.tabWidget.setStyleSheet(
+                """
+            QTabBar::tab:selected {
+                background: rgb(0, 175, 255)
+            }
+            """
+            )
+        
+        
+        
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
         """Get the translation for a string using Qt translation API.
@@ -328,7 +360,10 @@ class MRSLab(object):
         # logger = self.dlg.terminal
         logger.append('->> Window size: '+str(self.ws))
         
-        
+ 
+    def dtype_error(self):
+        logger.append('->> Error!! Invalid data folder.')
+                 
     def startProcess(self):
         
         
@@ -340,14 +375,33 @@ class MRSLab(object):
             indX =self.dlg.fp_parm.currentIndex()          
             
             if indX==1:
-                logger.append('->> --------------------')
-                self.startGRVI()
+                try:
+                    logger.append('->> --------------------')
+                    self.startGRVI()
+                except:
+                    self.dtype_error()
+                    
             if indX==2:
-                logger.append('->> --------------------')
-                self.startNM3CF()
+                try:
+                    logger.append('->> --------------------')
+                    self.startNM3CF()
+                except:
+                    self.dtype_error()
+                    
             if indX==3:
-                logger.append('->> --------------------')
-                self.startPRVI()
+                try:
+                    logger.append('->> --------------------')
+                    self.startPRVI()
+                except:
+                    self.dtype_error()
+                    
+            if indX==4:
+                try:
+                    logger.append('->> --------------------')
+                    self.startDOPfp()
+                except:
+                    self.dtype_error()
+
             else:
                 pass
             
@@ -356,8 +410,12 @@ class MRSLab(object):
             # if(self.fp_cb_C3.isChecked()):
             indX =self.dlg.cp_parm.currentIndex()  
             if indX==1:
-                logger.append('->> --------------------')
-                self.startNM3CC()
+                try:
+                    logger.append('->> --------------------')
+                    self.startNM3CC()
+                except:
+                    self.dtype_error()
+
             else:
                 pass
         
@@ -365,8 +423,26 @@ class MRSLab(object):
             # if(self.fp_cb_C3.isChecked()):
             indX =self.dlg.dp_parm.currentIndex()   
             if indX==1:
-                logger.append('->> --------------------')
-                self.startDpRVI()
+                try:
+                    logger.append('->> --------------------')
+                    self.startDpRVI()
+                except:
+                    self.dtype_error()
+
+            if indX==2:
+                try:
+                    logger.append('->> --------------------')
+                    self.startPRVIdp()
+                except:
+                    self.dtype_error()
+
+            if indX==3:
+                try:                    
+                    logger.append('->> --------------------')
+                    self.startDOPdp()
+                except:
+                    self.dtype_error()
+
             else:
                 pass
             
@@ -387,55 +463,85 @@ class MRSLab(object):
             parm =self.dlg.fp_parm.currentIndex()
             if parm == 1:
                 logger.append('->>      GRVI')
-                # self.dlg.inFolder_fp.setEnabled(True)
-                # self.dlg.pb_browse.setEnabled(True)
+                self.dlg.inFolder_fp.setEnabled(True)
+                self.dlg.fp_browse.setEnabled(True)
+                self.dlg.fp_cb_T3.setChecked(True)
                 # self.dlg.fp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             elif parm == 2:
                 logger.append('->>      NM3CF')
-                # self.dlg.inFolder_fp.setEnabled(True)
-                # self.dlg.pb_browse.setEnabled(True)
+                self.dlg.inFolder_fp.setEnabled(True)
+                self.dlg.fp_browse.setEnabled(True)
+                self.dlg.fp_cb_T3.setChecked(True)
+                # self.dlg.fp_browse.setEnabled(True)
                 # self.dlg.fp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             elif parm == 3:
                 logger.append('->>      PRVI')
-                # self.dlg.inFolder_fp.setEnabled(True)
-                # self.dlg.pb_browse.setEnabled(True)
+                self.dlg.inFolder_fp.setEnabled(True)
+                self.dlg.fp_browse.setEnabled(True)
+                self.dlg.fp_cb_T3.setChecked(True)
+                # self.dlg.fp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
+            elif parm == 4:
+                logger.append('->>      DOP')
+                self.dlg.inFolder_fp.setEnabled(True)
+                self.dlg.fp_browse.setEnabled(True)
+                self.dlg.fp_cb_T3.setChecked(True)
                 # self.dlg.fp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
 
-            else:
-                # self.dlg.inFolder_fp.setEnabled(False)
+            elif parm==0:
+                self.dlg.inFolder_fp.setEnabled(False)
                 self.dlg.pb_process.setEnabled(False)
+                self.dlg.fp_browse.setEnabled(False)
                 # self.dlg.fp_ws.setEnabled(False)
 
         if self.dlg.tabWidget.currentIndex() == 1:
             parm =self.dlg.cp_parm.currentIndex()
+            # tau = self.dlg.cp_cb_tau.currentIndex()
             if parm == 1:
                 logger.append('->>     NM3CC')
-                # self.dlg.inFolder_fp.setEnabled(True)
-                # self.dlg.pb_browse.setEnabled(True)
-                # self.dlg.fp_ws.setEnabled(True)
+                self.dlg.inFolder_cp.setEnabled(True)
+                self.dlg.cp_browse.setEnabled(True)
+                self.dlg.cp_cb_C2.setChecked(True)
+                # self.dlg.cp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
 
-            else:
+            elif parm==0:
                 # self.dlg.inFolder_fp.setEnabled(False)
                 self.dlg.pb_process.setEnabled(False)
                 # self.dlg.fp_ws.setEnabled(False)
   
         if self.dlg.tabWidget.currentIndex() == 2:
             parm =self.dlg.dp_parm.currentIndex()
+            
             if parm == 1:
                 logger.append('->>      DpRVI')
-                # self.dlg.inFolder_fp.setEnabled(True)
-                # self.dlg.pb_browse.setEnabled(True)
-                # self.dlg.fp_ws.setEnabled(True)
+                self.dlg.dp_cb_C2.setChecked(True)
+                self.dlg.inFolder_dp.setEnabled(True)
+                self.dlg.dp_browse.setEnabled(True)
+                # self.dlg.dp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
-
-            else:
-                # self.dlg.inFolder_fp.setEnabled(False)
+            if parm == 2:
+                logger.append('->>      PRVI')
+                self.dlg.dp_cb_C2.setChecked(True)
+                self.dlg.inFolder_dp.setEnabled(True)
+                self.dlg.dp_browse.setEnabled(True)
+                # self.dlg.dp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
+            if parm == 3:
+                logger.append('->>      DOP')
+                self.dlg.dp_cb_C2.setChecked(True)
+                self.dlg.inFolder_dp.setEnabled(True)
+                self.dlg.dp_browse.setEnabled(True)
+                # self.dlg.dp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
+            elif parm==0:
+                self.dlg.inFolder_dp.setEnabled(False)
+                self.dlg.dp_browse.setEnabled(False)
                 self.dlg.pb_process.setEnabled(False)
-                # self.dlg.fp_ws.setEnabled(False)
+                # self.dlg.dp_ws.setEnabled(False)
            
             
             
@@ -483,13 +589,13 @@ class MRSLab(object):
         # self.dlg.fp_browse.setEnabled(False)
         self.dlg.progressBar.setValue(0)
         self.dlg.fp_ws.setValue(5)
-        self.dlg.fp_ws.setEnabled(False)
+        # self.dlg.fp_ws.setEnabled(False)
         self.dlg.fp_parm.setCurrentIndex(0)
         self.dlg.cp_ws.setValue(5)
-        self.dlg.cp_ws.setEnabled(False)
+        # self.dlg.cp_ws.setEnabled(False)
         self.dlg.cp_parm.setCurrentIndex(0)
         self.dlg.dp_ws.setValue(5)
-        self.dlg.dp_ws.setEnabled(False)
+        # self.dlg.dp_ws.setEnabled(False)
         self.dlg.dp_parm.setCurrentIndex(0)
         
         self.dlg.pb_process.setEnabled(False)
@@ -694,10 +800,79 @@ class MRSLab(object):
     def Startup(self):
         # For terminal outputs
         logger = self.dlg.terminal
-        logger.append('   \tWelcome to SARtools.\n\
-                      A QGIS plugin to calculate SAR derived parameters \n')
-        logger.append('       Let\'s get started --> Start with Selecting polarimetric matrix\n')
+        logger.append('\t                       Welcome to SAR_tools.'+
+                      '\n\t This plugin generates derived SAR parameters')
+        logger.append('\t     SAR indices | Decomposition parameters')
+        logger.append('\t              Start by selecting a parameter\n')
+        logger.append('------------------------------------------------------------------------------------------------')
         
+        """ Process button calls"""
+
+    def startPRVIdp(self):
+        
+        self.dlg.terminal.append('->> Calculating PRVI... ')
+        worker = PRVI_dp(self.inFolder,self.C2_stack,self.ws)
+
+        # start the worker in a new thread
+        thread = QtCore.QThread()
+        worker.moveToThread(thread)
+        # self.workerFinished =1
+        worker.finished.connect(self.workerFinished)
+        worker.error.connect(self.workerError)
+
+        worker.progress.connect(self.showmsg)
+        worker.pBar.connect(self.pBarupdate)
+        thread.started.connect(worker.run)
+        thread.start()
+        
+        self.thread = thread
+        self.worker = worker
+        # time.sleep(0.1)
+        # worker.kill
+
+    def startDOPdp(self):
+        
+        self.dlg.terminal.append('->> Calculating DOP... ')
+        worker = dop_dp(self.inFolder,self.C2_stack,self.ws)
+
+        # start the worker in a new thread
+        thread = QtCore.QThread()
+        worker.moveToThread(thread)
+        # self.workerFinished =1
+        worker.finished.connect(self.workerFinished)
+        worker.error.connect(self.workerError)
+
+        worker.progress.connect(self.showmsg)
+        worker.pBar.connect(self.pBarupdate)
+        thread.started.connect(worker.run)
+        thread.start()
+        
+        self.thread = thread
+        self.worker = worker
+        # time.sleep(0.1)
+        # worker.kill
+            
+    def startDOPfp(self):  
+        self.dlg.terminal.append('->> Calculating DOP...')
+        worker = dop_FP(self.inFolder,self.T3_stack,self.ws)
+
+        # start the worker in a new thread
+        thread = QtCore.QThread()
+        worker.moveToThread(thread)
+        # self.workerFinished =1
+        worker.finished.connect(self.workerFinished)
+        worker.error.connect(self.workerError)
+
+        worker.progress.connect(self.showmsg)
+        worker.pBar.connect(self.pBarupdate)
+        thread.started.connect(worker.run)
+        thread.start()
+        
+        self.thread = thread
+        self.worker = worker
+        # time.sleep(0.1)
+        # worker.
+
 
     def startPRVI(self):  
         self.dlg.terminal.append('->> Calculating PRVI...')
@@ -724,7 +899,9 @@ class MRSLab(object):
     def startNM3CC(self):
         
         self.dlg.terminal.append('->> Calculating NM3CC...')
-        worker = NM3CC(self.inFolder,self.C2_stack,self.ws)
+        tau = self.dlg.cp_cb_tau.currentIndex()
+            
+        worker = NM3CC(self.inFolder,self.C2_stack,self.ws,tau)
 
         # start the worker in a new thread
         thread = QtCore.QThread()

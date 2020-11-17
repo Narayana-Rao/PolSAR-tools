@@ -100,7 +100,7 @@ class GRVI(QtCore.QObject):
                 for ii in np.arange(startj,stopj+1):
         
                     # self.progress.emit(str(ii)+'/'+str(nrows))
-                    self.pBar.emit(int((ii/ncols)*100))
+                    self.pBar.emit(int((ii/ncols)*90))
                     for jj in np.arange(starti,stopi+1):
                 
                         t11s = np.nanmean(t11_T1[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
@@ -305,20 +305,17 @@ class GRVI(QtCore.QObject):
                 rvi[~idx] = rvi[~idx];
                 rvi[rvi==0] = np.NaN
                 
+                self.progress.emit('->> Write files to disk...')
                 """Write files to disk"""
                 ofilervi = self.iFolder+'/RVI.bin'
                 infile = self.iFolder+'/T11.bin'
                 write_bin(ofilervi,rvi,infile)
+                self.pBar.emit(95)
                 ofilegrvi = self.iFolder+'/GRVI.bin'
                 write_bin(ofilegrvi,vi,infile)     
                 self.pBar.emit(100)
-                self.progress.emit('>>> Finished GRVI calculation!!')
+                self.progress.emit('->> Finished GRVI calculation!!')
             
-            def read_bin(file):
-                ds = gdal.Open(file)
-                band = ds.GetRasterBand(1)
-                arr = band.ReadAsArray()
-                return arr
             
             def write_bin(file,wdata,refData):    
                 ds = gdal.Open(refData)

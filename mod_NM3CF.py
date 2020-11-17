@@ -118,7 +118,7 @@ class NM3CF(QtCore.QObject):
                 write_bin(ofilegrvi3,Pv_FP,infile)     
                 
                 self.pBar.emit(100)
-                self.progress.emit('>>> Finished NM3CF calculation!!')
+                self.progress.emit('>>> Finished MF3CF calculation!!')
                 
             
             
