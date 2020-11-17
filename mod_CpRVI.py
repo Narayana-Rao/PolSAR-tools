@@ -9,6 +9,7 @@ import requests
 import numpy as np
 import multiprocessing
 
+# Initialize Qt resources from file resources.py
 from .resources import *
 # Import the code for the dialog
 from .SAR_Tools_dialog import MRSLabDialog
@@ -18,17 +19,20 @@ import time
 import os.path
 
 
-class DpRVI(QtCore.QObject):
-    '''DpRVI '''
-    def __init__(self,iFolder,C2,ws):
+##############################################################################################
+
+class CpRVI(QtCore.QObject):
+    '''CpRVI '''
+    def __init__(self,iFolder,C2,ws,tau):
         QtCore.QObject.__init__(self)
 
         self.iFolder = iFolder
-        
         self.C2 = C2
         self.ws=ws
+        self.tau = tau
         self.killed = False
         # self.mainObj = MRSLab()
+        
     def conv2d(self,a, f):
         filt = np.zeros(a.shape)
         wspad = int(f.shape[0]/2)
@@ -39,25 +43,16 @@ class DpRVI(QtCore.QObject):
         filt[wspad:wspad+filt_data.shape[0],wspad:wspad+filt_data.shape[1]] = filt_data
         return filt
     
-    def eig22(self,c2):
-        c11 = c2[:,:,0].flatten()
-        c12 = c2[:,:,1].flatten()
-        c21 = c2[:,:,2].flatten()
-        c22 = c2[:,:,3].flatten()
-        trace = -(c11+c22)
-        det = c11*c22-c12*c21
-        # const= 1
-        sqdiscr = np.sqrt(trace*trace - 4*det);
-        lambda1 = -(trace + sqdiscr)*0.5;
-        lambda2 = -(trace - sqdiscr)*0.5;
-        
-        return lambda1,lambda2
-
     def run(self):
         finish_cond = 0
         try:
-            def DpRVI_fn(C2_stack,ws):
-                
+            def CpRVI_fn(C2_stack,ws):
+
+                if self.tau==0:                    
+                    chi_in = -45.0
+                else:
+                    chi_in = 45.0
+
                 kernel = np.ones((ws,ws),np.float32)/(ws*ws)
                 c11_T1 = C2_stack[:,:,0]
                 c12_T1 = C2_stack[:,:,1]
@@ -87,47 +82,88 @@ class DpRVI(QtCore.QObject):
                 c2_det = (c11s*c22s-c12s*c21s)
                 c2_trace = c11s+c22s
                 # t2_span = t11s*t22s
-                m = (np.sqrt(1.0-(4.0*c2_det/np.power(c2_trace,2))))
-                self.pBar.emit(70)
-                egv1,egv2 = self.eig22(np.dstack([c11s,c12s,c21s,c22s]))
-                egf = np.vstack([egv1,egv2])
-                egfmax = egf.max(axis=0)#.reshape(np.shape(C2_stack[:,:,0]))
-                beta = (egfmax/(egv1+egv2)).reshape(np.shape(C2_stack[:,:,0]))
-                self.pBar.emit(80)
-                dprvi = 1-(m*beta)
-                rvi = 4*c11s/c2_trace
-            
-                self.pBar.emit(90)
-                self.progress.emit('->> Write files to disk...')
-                """Write files to disk"""
-                
-                infile = self.iFolder+'/C11.bin'
-                
-                ofiledprvi = self.iFolder+'/DpRVI.bin'
-                write_bin(ofiledprvi,dprvi,infile)
-                
-                ofilervidp = self.iFolder+'/RVI_dp.bin'
-                write_bin(ofilervidp,rvi,infile)
-                self.pBar.emit(95)
-                ofiledop = self.iFolder+'/dop_dp.bin'
-                write_bin(ofiledop,m,infile)
+                m1 = np.real(np.sqrt(1.0-(4.0*c2_det/np.power(c2_trace,2))))
 
-                # ofilebt = self.iFolder+'/beta_dp.bin'
-                # write_bin(ofilebt,beta,infile)                
+                # Stokes Parameter
+                s0 = c11s + c22s;
+                s1 = c11s - c22s;
+                s2 = (c12s + c21s);
+
+                if (chi_in >= 0):
+                    s3 = (1j*(c12s - c21s)); # The sign is according to RC or LC sign !!
+                if (chi_in < 0):
+                    s3 = -(1j*(c12s - c21s)); # The sign is according to RC or LC sign !!
                 
+                k11 = s0
+                k12 = 0
+                k13 = (1/2)*s2
+                k14 = 0
+                k21 = k12 
+                k22 = 0
+                k23 = 0
+                k24 = s1
+                k31 = k13
+                k32 = k23
+                k33 = 0 
+                k34 = 0;
+                k41 = k14; 
+                k42 = k24; 
+                k43 = k34; 
+                k44 = (1/2)*s3;
+        
+                # K_T = [k11 k12 k13 k14; k21 k22 k23 k24; 
+                #     k31 k32 k33 k34; k41 k42 k43 k44];
+                dop = sqrt(np.power(s1,2) + np.power(s2,2) + np.power(s3,2))/(s0);
+
+
+                # Stokes vector child products
+                SC = ((s0)-(s3))/2;
+                OC = ((s0)+(s3))/2;
+                
+                min_sc_oc = min(SC,OC);
+                max_sc_oc = max(SC,OC);
+                
+                
+                
+                
+                
+                
+                
+                h = (OC-SC)
+                span = c11s + c22s
+
+                val = ((m1*s0*h))/((SC*OC + (m1**2)*(s0**2)))
+                thet = np.real(np.arctan(val))
+                theta_CP = np.rad2deg(thet)
+
+                Ps_CP= (((m1*(span)*(1.0+np.sin(2*thet))/2)))
+                Pd_CP= (((m1*(span)*(1.0-np.sin(2*thet))/2)))
+                Pv_CP= (span*(1.0-m1))
+                
+                self.pBar.emit(90)                        
+                
+                self.progress.emit('>>> Write files to disk...')
+                """Write files to disk"""
+                # ofilervi = self.iFolder+'/RVI.bin'
+                infile = self.iFolder+'/C11.bin'
+                # write_bin(ofilervi,rvi,infile)
+                ofilegrvi = self.iFolder+'/Theta_CP.bin'
+                write_bin(ofilegrvi,theta_CP,infile)
+                ofilegrvi1 = self.iFolder+'/Pd_CP.bin'
+                write_bin(ofilegrvi1,Pd_CP,infile)
+                ofilegrvi2 = self.iFolder+'/Ps_CP.bin'
+                write_bin(ofilegrvi2,Ps_CP,infile)
+                ofilegrvi3 = self.iFolder+'/Pv_CP.bin'
+                write_bin(ofilegrvi3,Pv_CP,infile)     
+    
                 self.pBar.emit(100)
-                self.progress.emit('->> Finished DpRVI calculation!!')        
-                
-                
+                self.progress.emit('->> Finished CpRVI calculation!!')
+
+
             
-            def read_bin(file):  
-                ds = gdal.Open(file)
-                band = ds.GetRasterBand(1)
-                arr = band.ReadAsArray()
-                return arr
-            
+
             def write_bin(file,wdata,refData):
-       
+                
                 ds = gdal.Open(refData)
                 [cols, rows] = wdata.shape
             
@@ -141,7 +177,8 @@ class DpRVI(QtCore.QObject):
                 # outdata.GetRasterBand(1).SetNoDataValue(np.NaN)##if you want these values transparent
                 outdata.FlushCache() ##saves to disk!!    
         
-            DpRVI_fn(self.C2,self.ws)
+            # self.dop_fp(self.T3)
+            CpRVI_fn(self.C2,self.ws)
             
             finish_cond = 1
             

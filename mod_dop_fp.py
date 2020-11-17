@@ -18,27 +18,24 @@ import time
 import os.path
 
 
-class PRVI(QtCore.QObject):
-    '''PRVI '''
+class dop_FP(QtCore.QObject):
+    '''DOP '''
     def __init__(self,iFolder,T3,ws):
         QtCore.QObject.__init__(self)
 
         self.iFolder = iFolder
         
         self.T3 = T3
-        self.ws=ws
+        self.ws = ws
         self.killed = False
         # self.mainObj = MRSLab()
     def run(self):
         finish_cond = 0
         try:
-            def PRVI_fn(T3,ws):
+            def dopfp_fn(T3,ws):
         
                 DOP = np.zeros([np.size(T3,0),np.size(T3,1)])
-                prvi = np.zeros([np.size(T3,0),np.size(T3,1)])
-                "Special Unitary Matrix"
-                D = (1/np.sqrt(2))*np.array([[1,0,1], [1,0,-1],[0,np.sqrt(2),0]])
-                
+
                 for i in range(np.size(T3,0)):
 
                     self.pBar.emit((i/np.size(T3,0))*100)
@@ -52,11 +49,7 @@ class PRVI(QtCore.QObject):
                         else:
                             DOP[i][j] = np.sqrt(1-((27*det)/trace**3))
                         
-                        tempT3 =  np.reshape(T3[i,j,:],(3,3))
-                        C3 = np.matmul(np.matmul((D.T),tempT3),D).flatten()
-                        
-                        prvi[i][j] =(1- DOP[i][j])*C3[4]*0.5 # (1-dop)*vh
-            
+
                 """Write files to disk"""
                 
                 infile = self.iFolder+'/T11.bin'
@@ -64,10 +57,8 @@ class PRVI(QtCore.QObject):
                 ofiledop = self.iFolder+'/DOP.bin'
                 write_bin(ofiledop,DOP,infile)
                 
-                ofileprvi = self.iFolder+'/PRVI.bin'
-                write_bin(ofileprvi,prvi,infile)
                 self.pBar.emit(100)
-                self.progress.emit('->> Finished PRVI calculation!!')
+                self.progress.emit('->> Finished DOP calculation!!')
                 
 
 
@@ -86,7 +77,7 @@ class PRVI(QtCore.QObject):
                 # outdata.GetRasterBand(1).SetNoDataValue(np.NaN)##if you want these values transparent
                 outdata.FlushCache() ##saves to disk!!    
         
-            PRVI_fn(self.T3,self.ws)
+            dopfp_fn(self.T3,self.ws)
             
             finish_cond = 1
             

@@ -34,15 +34,21 @@ from .resources import *
 # Import the code for the dialog
 from .SAR_Tools_dialog import MRSLabDialog
 import os.path
+# import os
+# import os
 from osgeo import gdal
 import time
-
+from PyQt5 import QtWidgets
+# import QtCore
 #################
 from .mod_DpRVI import DpRVI
 from .mod_NM3CF import NM3CF
 from .mod_NM3CC import NM3CC
 from .mod_GRVI import GRVI
 from .mod_PRVI import PRVI
+from .mod_PRVI_dp import PRVI_dp
+from .mod_dop_fp import dop_FP
+from .mod_dop_dp import dop_dp
 #############################
 
 # Create a lock for multiprocess
@@ -100,11 +106,44 @@ class MRSLab(object):
         self.toolbar.setObjectName(u'SAR Tools')
         
         
-        self.dlg.pb_browse.setEnabled(False)
-        self.dlg.le_infolder.setEnabled(False)
-        self.dlg.sb_ws.setEnabled(False)
+        # self.dlg.fp_browse.setEnabled(True)
+        # self.dlg.inFolder_fp.setEnabled(False)
+        self.dlg.inFolder_fp.setEnabled(False)
+        self.dlg.fp_browse.setEnabled(False)
+        self.dlg.fp_cb_C3.setEnabled(False)
+        self.dlg.fp_cb_T3.setEnabled(False)
+       
+        self.dlg.inFolder_cp.setEnabled(False)
+        self.dlg.cp_browse.setEnabled(False)
+        self.dlg.cp_cb_C2.setEnabled(False)
+        self.dlg.cp_cb_T2.setEnabled(False)
+        
+        self.dlg.inFolder_dp.setEnabled(False)
+        self.dlg.dp_browse.setEnabled(False)
+        self.dlg.dp_cb_C2.setEnabled(False)
+        self.dlg.dp_cb_T2.setEnabled(False)
+                     
+        
+        self.dlg.fp_ws.setEnabled(True)
+        self.dlg.cp_ws.setEnabled(True)
+        self.dlg.dp_ws.setEnabled(True)
+        self.dlg.fp_parm.setEnabled(True)
+        self.dlg.cp_parm.setEnabled(True)
+        self.dlg.dp_parm.setEnabled(True)
         # self.dlg.lineEdit.clear()
-
+        
+        self.dlg.pb_process.setEnabled(False)
+        # self.dlg.cp_cb_tau.setCurrentText('Tau')
+        # Set active tab background colour  
+        self.dlg.tabWidget.setStyleSheet(
+                """
+            QTabBar::tab:selected {
+                background: rgb(0, 175, 255)
+            }
+            """
+            )
+        
+        
         
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -194,56 +233,219 @@ class MRSLab(object):
 
         self.actions.append(action)
         self.Startup()
-        global  logger
-               
         
-        self.dlg.pb_browse.clicked.connect(self.openRaster)
+
+        """ Global variables"""
+        global  logger
+        logger = self.dlg.terminal
+        global pol_mode
+        pol_mode = self.dlg.tabWidget.currentIndex()
+
+
+
+
+        # self.dlg.cb_mat_type.currentIndexChanged.connect(self.Cob_mode)
+
+        # logger.append(str(self.dlg.tabWidget.currentIndex()))
+        # self.dlg.fp_parm.currentIndexChanged.connect(self.Cob_mode)
+        """CP"""
+        self.dlg.fp_cb_C3.setChecked(False)
+        self.dlg.fp_cb_T3.setChecked(True)
+        self.dlg.fp_cb_T3.stateChanged.connect(self.fpt3_state_changed)
+        self.dlg.fp_cb_C3.stateChanged.connect(self.fpc3_state_changed)
+
+        self.dlg.fp_browse.clicked.connect(self.openRaster)
+
+        self.dlg.fp_parm.currentIndexChanged.connect(self.Cob_parm)   
+        self.ws = int(self.dlg.fp_ws.value())
+
+        self.dlg.fp_ws.valueChanged.connect(self.ws_update)
+        
+        """CP"""
+        self.dlg.cp_cb_C2.setChecked(False)
+        self.dlg.cp_cb_T2.setChecked(True)
+        self.dlg.cp_cb_T2.stateChanged.connect(self.cpt2_state_changed)
+        self.dlg.cp_cb_C2.stateChanged.connect(self.cpc2_state_changed)
+        self.dlg.cp_browse.clicked.connect(self.openRaster)
+        self.dlg.cp_ws.valueChanged.connect(self.ws_update)
+        self.dlg.cp_parm.currentIndexChanged.connect(self.Cob_parm) 
+        """DP"""
+        self.dlg.dp_cb_C2.setChecked(False)
+        self.dlg.dp_cb_T2.setChecked(True)
+        self.dlg.dp_cb_T2.stateChanged.connect(self.dpt2_state_changed)
+        self.dlg.dp_cb_C2.stateChanged.connect(self.dpc2_state_changed)
+        self.dlg.dp_browse.clicked.connect(self.openRaster)
+        self.dlg.dp_ws.valueChanged.connect(self.ws_update)
+        self.dlg.dp_parm.currentIndexChanged.connect(self.Cob_parm) 
+
+
+        """ TAB; CLEAR; PROCESS; VIEW """
+        self.dlg.tabWidget.currentChanged.connect(self.ontabChange)               
         self.dlg.pb_view.clicked.connect(self.viewData)
         self.dlg.clear_terminal.clicked.connect(self.clear_log)
-        
-        self.dlg.cb_mat_type.currentIndexChanged.connect(self.Cob_mode)
-        
-        self.ws = int(self.dlg.sb_ws.value())
-        
-        self.dlg.sb_ws.valueChanged.connect(self.ws_update)
-
-        
-        # self.dlg.cb_parm.currentIndexChanged.connect(self.Cob_mode)
-        self.dlg.cb_parm.currentIndexChanged.connect(self.Cob_parm)            
         self.dlg.pb_process.clicked.connect(self.startProcess)
         
         return action
+    
+    #@pyqtSlot()  
+    def ontabChange(self,i): #changed!
+        if i==0:
+            logger.append("->> Full-pol")
+            pol_mode = i            
+            # logger.append(str(pol_mode))
+        if i==1:
+            logger.append("->> Compact-pol")
+            pol_mode = i
+            # logger.append(str(pol_mode))
+        if i==2:
+            logger.append("->> Dual-pol")
+            pol_mode = i
+            # logger.append(str(pol_mode))
+    def fpt3_state_changed(self, i):
+        # logger.append(str(i))
+        if i==2:
+            self.dlg.fp_cb_C3.setChecked(False)
+        if i==0:
+            self.dlg.fp_cb_C3.setChecked(True)
+    
+    def fpc3_state_changed(self, i):
+        
+        if i==2:
+            self.dlg.fp_cb_T3.setChecked(False)
+        if i==0:
+            self.dlg.fp_cb_T3.setChecked(True)
+
+    def cpt2_state_changed(self, i):
+        # logger.append(str(i))
+        if i==2:
+            self.dlg.cp_cb_C2.setChecked(False)
+        if i==0:
+            self.dlg.cp_cb_C2.setChecked(True)
+    
+    def cpc2_state_changed(self, i):
+        
+        if i==2:
+            self.dlg.cp_cb_T2.setChecked(False)
+        if i==0:
+            self.dlg.cp_cb_T2.setChecked(True)
             
-               
+
+    def dpt2_state_changed(self, i):
+        # logger.append(str(i))
+        if i==2:
+            self.dlg.dp_cb_C2.setChecked(False)
+        if i==0:
+            self.dlg.dp_cb_C2.setChecked(True)
+    
+    def dpc2_state_changed(self, i):
+        
+        if i==2:
+            self.dlg.dp_cb_T2.setChecked(False)
+        if i==0:
+            self.dlg.dp_cb_T2.setChecked(True)
+
+
+            
+            
     def ws_update(self):
-        self.ws = int(self.dlg.sb_ws.value())
+        
+        if self.dlg.tabWidget.currentIndex()==0:
+            self.ws = int(self.dlg.fp_ws.value())
+        if self.dlg.tabWidget.currentIndex()==1:
+            self.ws = int(self.dlg.cp_ws.value())
+        if self.dlg.tabWidget.currentIndex()==2:
+            self.ws = int(self.dlg.dp_ws.value())
         if self.ws%2==0:
             self.ws+=1
-        logger = self.dlg.terminal
-        logger.append('Window size: '+str(self.ws))
+        # logger = self.dlg.terminal
+        logger.append('->> Window size: '+str(self.ws))
         
-        
+ 
+    def dtype_error(self):
+        logger.append('->> Error!! Invalid data folder.')
+                 
     def startProcess(self):
-        logger = self.dlg.terminal
-        indX =self.dlg.cb_parm.currentIndex()
-        if indX==1:
-            logger.append('--------------------')
-            self.startGRVI()
-        if indX==2:
-            logger.append('--------------------')
-            self.startNM3CF()
-        if indX==3:
-            logger.append('--------------------')
-            self.startNM3CC()
-        if indX==4:
-            logger.append('--------------------')
-            self.startDpRVI()
-        if indX==5:
-            logger.append('--------------------')
-            self.startPRVI()
-        else:
-            pass
         
+        
+        if self.dlg.tabWidget.currentIndex() == 0:
+            # self.inFolder = str(QFileDialog.getExistingDirectory(self.dlg, 
+                                                            # "Select T3/C3/T2/C2 Folder"))
+
+            # if(self.fp_cb_C3.isChecked()):
+            indX =self.dlg.fp_parm.currentIndex()          
+            
+            if indX==1:
+                try:
+                    logger.append('->> --------------------')
+                    self.startGRVI()
+                except:
+                    self.dtype_error()
+                    
+            if indX==2:
+                try:
+                    logger.append('->> --------------------')
+                    self.startNM3CF()
+                except:
+                    self.dtype_error()
+                    
+            if indX==3:
+                try:
+                    logger.append('->> --------------------')
+                    self.startPRVI()
+                except:
+                    self.dtype_error()
+                    
+            if indX==4:
+                try:
+                    logger.append('->> --------------------')
+                    self.startDOPfp()
+                except:
+                    self.dtype_error()
+
+            else:
+                pass
+            
+            
+        if self.dlg.tabWidget.currentIndex() == 1:
+            # if(self.fp_cb_C3.isChecked()):
+            indX =self.dlg.cp_parm.currentIndex()  
+            if indX==1:
+                try:
+                    logger.append('->> --------------------')
+                    self.startNM3CC()
+                except:
+                    self.dtype_error()
+
+            else:
+                pass
+        
+        if self.dlg.tabWidget.currentIndex() == 2:
+            # if(self.fp_cb_C3.isChecked()):
+            indX =self.dlg.dp_parm.currentIndex()   
+            if indX==1:
+                try:
+                    logger.append('->> --------------------')
+                    self.startDpRVI()
+                except:
+                    self.dtype_error()
+
+            if indX==2:
+                try:
+                    logger.append('->> --------------------')
+                    self.startPRVIdp()
+                except:
+                    self.dtype_error()
+
+            if indX==3:
+                try:                    
+                    logger.append('->> --------------------')
+                    self.startDOPdp()
+                except:
+                    self.dtype_error()
+
+            else:
+                pass
+            
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
@@ -255,140 +457,147 @@ class MRSLab(object):
             parent=self.iface.mainWindow())
 
     def Cob_parm(self):
-        # For terminal outputs
-        logger = self.dlg.terminal
-        # global mat_type
-        global parm
-        parm =self.dlg.cb_parm.currentIndex()
-        if parm == 1:
-            logger.append('\n     GRVI\n')
-            # self.dlg.le_infolder.setEnabled(True)
-            # self.dlg.pb_browse.setEnabled(True)
-            # self.dlg.sb_ws.setEnabled(True)
-            self.dlg.pb_process.setEnabled(True)
-        elif parm == 2:
-            logger.append('\n     NM3CF\n')
-            # self.dlg.le_infolder.setEnabled(True)
-            # self.dlg.pb_browse.setEnabled(True)
-            # self.dlg.sb_ws.setEnabled(True)
-            self.dlg.pb_process.setEnabled(True)
-        elif parm == 3:
-            logger.append('\n     NM3CC\n')
-            # self.dlg.le_infolder.setEnabled(True)
-            # self.dlg.pb_browse.setEnabled(True)
-            # self.dlg.sb_ws.setEnabled(True)
-            self.dlg.pb_process.setEnabled(True)
-        elif parm == 4:
-            logger.append('\n     DpRVI\n')
-            # self.dlg.le_infolder.setEnabled(True)
-            # self.dlg.pb_browse.setEnabled(True)
-            # self.dlg.sb_ws.setEnabled(True)
-            self.dlg.pb_process.setEnabled(True)
-        elif parm == 5:
-            logger.append('\n     PRVI\n')
-            # self.dlg.le_infolder.setEnabled(True)
-            # self.dlg.pb_browse.setEnabled(True)
-            # self.dlg.sb_ws.setEnabled(True)
-            self.dlg.pb_process.setEnabled(True)
-        else:
-            # self.dlg.le_infolder.setEnabled(False)
-            self.dlg.pb_process.setEnabled(False)
-            # self.dlg.sb_ws.setEnabled(False)
-            
-  
+        # For terminal and UI update
         
+        if self.dlg.tabWidget.currentIndex() == 0:
+            parm =self.dlg.fp_parm.currentIndex()
+            if parm == 1:
+                logger.append('->>      GRVI')
+                self.dlg.inFolder_fp.setEnabled(True)
+                self.dlg.fp_browse.setEnabled(True)
+                self.dlg.fp_cb_T3.setChecked(True)
+                # self.dlg.fp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
+            elif parm == 2:
+                logger.append('->>      NM3CF')
+                self.dlg.inFolder_fp.setEnabled(True)
+                self.dlg.fp_browse.setEnabled(True)
+                self.dlg.fp_cb_T3.setChecked(True)
+                # self.dlg.fp_browse.setEnabled(True)
+                # self.dlg.fp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
+            elif parm == 3:
+                logger.append('->>      PRVI')
+                self.dlg.inFolder_fp.setEnabled(True)
+                self.dlg.fp_browse.setEnabled(True)
+                self.dlg.fp_cb_T3.setChecked(True)
+                # self.dlg.fp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
+            elif parm == 4:
+                logger.append('->>      DOP')
+                self.dlg.inFolder_fp.setEnabled(True)
+                self.dlg.fp_browse.setEnabled(True)
+                self.dlg.fp_cb_T3.setChecked(True)
+                # self.dlg.fp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
 
-    def Cob_mode(self):
-        # For terminal outputs
-        logger = self.dlg.terminal
-        global mat_type
+            elif parm==0:
+                self.dlg.inFolder_fp.setEnabled(False)
+                self.dlg.pb_process.setEnabled(False)
+                self.dlg.fp_browse.setEnabled(False)
+                # self.dlg.fp_ws.setEnabled(False)
 
-        mat_type=self.dlg.cb_mat_type.currentIndex()
-        if mat_type == 1:
-            logger.append('\n     Selected Matrix type: T3\n')
-            self.dlg.le_infolder.setEnabled(True)
-            self.dlg.pb_browse.setEnabled(True)
-            self.dlg.sb_ws.setEnabled(True)
-        elif mat_type == 2:
-            logger.append('\n     Selected Matrix type: C3\n')
-            self.dlg.le_infolder.setEnabled(True)
-            self.dlg.pb_browse.setEnabled(True)
-            self.dlg.sb_ws.setEnabled(True)
-        elif mat_type == 3:
-            logger.append('\n     Selected Matrix type: C2\n')
-            self.dlg.le_infolder.setEnabled(True)
-            self.dlg.pb_browse.setEnabled(True)
-            self.dlg.sb_ws.setEnabled(True)
-        else:
-            self.dlg.le_infolder.setEnabled(False)
-            self.dlg.pb_browse.setEnabled(False)
-            self.dlg.sb_ws.setEnabled(False)
+        if self.dlg.tabWidget.currentIndex() == 1:
+            parm =self.dlg.cp_parm.currentIndex()
+            # tau = self.dlg.cp_cb_tau.currentIndex()
+            if parm == 1:
+                logger.append('->>     NM3CC')
+                self.dlg.inFolder_cp.setEnabled(True)
+                self.dlg.cp_browse.setEnabled(True)
+                self.dlg.cp_cb_C2.setChecked(True)
+                # self.dlg.cp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
+
+            elif parm==0:
+                # self.dlg.inFolder_fp.setEnabled(False)
+                self.dlg.pb_process.setEnabled(False)
+                # self.dlg.fp_ws.setEnabled(False)
+  
+        if self.dlg.tabWidget.currentIndex() == 2:
+            parm =self.dlg.dp_parm.currentIndex()
             
+            if parm == 1:
+                logger.append('->>      DpRVI')
+                self.dlg.dp_cb_C2.setChecked(True)
+                self.dlg.inFolder_dp.setEnabled(True)
+                self.dlg.dp_browse.setEnabled(True)
+                # self.dlg.dp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
+            if parm == 2:
+                logger.append('->>      PRVI')
+                self.dlg.dp_cb_C2.setChecked(True)
+                self.dlg.inFolder_dp.setEnabled(True)
+                self.dlg.dp_browse.setEnabled(True)
+                # self.dlg.dp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
+            if parm == 3:
+                logger.append('->>      DOP')
+                self.dlg.dp_cb_C2.setChecked(True)
+                self.dlg.inFolder_dp.setEnabled(True)
+                self.dlg.dp_browse.setEnabled(True)
+                # self.dlg.dp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
+            elif parm==0:
+                self.dlg.inFolder_dp.setEnabled(False)
+                self.dlg.dp_browse.setEnabled(False)
+                self.dlg.pb_process.setEnabled(False)
+                # self.dlg.dp_ws.setEnabled(False)
+           
             
             
             
     def viewData(self):
-        log_text = self.dlg.terminal
-        log_text.append('Data loaded in to QGIS\n')
+        # log_text = self.dlg.terminal
+        # log_text.append('->> Data loaded in to QGIS\n')
         
-        mat_type = self.dlg.cb_mat_type.currentIndex()
+        file_filter = "bin (*.bin);;GeoTiFF (*.tif);;All (*.*)"
+                                          
+        if self.inFolder:
+            f_path = self.inFolder
+        else:
+            f_path = os.path.dirname(__file__)
+        names = QFileDialog.getOpenFileNames(self.dlg, 
+                                            "Select files to view/import into QGIS",
+                                            f_path,
+                                            file_filter       
+                                                      )
         
-        if self.inFolder is not None and mat_type==1:
-            
-            # if os.path.isfile(self.inFolder+'\T11.bin'):
-            #     self.iface.addRasterLayer(self.inFolder+'\T11.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T22.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T33.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T12_imag.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T12_real.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T13_imag.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T13_real.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T23_imag.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\T23_real.bin')
+        if names is not None:
+            for i in np.arange(0,np.size(list(names[0][0:])),1):
+                try:
 
-            if os.path.isfile(self.inFolder+'\RVI.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
-            if os.path.isfile(self.inFolder+'\GRVI.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\GRVI.bin')
-                
-        elif self.inFolder is not None and mat_type==2:
-            # if os.path.isfile(self.inFolder+'\C11.bin'):
-            #     self.iface.addRasterLayer(self.inFolder+'\C11.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C22.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C33.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C12_imag.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C12_real.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C13_imag.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C13_real.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C23_imag.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C23_real.bin')
-            if os.path.isfile(self.inFolder+'\RVI.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\RVI.bin')
-            if os.path.isfile(self.inFolder+'\GRVI.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\GRVI.bin')
-                
-        elif self.inFolder is not None and mat_type==3:
-            # if os.path.isfile(self.inFolder+'\C11.bin'):
-            #     self.iface.addRasterLayer(self.inFolder+'\C11.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C22.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C12_imag.bin')
-            #     self.iface.addRasterLayer(self.inFolder+'\C12_real.bin')
-                
-            if os.path.isfile(self.inFolder+'\DpRVI.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\DpRVI.bin')
-            if os.path.isfile(self.inFolder+'\RVI_dp.bin'):
-                self.iface.addRasterLayer(self.inFolder+'\RVI_dp.bin')
+                    self.iface.addRasterLayer(str(names[0][i]))   
+                    logger.append(str(names[0][i]))
+
+                except:
+                    logger.append("->> invalid file type!!")
+
+        # logger.append(str(np.size(list(names[0][0:]))))
+        # logger.append(str(f_path))    
+        
+        
+  
             
     def clear_log(self):
         self.dlg.terminal.clear()
         self.Startup()
-        self.dlg.cb_mat_type.setCurrentIndex(0)
-        self.dlg.le_infolder.clear()
-        self.dlg.le_infolder.setEnabled(False)
-        self.dlg.pb_browse.setEnabled(False)
+        # self.dlg.cb_mat_type.setCurrentIndex(0)
+        self.dlg.inFolder_fp.clear()
+        self.dlg.inFolder_cp.clear()
+        self.dlg.inFolder_dp.clear()
+        # self.dlg.inFolder_fp.setEnabled(False)
+        # self.dlg.fp_browse.setEnabled(False)
         self.dlg.progressBar.setValue(0)
-        self.dlg.sb_ws.setEnabled(False)
-        self.dlg.cb_parm.setCurrentIndex(0)
+        self.dlg.fp_ws.setValue(5)
+        # self.dlg.fp_ws.setEnabled(False)
+        self.dlg.fp_parm.setCurrentIndex(0)
+        self.dlg.cp_ws.setValue(5)
+        # self.dlg.cp_ws.setEnabled(False)
+        self.dlg.cp_parm.setCurrentIndex(0)
+        self.dlg.dp_ws.setValue(5)
+        # self.dlg.dp_ws.setEnabled(False)
+        self.dlg.dp_parm.setCurrentIndex(0)
+        
         self.dlg.pb_process.setEnabled(False)
         
         # log = self.dlg.terminal
@@ -435,35 +644,72 @@ class MRSLab(object):
     
     def openRaster(self):
         """Open raster from file dialog"""
+        # logger.append(str(self.dlg.tabWidget.currentIndex()))
         
-        self.inFolder =str(QFileDialog.getExistingDirectory(self.dlg, "Select T3/C3 Folder"))
-        self.dlg.le_infolder.setText(self.inFolder)
-        # print(self.inFolder)
-        mat_type = self.dlg.cb_mat_type.currentIndex()
-        logger = self.dlg.terminal
-        
-        if self.inFolder is not None and mat_type==1:
+        if self.dlg.tabWidget.currentIndex() == 0:
+            self.inFolder = str(QFileDialog.getExistingDirectory(
+                            self.dlg, "Select T3/C3 Folder"))                   
+            self.dlg.inFolder_fp.setText(self.inFolder)
             
-            self.T3_stack = self.load_T3(self.inFolder)
-            # logger.append('>>> T3 Loaded \nConverting T3 to C3...')
-            # self.C3_stack  = self.T3_C3(self.T3_stack)
-            logger.append('>>> Ready to process.')
+            if self.inFolder and self.dlg.fp_cb_C3.isChecked():
+                try:
+                    self.C3_stack = self.load_C3(self.inFolder)
+                    logger.append('->> C3 Loaded \nConverting C3 to T3...')
+                    self.T3_stack  = self.C3_T3(self.C3_stack)
+                    logger.append('->> Ready to process.')
+                except:
+                    logger.append('->> Error! Please check the matrix type and folder')
+            if self.inFolder and self.dlg.fp_cb_T3.isChecked():
+                try:
+                    self.T3_stack = self.load_T3(self.inFolder)
+                    # logger.append('>>> T3 Loaded \nConverting T3 to C3...')
+                    # self.C3_stack  = self.T3_C3(self.T3_stack)
+                    logger.append('->> Ready to process.')
+                except:
+                    logger.append('->> Error! Please check the matrix type and folder')
             
-        elif self.inFolder is not None and mat_type==2:
+            
+            if self.inFolder:
+                self.dlg.fp_ws.setEnabled(True)
+                self.dlg.fp_parm.setEnabled(True)
+                
+                
+        if self.dlg.tabWidget.currentIndex() == 1:
+            self.inFolder = str(QFileDialog.getExistingDirectory(
+                            self.dlg, "Select T2/C2 Folder"))
+            self.dlg.inFolder_cp.setText(self.inFolder)
+            
+            
+            if self.inFolder and self.dlg.cp_cb_C2.isChecked():
+                try:
+                    logger.append('->> C2 selected')
+                    self.C2_stack = self.load_C2(self.inFolder)
+                    logger.append('->> Ready to process.')
+                except:
+                    logger.append('->> Error! Please check the matrix type and folder')
+            
+            if self.inFolder:
+                self.dlg.cp_ws.setEnabled(True)
+                self.dlg.cp_parm.setEnabled(True)
+                
+        if self.dlg.tabWidget.currentIndex() == 2:
+            self.inFolder = str(QFileDialog.getExistingDirectory(
+                            self.dlg, "Select T2/C2 Folder"))                   
+            self.dlg.inFolder_dp.setText(self.inFolder)
+            
+            if self.inFolder and self.dlg.dp_cb_C2.isChecked():
+                try:
+                    logger.append('->> C2 selected')
+                    self.C2_stack = self.load_C2(self.inFolder)
+                    logger.append('->> Ready to process.')
+                except:
+                    logger.append('->> Error! Please check the matrix type and folder')
+            
+            if self.inFolder:
+                self.dlg.dp_ws.setEnabled(True)
+                self.dlg.dp_parm.setEnabled(True)
+ 
 
-            logger.append('>>> C3 selected')
-            self.C3_stack = self.load_C3(self.inFolder)
-            logger.append('>>> C3 Loaded \nConverting C3 to T3...')
-            self.T3_stack  = self.C3_T3(self.C3_stack)
-            logger.append('>>> Ready to process.')
-            
-        elif self.inFolder is not None and mat_type==3:
-            logger.append('>>> C2 selected')
-            self.C2_stack = self.load_C2(self.inFolder)
-            logger.append('>>> Ready to process.')
-            
-            
-            
             
 ###############################################################
     def load_C2(self,folder):
@@ -554,13 +800,82 @@ class MRSLab(object):
     def Startup(self):
         # For terminal outputs
         logger = self.dlg.terminal
-        logger.append('   \tWelcome to SARtools.\n\
-                      A QGIS plugin to calculate SAR derived parameters \n')
-        logger.append('       Let\'s get started --> Start with Selecting polarimetric matrix\n')
+        logger.append('\t                       Welcome to SAR_tools.'+
+                      '\n\t This plugin generates derived SAR parameters')
+        logger.append('\t     SAR indices | Decomposition parameters')
+        logger.append('\t              Start by selecting a parameter\n')
+        logger.append('------------------------------------------------------------------------------------------------')
         
+        """ Process button calls"""
+
+    def startPRVIdp(self):
+        
+        self.dlg.terminal.append('->> Calculating PRVI... ')
+        worker = PRVI_dp(self.inFolder,self.C2_stack,self.ws)
+
+        # start the worker in a new thread
+        thread = QtCore.QThread()
+        worker.moveToThread(thread)
+        # self.workerFinished =1
+        worker.finished.connect(self.workerFinished)
+        worker.error.connect(self.workerError)
+
+        worker.progress.connect(self.showmsg)
+        worker.pBar.connect(self.pBarupdate)
+        thread.started.connect(worker.run)
+        thread.start()
+        
+        self.thread = thread
+        self.worker = worker
+        # time.sleep(0.1)
+        # worker.kill
+
+    def startDOPdp(self):
+        
+        self.dlg.terminal.append('->> Calculating DOP... ')
+        worker = dop_dp(self.inFolder,self.C2_stack,self.ws)
+
+        # start the worker in a new thread
+        thread = QtCore.QThread()
+        worker.moveToThread(thread)
+        # self.workerFinished =1
+        worker.finished.connect(self.workerFinished)
+        worker.error.connect(self.workerError)
+
+        worker.progress.connect(self.showmsg)
+        worker.pBar.connect(self.pBarupdate)
+        thread.started.connect(worker.run)
+        thread.start()
+        
+        self.thread = thread
+        self.worker = worker
+        # time.sleep(0.1)
+        # worker.kill
+            
+    def startDOPfp(self):  
+        self.dlg.terminal.append('->> Calculating DOP...')
+        worker = dop_FP(self.inFolder,self.T3_stack,self.ws)
+
+        # start the worker in a new thread
+        thread = QtCore.QThread()
+        worker.moveToThread(thread)
+        # self.workerFinished =1
+        worker.finished.connect(self.workerFinished)
+        worker.error.connect(self.workerError)
+
+        worker.progress.connect(self.showmsg)
+        worker.pBar.connect(self.pBarupdate)
+        thread.started.connect(worker.run)
+        thread.start()
+        
+        self.thread = thread
+        self.worker = worker
+        # time.sleep(0.1)
+        # worker.
+
 
     def startPRVI(self):  
-        self.dlg.terminal.append('>>> Calculating PRVI...')
+        self.dlg.terminal.append('->> Calculating PRVI...')
         worker = PRVI(self.inFolder,self.T3_stack,self.ws)
 
         # start the worker in a new thread
@@ -583,8 +898,10 @@ class MRSLab(object):
 
     def startNM3CC(self):
         
-        self.dlg.terminal.append('>>> Calculating NM3CC...')
-        worker = NM3CC(self.inFolder,self.C2_stack,self.ws)
+        self.dlg.terminal.append('->> Calculating NM3CC...')
+        tau = self.dlg.cp_cb_tau.currentIndex()
+            
+        worker = NM3CC(self.inFolder,self.C2_stack,self.ws,tau)
 
         # start the worker in a new thread
         thread = QtCore.QThread()
@@ -605,7 +922,7 @@ class MRSLab(object):
         
     def startDpRVI(self):
         
-        self.dlg.terminal.append('>>> Calculating DpRVI... ')
+        self.dlg.terminal.append('->> Calculating DpRVI... ')
         worker = DpRVI(self.inFolder,self.C2_stack,self.ws)
 
         # start the worker in a new thread
@@ -627,7 +944,7 @@ class MRSLab(object):
             
     def startNM3CF(self):
         
-        self.dlg.terminal.append('>>> Calculating NM3CF...')
+        self.dlg.terminal.append('->> Calculating NM3CF...')
         worker = NM3CF(self.inFolder,self.T3_stack,self.ws)
 
         # start the worker in a new thread
@@ -649,7 +966,7 @@ class MRSLab(object):
         
     def startGRVI(self):
         
-        self.dlg.terminal.append('>>> Calculating GRVI...')
+        self.dlg.terminal.append('->> Calculating GRVI...')
         worker = GRVI(self.inFolder,self.T3_stack,self.ws)
 
         # start the worker in a new thread
@@ -676,7 +993,7 @@ class MRSLab(object):
 
     def workerFinished(self,finish_cond):
         logger = self.dlg.terminal
-        logger.append('>>> Process completed with window size of '+str(self.ws))
+        logger.append('->> Process completed with ' +str(self.ws)+' x ' +str(self.ws)+' window ')
         # clean up the worker and thread
         
         # self.viewData() # Load data into QGIS
@@ -692,11 +1009,11 @@ class MRSLab(object):
         self.thread.deleteLater()
 
         if finish_cond == 0:
-            logger.append('>>> Process stopped in between ! You are good to go again.')
+            logger.append('->> Process stopped in between ! You are good to go again.')
 
     def workerError(self, e, exception_string):
         logger = self.dlg.terminal
-        logger.append('>>> :-( Error:\n\n %s' %str(exception_string))
+        logger.append('->> :-( Error:\n\n %s' %str(exception_string))
     
         
         

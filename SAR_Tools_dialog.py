@@ -27,7 +27,7 @@ from qgis.PyQt import QtWidgets
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'SAR_Tools_dialog_base.ui'))
+    os.path.dirname(__file__), 'mainWindow.ui'))
 
 
 class MRSLabDialog(QtWidgets.QDialog, FORM_CLASS):

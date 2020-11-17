@@ -56,23 +56,6 @@
      </item>
      <item>
       <layout class="QFormLayout" name="formLayout">
-       <item row="1" column="1">
-        <widget class="QPushButton" name="pb_process">
-         <property name="text">
-          <string>Process</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="2">
-        <widget class="QTextBrowser" name="terminal"/>
-       </item>
-       <item row="3" column="0" colspan="2">
-        <widget class="QProgressBar" name="progressBar">
-         <property name="value">
-          <number>24</number>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0">
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="1">
@@ -117,12 +100,44 @@
          </item>
         </layout>
        </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="pb_process">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0.3125, x2:0.754746, y2:0.334, stop:0.288136 rgba(0, 255, 0, 0), stop:1 rgba(0, 245, 0, 255));</string>
+         </property>
+         <property name="text">
+          <string>Process</string>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QTextBrowser" name="terminal"/>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QProgressBar" name="progressBar">
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
    </item>
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="tabPosition">
       <enum>QTabWidget::West</enum>
      </property>
@@ -130,17 +145,20 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="movable">
       <bool>true</bool>
      </property>
      <widget class="QWidget" name="fp_tab">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <attribute name="title">
        <string>Full-pol</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
-       <item row="5" column="0">
+       <item row="1" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
           <spacer name="horizontalSpacer_8">
@@ -156,7 +174,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QComboBox" name="cb_parm">
+          <widget class="QComboBox" name="fp_parm">
            <item>
             <property name="text">
              <string>Select</string>
@@ -169,17 +187,7 @@
            </item>
            <item>
             <property name="text">
-             <string>NM3CF</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>NM3CC</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>DpRVI</string>
+             <string>MF3CF</string>
             </property>
            </item>
            <item>
@@ -187,7 +195,36 @@
              <string>PRVI</string>
             </property>
            </item>
+           <item>
+            <property name="text">
+             <string>DOP</string>
+            </property>
+           </item>
           </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Window Size</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="fp_ws">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="singleStep">
+              <number>2</number>
+             </property>
+             <property name="value">
+              <number>5</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <spacer name="horizontalSpacer_9">
@@ -204,7 +241,7 @@
          </item>
         </layout>
        </item>
-       <item row="1" column="0">
+       <item row="2" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_6">
          <item>
           <spacer name="horizontalSpacer_6">
@@ -222,14 +259,20 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
-            <widget class="QCheckBox" name="checkBox">
+            <widget class="QCheckBox" name="fp_cb_T3">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
              <property name="text">
               <string>T3</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_2">
+            <widget class="QCheckBox" name="fp_cb_C3">
              <property name="text">
               <string>C3</string>
              </property>
@@ -258,19 +301,19 @@
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="text">
-          <string>Select Matrix type &amp; Folder</string>
+          <string>Select parameter &amp; Matrix folder</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="4" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QLineEdit" name="le_infolder">
+            <widget class="QLineEdit" name="inFolder_fp">
              <property name="clearButtonEnabled">
               <bool>true</bool>
              </property>
@@ -279,7 +322,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QPushButton" name="pb_browse">
+          <widget class="QPushButton" name="fp_browse">
            <property name="maximumSize">
             <size>
              <width>40</width>
@@ -293,10 +336,17 @@
          </item>
         </layout>
        </item>
-       <item row="4" column="0">
-        <layout class="QGridLayout" name="gridLayout_3">
-         <item row="0" column="0">
-          <spacer name="horizontalSpacer_4">
+      </layout>
+     </widget>
+     <widget class="QWidget" name="cp_tab">
+      <attribute name="title">
+       <string>Compact-pol</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_9">
+       <item row="1" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_18">
+         <item>
+          <spacer name="horizontalSpacer_18">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -308,17 +358,31 @@
            </property>
           </spacer>
          </item>
-         <item row="0" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QComboBox" name="cp_parm">
            <item>
-            <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Select</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>MF3CC</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_19">
+           <item>
+            <widget class="QLabel" name="label_6">
              <property name="text">
               <string>Window Size</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="sb_ws">
+            <widget class="QSpinBox" name="cp_ws">
              <property name="minimum">
               <number>1</number>
              </property>
@@ -330,10 +394,27 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QComboBox" name="cp_cb_tau">
+             <property name="currentIndex">
+              <number>1</number>
+             </property>
+             <item>
+              <property name="text">
+               <string>LC (+45)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>RC (-45)</string>
+              </property>
+             </item>
+            </widget>
+           </item>
           </layout>
          </item>
-         <item row="0" column="2">
-          <spacer name="horizontalSpacer_5">
+         <item>
+          <spacer name="horizontalSpacer_19">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -347,27 +428,48 @@
          </item>
         </layout>
        </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="cp_tab">
-      <attribute name="title">
-       <string>Compact-pol</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_9">
        <item row="0" column="0">
         <widget class="QLabel" name="label_7">
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="text">
-          <string>Select Matrix type &amp; Folder</string>
+          <string>Select parameter &amp; Matrix folder</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="4" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_16">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_17">
+           <item>
+            <widget class="QLineEdit" name="inFolder_cp">
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="cp_browse">
+           <property name="maximumSize">
+            <size>
+             <width>40</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_14">
          <item>
           <spacer name="horizontalSpacer_16">
@@ -385,16 +487,22 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_15">
            <item>
-            <widget class="QCheckBox" name="checkBox_5">
+            <widget class="QCheckBox" name="cp_cb_T2">
              <property name="text">
               <string>T2</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_6">
+            <widget class="QCheckBox" name="cp_cb_C2">
              <property name="text">
               <string>C2</string>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
              </property>
             </widget>
            </item>
@@ -415,10 +523,17 @@
          </item>
         </layout>
        </item>
-       <item row="5" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_18">
+      </layout>
+     </widget>
+     <widget class="QWidget" name="dp_tab">
+      <attribute name="title">
+       <string>Dual-pol</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_12">
+       <item row="1" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_36">
          <item>
-          <spacer name="horizontalSpacer_18">
+          <spacer name="horizontalSpacer_36">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -431,7 +546,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QComboBox" name="cb_parm_3">
+          <widget class="QComboBox" name="dp_parm">
            <item>
             <property name="text">
              <string>Select</string>
@@ -439,22 +554,7 @@
            </item>
            <item>
             <property name="text">
-             <string>GRVI &amp; RVI</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>NM3CF</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>NM3CC</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>DpRVI</string>
+             <string>DpRVI &amp; RVI</string>
             </property>
            </item>
            <item>
@@ -462,77 +562,24 @@
              <string>PRVI</string>
             </property>
            </item>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_19">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="3" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_16">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_17">
            <item>
-            <widget class="QLineEdit" name="le_infolder_3">
-             <property name="clearButtonEnabled">
-              <bool>true</bool>
-             </property>
-            </widget>
+            <property name="text">
+             <string>DOP</string>
+            </property>
            </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pb_browse_3">
-           <property name="maximumSize">
-            <size>
-             <width>40</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>...</string>
-           </property>
           </widget>
          </item>
-        </layout>
-       </item>
-       <item row="4" column="0">
-        <layout class="QGridLayout" name="gridLayout_7">
-         <item row="0" column="0">
-          <spacer name="horizontalSpacer_20">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="0" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_19">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_35">
            <item>
-            <widget class="QLabel" name="label_6">
+            <widget class="QLabel" name="label_11">
              <property name="text">
               <string>Window Size</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="sb_ws_3">
+            <widget class="QSpinBox" name="dp_ws">
              <property name="minimum">
               <number>1</number>
              </property>
@@ -546,8 +593,8 @@
            </item>
           </layout>
          </item>
-         <item row="0" column="2">
-          <spacer name="horizontalSpacer_21">
+         <item>
+          <spacer name="horizontalSpacer_37">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -561,27 +608,20 @@
          </item>
         </layout>
        </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab">
-      <attribute name="title">
-       <string>Dual-pol</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_12">
        <item row="0" column="0">
         <widget class="QLabel" name="label_12">
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="text">
-          <string>Select Matrix type &amp; Folder</string>
+          <string>Select parameter &amp; Matrix folder</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="2" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_37">
          <item>
           <spacer name="horizontalSpacer_38">
@@ -599,16 +639,19 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_38">
            <item>
-            <widget class="QCheckBox" name="checkBox_11">
+            <widget class="QCheckBox" name="dp_cb_T2">
              <property name="text">
               <string>T2</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_12">
+            <widget class="QCheckBox" name="dp_cb_C2">
              <property name="text">
               <string>C2</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -629,12 +672,12 @@
          </item>
         </layout>
        </item>
-       <item row="2" column="0">
+       <item row="3" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_33">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_34">
            <item>
-            <widget class="QLineEdit" name="le_infolder_6">
+            <widget class="QLineEdit" name="inFolder_dp">
              <property name="clearButtonEnabled">
               <bool>true</bool>
              </property>
@@ -643,7 +686,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QPushButton" name="pb_browse_6">
+          <widget class="QPushButton" name="dp_browse">
            <property name="maximumSize">
             <size>
              <width>40</width>
@@ -654,124 +697,6 @@
             <string>...</string>
            </property>
           </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="3" column="0">
-        <layout class="QGridLayout" name="gridLayout_11">
-         <item row="0" column="0">
-          <spacer name="horizontalSpacer_34">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="0" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_35">
-           <item>
-            <widget class="QLabel" name="label_11">
-             <property name="text">
-              <string>Window Size</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="sb_ws_7">
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="singleStep">
-              <number>2</number>
-             </property>
-             <property name="value">
-              <number>5</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item row="0" column="2">
-          <spacer name="horizontalSpacer_35">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="4" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_36">
-         <item>
-          <spacer name="horizontalSpacer_36">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QComboBox" name="cb_parm_6">
-           <item>
-            <property name="text">
-             <string>Select</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>GRVI &amp; RVI</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>NM3CF</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>NM3CC</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>DpRVI</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>PRVI</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_37">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
          </item>
         </layout>
        </item>

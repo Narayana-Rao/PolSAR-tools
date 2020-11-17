@@ -18,15 +18,15 @@ import time
 import os.path
 
 
-class DpRVI(QtCore.QObject):
-    '''DpRVI '''
+class dop_dp(QtCore.QObject):
+    '''DOP dual-pol '''
     def __init__(self,iFolder,C2,ws):
         QtCore.QObject.__init__(self)
 
         self.iFolder = iFolder
         
         self.C2 = C2
-        self.ws=ws
+        self.ws = ws
         self.killed = False
         # self.mainObj = MRSLab()
     def conv2d(self,a, f):
@@ -38,20 +38,6 @@ class DpRVI(QtCore.QObject):
         filt_data = np.einsum('ij,ijkl->kl', f, subM)
         filt[wspad:wspad+filt_data.shape[0],wspad:wspad+filt_data.shape[1]] = filt_data
         return filt
-    
-    def eig22(self,c2):
-        c11 = c2[:,:,0].flatten()
-        c12 = c2[:,:,1].flatten()
-        c21 = c2[:,:,2].flatten()
-        c22 = c2[:,:,3].flatten()
-        trace = -(c11+c22)
-        det = c11*c22-c12*c21
-        # const= 1
-        sqdiscr = np.sqrt(trace*trace - 4*det);
-        lambda1 = -(trace + sqdiscr)*0.5;
-        lambda2 = -(trace - sqdiscr)*0.5;
-        
-        return lambda1,lambda2
 
     def run(self):
         finish_cond = 0
@@ -89,25 +75,13 @@ class DpRVI(QtCore.QObject):
                 # t2_span = t11s*t22s
                 m = (np.sqrt(1.0-(4.0*c2_det/np.power(c2_trace,2))))
                 self.pBar.emit(70)
-                egv1,egv2 = self.eig22(np.dstack([c11s,c12s,c21s,c22s]))
-                egf = np.vstack([egv1,egv2])
-                egfmax = egf.max(axis=0)#.reshape(np.shape(C2_stack[:,:,0]))
-                beta = (egfmax/(egv1+egv2)).reshape(np.shape(C2_stack[:,:,0]))
-                self.pBar.emit(80)
-                dprvi = 1-(m*beta)
-                rvi = 4*c11s/c2_trace
+
             
                 self.pBar.emit(90)
-                self.progress.emit('->> Write files to disk...')
                 """Write files to disk"""
                 
                 infile = self.iFolder+'/C11.bin'
                 
-                ofiledprvi = self.iFolder+'/DpRVI.bin'
-                write_bin(ofiledprvi,dprvi,infile)
-                
-                ofilervidp = self.iFolder+'/RVI_dp.bin'
-                write_bin(ofilervidp,rvi,infile)
                 self.pBar.emit(95)
                 ofiledop = self.iFolder+'/dop_dp.bin'
                 write_bin(ofiledop,m,infile)
@@ -116,16 +90,10 @@ class DpRVI(QtCore.QObject):
                 # write_bin(ofilebt,beta,infile)                
                 
                 self.pBar.emit(100)
-                self.progress.emit('->> Finished DpRVI calculation!!')        
+                self.progress.emit('->> Finished DOP calculation!!')        
                 
                 
-            
-            def read_bin(file):  
-                ds = gdal.Open(file)
-                band = ds.GetRasterBand(1)
-                arr = band.ReadAsArray()
-                return arr
-            
+
             def write_bin(file,wdata,refData):
        
                 ds = gdal.Open(refData)
