@@ -21,10 +21,15 @@ repository=https://github.com/Narayana-Rao/sar_tools.git
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
-changelog= update DpRVI performance
+changelog= 
+
+	0.4
+	-New UI
+	-DpRVI performance update
+	-Added Degree of Polarization (Full-pol and dual-pol)
 
 # Tags are comma separated with spaces allowed
-tags=sar,plosar,python,dprvi,rvi,prvi,mf3cf,mf3cc,dop,grvi
+tags=sar,polsar,dprvi,rvi,prvi,mf3cf,mf3cc,dop,grvi,decomposition,vegetation index, sarindex,
 
 homepage=https://github.com/Narayana-Rao/sar_tools/blob/master/README.md
 category=Plugins
