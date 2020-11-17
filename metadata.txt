@@ -30,7 +30,7 @@ homepage=https://github.com/Narayana-Rao/sar_tools/blob/master/README.md
 category=Plugins
 icon=icon.png
 # experimental flag
-experimental=True
+experimenta=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
