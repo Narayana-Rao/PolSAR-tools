@@ -6,7 +6,7 @@
 name=SAR tools
 qgisMinimumVersion=3.0
 description=This plugin generates derived SAR parameters from input polarimetric matrix (C3, T3, C2, T2).
-version=0.1
+version=0.4
 author=Narayanarao; Subhadip; Dipankar
 email=bnarayanarao@iitb.ac.in
 owners=bnarayanarao
@@ -30,7 +30,7 @@ homepage=https://github.com/Narayana-Rao/sar_tools/blob/master/README.md
 category=Plugins
 icon=icon.png
 # experimental flag
-experimental=True
+experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
