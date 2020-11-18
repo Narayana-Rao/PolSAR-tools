@@ -34,6 +34,7 @@ from .resources import *
 # Import the code for the dialog
 from .SAR_Tools_dialog import MRSLabDialog
 import os.path
+import sys
 # import os
 # import os
 from osgeo import gdal
@@ -49,6 +50,7 @@ from .mod_PRVI import PRVI
 from .mod_PRVI_dp import PRVI_dp
 from .mod_dop_fp import dop_FP
 from .mod_dop_dp import dop_dp
+from .mod_dop_cp import dop_cp
 #############################
 
 # Create a lock for multiprocess
@@ -285,9 +287,13 @@ class MRSLab(object):
         self.dlg.clear_terminal.clicked.connect(self.clear_log)
         self.dlg.pb_process.clicked.connect(self.startProcess)
         
+        
+        # self.dlg.pb_cancel.clicked.connect(self.cancel_fn)
+        # self.dlg.pb_cancel.clicked.connect(lambda: self.worker.stop())
         return action
     
     #@pyqtSlot()  
+    # Print the tab/polarimetric mode update to the logger 
     def ontabChange(self,i): #changed!
         if i==0:
             logger.append("->> Full-pol")
@@ -301,6 +307,8 @@ class MRSLab(object):
             logger.append("->> Dual-pol")
             pol_mode = i
             # logger.append(str(pol_mode))
+            
+    # update the T3/C3 or T2/C2 check relative to each other
     def fpt3_state_changed(self, i):
         # logger.append(str(i))
         if i==2:
@@ -346,7 +354,26 @@ class MRSLab(object):
 
 
             
+    def cancel_fn(self):
+        # try:
+        # sys.exit()
+        # sys.exitfunc()
+        # self.worker.delete()
+        # self.killed=self.worker.kill()
+        # 
+        # if self.killed:
+            # self.dlg.close()
+            # self.clear_log()
+            # raise UserAbortedNotification('USER Killed')
+        self.dlg.close()
+        # self.thread.wait()
+        # self.thread.delete()
+        # 
+        # except:
+            # self.dlg.close()
             
+        
+        
     def ws_update(self):
         
         if self.dlg.tabWidget.currentIndex()==0:
@@ -413,6 +440,13 @@ class MRSLab(object):
                 try:
                     logger.append('->> --------------------')
                     self.startNM3CC()
+                except:
+                    self.dtype_error()
+            
+            if indX==2:
+                try:
+                    logger.append('->> --------------------')
+                    self.startDOPCP()
                 except:
                     self.dtype_error()
 
@@ -507,10 +541,19 @@ class MRSLab(object):
                 self.dlg.cp_cb_C2.setChecked(True)
                 # self.dlg.cp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
+            
+            if parm == 2:
+                logger.append('->>     DOP')
+                self.dlg.inFolder_cp.setEnabled(True)
+                self.dlg.cp_browse.setEnabled(True)
+                self.dlg.cp_cb_C2.setChecked(True)
+                # self.dlg.cp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
 
             elif parm==0:
-                # self.dlg.inFolder_fp.setEnabled(False)
+                self.dlg.inFolder_cp.setEnabled(False)
                 self.dlg.pb_process.setEnabled(False)
+                self.dlg.cp_browse.setEnabled(False)
                 # self.dlg.fp_ws.setEnabled(False)
   
         if self.dlg.tabWidget.currentIndex() == 2:
@@ -896,6 +939,29 @@ class MRSLab(object):
         # worker.
 
 
+    def startDOPCP(self):        
+        self.dlg.terminal.append('->> Calculating DOP...')
+        tau = self.dlg.cp_cb_tau.currentIndex()
+            
+        worker = dop_cp(self.inFolder,self.C2_stack,self.ws,tau)
+
+        # start the worker in a new thread
+        thread = QtCore.QThread()
+        worker.moveToThread(thread)
+        # self.workerFinished =1
+        worker.finished.connect(self.workerFinished)
+        worker.error.connect(self.workerError)
+
+        worker.progress.connect(self.showmsg)
+        worker.pBar.connect(self.pBarupdate)
+        thread.started.connect(worker.run)
+        thread.start()
+        
+        self.thread = thread
+        self.worker = worker
+        # time.sleep(0.1)
+        # worker.
+        
     def startNM3CC(self):
         
         self.dlg.terminal.append('->> Calculating NM3CC...')
@@ -992,30 +1058,36 @@ class MRSLab(object):
         # log.append(str(signal))  
 
     def workerFinished(self,finish_cond):
+
+        # if finish_cond:
         logger = self.dlg.terminal
         logger.append('->> Process completed with ' +str(self.ws)+' x ' +str(self.ws)+' window ')
         # clean up the worker and thread
-        
+    
         # self.viewData() # Load data into QGIS
         #Open output folder after finishing the process
         path = os.path.realpath(self.inFolder)
         os.startfile(path)
+
         #set progress bar to Zero
         pB = self.dlg.progressBar
         pB.setValue(0)
+
         self.worker.deleteLater()
         self.thread.quit()
         self.thread.wait()
         self.thread.deleteLater()
 
         if finish_cond == 0:
+            # self.worke
             logger.append('->> Process stopped in between ! You are good to go again.')
 
     def workerError(self, e, exception_string):
         logger = self.dlg.terminal
         logger.append('->> :-( Error:\n\n %s' %str(exception_string))
     
-        
+class UserAbortedNotification(Exception):
+    pass 
         
         
         
