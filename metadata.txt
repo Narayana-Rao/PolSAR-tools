@@ -23,6 +23,10 @@ hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog= 
 
+	0.5
+	-MF3CF performance update
+	-Added Degree of Polarization (compact-pol)
+
 	0.4
 	-New UI
 	-DpRVI performance update

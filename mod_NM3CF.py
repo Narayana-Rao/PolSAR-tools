@@ -30,7 +30,17 @@ class NM3CF(QtCore.QObject):
         self.T3 = T3
         self.ws=ws
         self.killed = False
-       
+        
+    def conv2d(self,a, f):
+        filt = np.zeros(a.shape)
+        wspad = int(f.shape[0]/2)
+        s = f.shape + tuple(np.subtract(a.shape, f.shape) + 1)
+        strd = np.lib.stride_tricks.as_strided
+        subM = strd(a, shape = s, strides = a.strides * 2)
+        filt_data = np.einsum('ij,ijkl->kl', f, subM)
+        filt[wspad:wspad+filt_data.shape[0],wspad:wspad+filt_data.shape[1]] = filt_data
+        return filt
+    
     def run(self):
         finish_cond = 0
         try:
@@ -46,62 +56,73 @@ class NM3CF(QtCore.QObject):
                 t32_T1 = T3_stack[:,:,7]
                 t33_T1 = T3_stack[:,:,8]
                 
-                nrows  = np.shape(T3_stack)[1]
-                ncols = np.shape(T3_stack)[0]
                 
-                theta_FP = np.zeros((ncols,nrows))
-                Pd_FP = np.zeros((ncols,nrows))
-                Pv_FP = np.zeros((ncols,nrows))
-                Ps_FP = np.zeros((ncols,nrows))
+                kernel = np.ones((ws,ws),np.float32)/(ws*ws)
+
+            
+                t11_T1r = self.conv2d(np.real(t11_T1),kernel)
+                t11_T1i = self.conv2d(np.imag(t11_T1),kernel)
+                t11s = t11_T1r+1j*t11_T1i
+
+                t12_T1r = self.conv2d(np.real(t12_T1),kernel)
+                t12_T1i = self.conv2d(np.imag(t12_T1),kernel)
+                t12s = t12_T1r+1j*t12_T1i
+
+                t13_T1r = self.conv2d(np.real(t13_T1),kernel)
+                t13_T1i = self.conv2d(np.imag(t13_T1),kernel)
+                t13s = t13_T1r+1j*t13_T1i
+                self.pBar.emit(25)
+
+                t21_T1r = self.conv2d(np.real(t21_T1),kernel)
+                t21_T1i = self.conv2d(np.imag(t21_T1),kernel)
+                t21s = t21_T1r+1j*t21_T1i
+
+                t22_T1r = self.conv2d(np.real(t22_T1),kernel)
+                t22_T1i = self.conv2d(np.imag(t22_T1),kernel)
+                t22s = t22_T1r+1j*t22_T1i
+
+                t23_T1r = self.conv2d(np.real(t23_T1),kernel)
+                t23_T1i = self.conv2d(np.imag(t23_T1),kernel)
+                t23s = t23_T1r+1j*t23_T1i
+                
+                self.pBar.emit(35)
+                
+                t31_T1r = self.conv2d(np.real(t31_T1),kernel)
+                t31_T1i = self.conv2d(np.imag(t31_T1),kernel)
+                t31s = t31_T1r+1j*t31_T1i
+
+                t32_T1r = self.conv2d(np.real(t32_T1),kernel)
+                t32_T1i = self.conv2d(np.imag(t32_T1),kernel)
+                t32s = t32_T1r+1j*t32_T1i
+
+                t33_T1r = self.conv2d(np.real(t33_T1),kernel)
+                t33_T1i = self.conv2d(np.imag(t33_T1),kernel)
+                t33s = t33_T1r+1j*t33_T1i
+                
+                self.pBar.emit(52)
+                
+                det_T3 = t11s*(t22s*t33s-t23s*t32s)-t12s*(t21s*t33s-t23s*t31s)+t13s*(t21s*t32s-t22s*t31s)
+                trace_T3 = t11s + t22s + t33s
+                m1 = np.real(np.sqrt(1-(27*(det_T3/(trace_T3**3)))))
+                h = (t11s - t22s - t33s)
+                g = (t22s + t33s)
+                span = t11s + t22s + t33s
+                self.pBar.emit(75)
+                
+                val = (m1*span*h)/(t11s*g+m1**2*span**2);
+                thet = np.real(np.arctan(val))
+                # thet = np.rad2deg(thet)
+                theta_FP = np.rad2deg(thet)
+                self.pBar.emit(81)
+                
+                Ps_FP = (((m1*(span)*(1+np.sin(2*thet))/2)))
+                Pd_FP = (((m1*(span)*(1-np.sin(2*thet))/2)))
+                Pv_FP = (span*(1-m1))
                 
                 
-                # %% for window processing
-                wsi=wsj=ws
                 
-                inci=int(np.fix(wsi/2)) # Up & down movement margin from the central row
-                incj=int(np.fix(wsj/2)) # Left & right movement from the central column
-                # % Starting row and column fixed by the size of the patch extracted from the image of 21/10/1999
-                
-                starti=int(np.fix(wsi/2)) # Starting row for window processing
-                startj=int(np.fix(wsj/2)) # Starting column for window processing
-                
-                stopi= int(nrows-inci)-1 # Stop row for window processing
-                stopj= int(ncols-incj)-1 # Stop column for window processing
-                             
-                for ii in np.arange(startj,stopj+1):
-        
-                    # self.progress.emit(str(ii)+'/'+str(nrows))
-                    self.pBar.emit(int((ii/ncols)*100))
-                    for jj in np.arange(starti,stopi+1):
-                
-                        t11s = np.nanmean(t11_T1[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                        t12s = np.nanmean(t12_T1[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                        t13s = np.nanmean(t13_T1[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                        
-                        t21s = np.nanmean(t21_T1[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                        t22s = np.nanmean(t22_T1[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                        t23s = np.nanmean(t23_T1[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                        
-                        t31s = np.nanmean(t31_T1[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                        t32s = np.nanmean(t32_T1[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                        t33s = np.nanmean(t33_T1[ii-inci:ii+inci+1,jj-incj:jj+incj+1])#i sample
-                
-                        T_T1 = np.array([[t11s, t12s, t13s], [t21s, t22s, t23s], [t31s, t32s, t33s]])
-                        
-                        m1 = np.real(np.sqrt(1-(27*(np.linalg.det(T_T1)/(np.trace(T_T1)**3)))))
-                        h = (t11s - t22s - t33s)
-                        g = (t22s + t33s)
-                        span = t11s + t22s + t33s
-                        val = (m1*span*h)/(t11s*g+m1**2*span**2);
-                        thet = np.real(np.arctan(val))
-                        # thet = np.rad2deg(thet)
-                        theta_FP[ii,jj] = np.rad2deg(thet)
-                        Ps_FP[ii,jj] = (((m1*(span)*(1+np.sin(2*thet))/2)))
-                        Pd_FP[ii,jj] = (((m1*(span)*(1-np.sin(2*thet))/2)))
-                        Pv_FP[ii,jj] = (span*(1-m1))
-                        
-                
-                
+                self.pBar.emit(90)
+                self.progress.emit('>>> Writing files to disk...')
                 """Write files to disk"""
                 infile = self.iFolder+'/T11.bin'
                 
@@ -120,17 +141,7 @@ class NM3CF(QtCore.QObject):
                 self.pBar.emit(100)
                 self.progress.emit('>>> Finished MF3CF calculation!!')
                 
-            
-            
-            
-            def read_bin(file):
-            
-                # data, geodata=load_data(file_name, gdal_driver='GTiff')
-                ds = gdal.Open(file)
-                band = ds.GetRasterBand(1)
-                arr = band.ReadAsArray()
-                # [cols, rows] = arr.shape
-                return arr
+
             
             def write_bin(file,wdata,refData):
                 
