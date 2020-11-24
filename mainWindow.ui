@@ -158,7 +158,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <property name="movable">
       <bool>true</bool>
@@ -174,17 +174,11 @@
        <item row="1" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
-          <spacer name="horizontalSpacer_8">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Select parameter:</string>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
+          </widget>
          </item>
          <item>
           <widget class="QComboBox" name="fp_parm">
@@ -308,25 +302,18 @@
          </item>
         </layout>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="text">
-          <string>Select parameter &amp; Matrix folder</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
        <item row="4" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
             <widget class="QLineEdit" name="inFolder_fp">
+             <property name="toolTip">
+              <string>Select folder using '...' button</string>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
              <property name="clearButtonEnabled">
               <bool>true</bool>
              </property>
@@ -349,6 +336,22 @@
          </item>
         </layout>
        </item>
+       <item row="0" column="0">
+        <widget class="QPlainTextEdit" name="plainTextEdit">
+         <property name="plainText">
+          <string>
+GRVI: Generalized Radar Vegetation Index
+
+RVI: Radar Vegetation Index
+
+MF3CF: Model Free 3-component Scattering Power Decomposition 
+
+PRVI: Polarimetric Radar Vegetation Index
+
+DOP: Degree of polarization for Full Polarimetric SAR Data</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="cp_tab">
@@ -359,17 +362,11 @@
        <item row="1" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_18">
          <item>
-          <spacer name="horizontalSpacer_18">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Select parameter:</string>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
+          </widget>
          </item>
          <item>
           <widget class="QComboBox" name="cp_parm">
@@ -446,25 +443,15 @@
          </item>
         </layout>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="text">
-          <string>Select parameter &amp; Matrix folder</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
        <item row="4" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_16">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_17">
            <item>
             <widget class="QLineEdit" name="inFolder_cp">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
              <property name="clearButtonEnabled">
               <bool>true</bool>
              </property>
@@ -541,6 +528,16 @@
          </item>
         </layout>
        </item>
+       <item row="0" column="0">
+        <widget class="QPlainTextEdit" name="plainTextEdit_2">
+         <property name="plainText">
+          <string>
+MF3CC: Model Free 3-component Scattering Power Decomposition 
+
+DOP: Degree of polarization for Compact Polarimetric SAR Data</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="dp_tab">
@@ -551,17 +548,11 @@
        <item row="1" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_36">
          <item>
-          <spacer name="horizontalSpacer_36">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Select parameter:</string>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
+          </widget>
          </item>
          <item>
           <widget class="QComboBox" name="dp_parm">
@@ -626,19 +617,6 @@
          </item>
         </layout>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_12">
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="text">
-          <string>Select parameter &amp; Matrix folder</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_37">
          <item>
@@ -696,6 +674,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_34">
            <item>
             <widget class="QLineEdit" name="inFolder_dp">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
              <property name="clearButtonEnabled">
               <bool>true</bool>
              </property>
@@ -717,6 +698,20 @@
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPlainTextEdit" name="plainTextEdit_3">
+         <property name="plainText">
+          <string>
+DpRVI: Dual Polarimetric Radar Vegetation Index
+
+RVI: Radar Vegetation Index
+
+PRVI: Polarimetric Radar Vegetation Index
+
+DOP: Degree of polarization for Dual Polarimetric (XX/XY) SAR Data [(X, Y): (H, V) or, (V,H)]</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
