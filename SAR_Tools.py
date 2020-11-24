@@ -503,7 +503,7 @@ class MRSLab(object):
                 # self.dlg.fp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             elif parm == 2:
-                logger.append('->>      NM3CF')
+                logger.append('->>      MF3CF')
                 self.dlg.inFolder_fp.setEnabled(True)
                 self.dlg.fp_browse.setEnabled(True)
                 self.dlg.fp_cb_T3.setChecked(True)
@@ -535,7 +535,7 @@ class MRSLab(object):
             parm =self.dlg.cp_parm.currentIndex()
             # tau = self.dlg.cp_cb_tau.currentIndex()
             if parm == 1:
-                logger.append('->>     NM3CC')
+                logger.append('->>     MF3CC')
                 self.dlg.inFolder_cp.setEnabled(True)
                 self.dlg.cp_browse.setEnabled(True)
                 self.dlg.cp_cb_C2.setChecked(True)
@@ -964,7 +964,7 @@ class MRSLab(object):
         
     def startNM3CC(self):
         
-        self.dlg.terminal.append('->> Calculating NM3CC...')
+        self.dlg.terminal.append('->> Calculating MF3CC...')
         tau = self.dlg.cp_cb_tau.currentIndex()
             
         worker = NM3CC(self.inFolder,self.C2_stack,self.ws,tau)
@@ -1010,7 +1010,7 @@ class MRSLab(object):
             
     def startNM3CF(self):
         
-        self.dlg.terminal.append('->> Calculating NM3CF...')
+        self.dlg.terminal.append('->> Calculating MF3CF...')
         worker = NM3CF(self.inFolder,self.T3_stack,self.ws)
 
         # start the worker in a new thread
