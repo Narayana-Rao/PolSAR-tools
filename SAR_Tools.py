@@ -51,6 +51,7 @@ from .mod_PRVI_dp import PRVI_dp
 from .mod_dop_fp import dop_FP
 from .mod_dop_dp import dop_dp
 from .mod_dop_cp import dop_cp
+from .mod_CpRVI import CpRVI
 #############################
 
 # Create a lock for multiprocess
@@ -449,6 +450,13 @@ class MRSLab(object):
                     self.startDOPCP()
                 except:
                     self.dtype_error()
+                    
+            if indX==3:
+                try:
+                    logger.append('->> --------------------')
+                    self.startCPRVI()
+                except:
+                    self.dtype_error()
 
             else:
                 pass
@@ -549,7 +557,14 @@ class MRSLab(object):
                 self.dlg.cp_cb_C2.setChecked(True)
                 # self.dlg.cp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
-
+            
+            if parm == 3:
+                logger.append('->>    CpRVI')
+                self.dlg.inFolder_cp.setEnabled(True)
+                self.dlg.cp_browse.setEnabled(True)
+                self.dlg.cp_cb_C2.setChecked(True)
+                # self.dlg.cp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
             elif parm==0:
                 self.dlg.inFolder_cp.setEnabled(False)
                 self.dlg.pb_process.setEnabled(False)
@@ -920,6 +935,29 @@ class MRSLab(object):
     def startPRVI(self):  
         self.dlg.terminal.append('->> Calculating PRVI...')
         worker = PRVI(self.inFolder,self.T3_stack,self.ws)
+
+        # start the worker in a new thread
+        thread = QtCore.QThread()
+        worker.moveToThread(thread)
+        # self.workerFinished =1
+        worker.finished.connect(self.workerFinished)
+        worker.error.connect(self.workerError)
+
+        worker.progress.connect(self.showmsg)
+        worker.pBar.connect(self.pBarupdate)
+        thread.started.connect(worker.run)
+        thread.start()
+        
+        self.thread = thread
+        self.worker = worker
+        # time.sleep(0.1)
+        # worker.
+
+    def startCPRVI(self):        
+        self.dlg.terminal.append('->> Calculating CpRVI...')
+        tau = self.dlg.cp_cb_tau.currentIndex()
+            
+        worker = CpRVI(self.inFolder,self.C2_stack,self.ws,tau)
 
         # start the worker in a new thread
         thread = QtCore.QThread()

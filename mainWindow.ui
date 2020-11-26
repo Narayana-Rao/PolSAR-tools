@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>433</width>
-    <height>515</height>
+    <height>595</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -158,7 +158,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <property name="movable">
       <bool>true</bool>
@@ -385,6 +385,11 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
              <string>DOP</string>
             </property>
            </item>
+           <item>
+            <property name="text">
+             <string>CpRVI</string>
+            </property>
+           </item>
           </widget>
          </item>
          <item>
@@ -534,7 +539,9 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
           <string>
 MF3CC: Model Free 3-component Scattering Power Decomposition 
 
-DOP: Degree of polarization for Compact Polarimetric SAR Data</string>
+DOP: Degree of polarization for Compact Polarimetric SAR Data
+
+CpRVI: Compact-pol Radar Vegetation Index</string>
          </property>
         </widget>
        </item>
