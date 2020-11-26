@@ -158,7 +158,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="movable">
       <bool>true</bool>
@@ -393,6 +393,11 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
              <string>CpRVI</string>
             </property>
            </item>
+           <item>
+            <property name="text">
+             <string>iS-Omega</string>
+            </property>
+           </item>
           </widget>
          </item>
          <item>
@@ -420,16 +425,16 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
            <item>
             <widget class="QComboBox" name="cp_cb_tau">
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <item>
               <property name="text">
-               <string>LC (+45)</string>
+               <string>LC (+)</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>RC (-45)</string>
+               <string>RC (-)</string>
               </property>
              </item>
             </widget>
@@ -522,17 +527,47 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
           </layout>
          </item>
          <item>
-          <spacer name="horizontalSpacer_17">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;Ellipticity (&amp;tau;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="cp_sb_tau">
+           <property name="enabled">
+            <bool>false</bool>
            </property>
-          </spacer>
+           <property name="maximum">
+            <double>45.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>45.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_5">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;Orientation (&amp;theta;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="cp_sb_theta">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="maximum">
+            <double>90.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>45.000000000000000</double>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
