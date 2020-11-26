@@ -338,6 +338,9 @@
        </item>
        <item row="0" column="0">
         <widget class="QPlainTextEdit" name="plainTextEdit">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
          <property name="plainText">
           <string>
 GRVI: Generalized Radar Vegetation Index
@@ -535,6 +538,12 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
        </item>
        <item row="0" column="0">
         <widget class="QPlainTextEdit" name="plainTextEdit_2">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
          <property name="plainText">
           <string>
 MF3CC: Model Free 3-component Scattering Power Decomposition 
@@ -708,6 +717,9 @@ CpRVI: Compact-pol Radar Vegetation Index</string>
        </item>
        <item row="0" column="0">
         <widget class="QPlainTextEdit" name="plainTextEdit_3">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
          <property name="plainText">
           <string>
 DpRVI: Dual Polarimetric Radar Vegetation Index
