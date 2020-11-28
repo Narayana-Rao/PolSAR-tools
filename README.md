@@ -10,18 +10,21 @@ This plugin generates derived SAR parameters (viz. vegetation indices, polarimet
   - Generalized volume Radar Vegetation Index (GRVI)
   - Polarimetric Radar Vegetation Index (PRVI) (Full-pol and dual-pol) 
   - Dual-pol Radar Vegetation Index (DpRVI)
-  - Degree of Polarization (DOP) (Full-pol and dual-pol)
-
-  **Polarimetric Decomposition**
+  - Degree of Polarization (DOP) (Full-pol, dual-pol, and compact-pol)
+  - Compact-pol Radar Vegetation Index (CpRVI)
+  
+  **Polarimetric Decompositions**
   - Model free 3-Component decomposition for full-pol data (MF3CF).
   - Model free 3-Component decomposition for compact-pol data (MF3CC) 
 	
 ### References
-	
+
+Chang, J.G., Shoshany, M. and Oh, Y., 2018. Polarimetric Radar Vegetation Index for Biomass Estimation in Desert Fringe Ecosystems. IEEE Transactions on Geoscience and Remote Sensing, 56(12), pp.7102-7108.
+
 Ratha, D., Mandal, D., Kumar, V., McNairn, H., Bhattacharya, A. and Frery, A.C., 2019. A generalized volume scattering model-based vegetation index from polarimetric SAR data. IEEE Geoscience and Remote Sensing Letters, 16(11), pp.1791-1795.
 
 Dey, S., Bhattacharya, A., Ratha, D., Mandal, D. and Frery, A.C., 2020. Target Characterization and Scattering Power Decomposition for Full and Compact Polarimetric SAR Data. IEEE Transactions on Geoscience and Remote Sensing.
 
 Mandal, D., Kumar, V., Ratha, D., Dey, S., Bhattacharya, A., Lopez-Sanchez, J.M., McNairn, H. and Rao, Y.S., 2020. Dual polarimetric radar vegetation index for crop growth monitoring using sentinel-1 SAR data. Remote Sensing of Environment, 247, p.111954.
 
-Chang, J.G., Shoshany, M. and Oh, Y., 2018. Polarimetric Radar Vegetation Index for Biomass Estimation in Desert Fringe Ecosystems. IEEE Transactions on Geoscience and Remote Sensing, 56(12), pp.7102-7108.
+Mandal, D., Ratha, D., Bhattacharya, A., Kumar, V., McNairn, H., Rao, Y.S. and Frery, A.C., 2020. A Radar Vegetation Index for Crop Monitoring Using Compact Polarimetric SAR Data. IEEE Transactions on Geoscience and Remote Sensing.
