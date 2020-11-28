@@ -700,9 +700,28 @@ class MRSLab(object):
         self.dlg.progressBar.setValue(100)
         return T3_stack
     
+    def showDialog(self):
+       msgBox = QMessageBox()
+       msgBox.setIcon(QMessageBox.Information)
+       msgBox.setText("Please select a valid matrix folder \
+                      \n generated from PolSARpro \
+                      \n file format: *.bin, *.hdr")
+       msgBox.setWindowTitle("Tip!")
+       msgBox.setStandardButtons(QMessageBox.Ok)
+       # msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+       # msgBox.buttonClicked.connect(msgButtonClick)
+    
+       returnValue = msgBox.exec()
+       # if returnValue == QMessageBox.Ok:
+          # print('OK clicked')
+
+
+
+
     def openRaster(self):
         """Open raster from file dialog"""
         # logger.append(str(self.dlg.tabWidget.currentIndex()))
+        self.showDialog() # pop-up tip
         
         if self.dlg.tabWidget.currentIndex() == 0:
             self.inFolder = str(QFileDialog.getExistingDirectory(
