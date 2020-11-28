@@ -297,15 +297,15 @@ class MRSLab(object):
     # Print the tab/polarimetric mode update to the logger 
     def ontabChange(self,i): #changed!
         if i==0:
-            logger.append("->> Full-pol")
+            # logger.append("->> Full-pol")
             pol_mode = i            
             # logger.append(str(pol_mode))
         if i==1:
-            logger.append("->> Compact-pol")
+            # logger.append("->> Compact-pol")
             pol_mode = i
             # logger.append(str(pol_mode))
         if i==2:
-            logger.append("->> Dual-pol")
+            # logger.append("->> Dual-pol")
             pol_mode = i
             # logger.append(str(pol_mode))
             
@@ -386,7 +386,7 @@ class MRSLab(object):
         if self.ws%2==0:
             self.ws+=1
         # logger = self.dlg.terminal
-        logger.append('->> Window size: '+str(self.ws))
+        # logger.append('->> Window size: '+str(self.ws))
         
  
     def dtype_error(self):
@@ -504,14 +504,14 @@ class MRSLab(object):
         if self.dlg.tabWidget.currentIndex() == 0:
             parm =self.dlg.fp_parm.currentIndex()
             if parm == 1:
-                logger.append('->>      GRVI')
+                # logger.append('->>      GRVI')
                 self.dlg.inFolder_fp.setEnabled(True)
                 self.dlg.fp_browse.setEnabled(True)
                 self.dlg.fp_cb_T3.setChecked(True)
                 # self.dlg.fp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             elif parm == 2:
-                logger.append('->>      MF3CF')
+                # logger.append('->>      MF3CF')
                 self.dlg.inFolder_fp.setEnabled(True)
                 self.dlg.fp_browse.setEnabled(True)
                 self.dlg.fp_cb_T3.setChecked(True)
@@ -519,14 +519,14 @@ class MRSLab(object):
                 # self.dlg.fp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             elif parm == 3:
-                logger.append('->>      PRVI')
+                # logger.append('->>      PRVI')
                 self.dlg.inFolder_fp.setEnabled(True)
                 self.dlg.fp_browse.setEnabled(True)
                 self.dlg.fp_cb_T3.setChecked(True)
                 # self.dlg.fp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             elif parm == 4:
-                logger.append('->>      DOP')
+                # logger.append('->>      DOP')
                 self.dlg.inFolder_fp.setEnabled(True)
                 self.dlg.fp_browse.setEnabled(True)
                 self.dlg.fp_cb_T3.setChecked(True)
@@ -543,7 +543,7 @@ class MRSLab(object):
             parm =self.dlg.cp_parm.currentIndex()
             # tau = self.dlg.cp_cb_tau.currentIndex()
             if parm == 1:
-                logger.append('->>     MF3CC')
+                # logger.append('->>     MF3CC')
                 self.dlg.inFolder_cp.setEnabled(True)
                 self.dlg.cp_browse.setEnabled(True)
                 self.dlg.cp_cb_C2.setChecked(True)
@@ -551,7 +551,7 @@ class MRSLab(object):
                 self.dlg.pb_process.setEnabled(True)
             
             if parm == 2:
-                logger.append('->>     DOP')
+                # logger.append('->>     DOP')
                 self.dlg.inFolder_cp.setEnabled(True)
                 self.dlg.cp_browse.setEnabled(True)
                 self.dlg.cp_cb_C2.setChecked(True)
@@ -559,7 +559,7 @@ class MRSLab(object):
                 self.dlg.pb_process.setEnabled(True)
             
             if parm == 3:
-                logger.append('->>    CpRVI')
+                # logger.append('->>    CpRVI')
                 self.dlg.inFolder_cp.setEnabled(True)
                 self.dlg.cp_browse.setEnabled(True)
                 self.dlg.cp_cb_C2.setChecked(True)
@@ -575,21 +575,21 @@ class MRSLab(object):
             parm =self.dlg.dp_parm.currentIndex()
             
             if parm == 1:
-                logger.append('->>      DpRVI')
+                # logger.append('->>      DpRVI')
                 self.dlg.dp_cb_C2.setChecked(True)
                 self.dlg.inFolder_dp.setEnabled(True)
                 self.dlg.dp_browse.setEnabled(True)
                 # self.dlg.dp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             if parm == 2:
-                logger.append('->>      PRVI')
+                # logger.append('->>      PRVI')
                 self.dlg.dp_cb_C2.setChecked(True)
                 self.dlg.inFolder_dp.setEnabled(True)
                 self.dlg.dp_browse.setEnabled(True)
                 # self.dlg.dp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             if parm == 3:
-                logger.append('->>      DOP')
+                # logger.append('->>      DOP')
                 self.dlg.dp_cb_C2.setChecked(True)
                 self.dlg.inFolder_dp.setEnabled(True)
                 self.dlg.dp_browse.setEnabled(True)
