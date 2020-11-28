@@ -107,7 +107,7 @@ class CpRVI(QtCore.QObject):
                         
                         k11 = s0
                         k12 = 0
-                        k13 = (1/2)*s2
+                        k13 = s2
                         k14 = 0
                         k21 = k12 
                         k22 = 0
@@ -120,9 +120,9 @@ class CpRVI(QtCore.QObject):
                         k41 = k14; 
                         k42 = k24; 
                         k43 = k34; 
-                        k44 = (1/2)*s3;
+                        k44 = s3;
                 
-                        K_T = np.array([[k11,k12,k13,k14], [k21,k22,k23,k24], 
+                        K_T = 0.5*np.array([[k11,k12,k13,k14], [k21,k22,k23,k24], 
                             [k31, k32, k33, k34], [k41,k42,k43,k44]])       
         
                         # Stokes vector child products
