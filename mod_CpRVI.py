@@ -60,9 +60,9 @@ class CpRVI(QtCore.QObject):
                 l_lambda = np.zeros((ncols,nrows))
 
                 if self.tau==0:                    
-                    chi_in = -45.0
-                else:
                     chi_in = 45.0
+                else:
+                    chi_in = -45.0
                 self.pBar.emit(90)
 
                 
