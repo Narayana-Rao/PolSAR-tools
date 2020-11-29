@@ -37,7 +37,7 @@ changelog=
 	- Added Degree of Polarization (Full-pol and dual-pol)
 
 # Tags are comma separated with spaces allowed
-tags=sar,polsar,dprvi,rvi,prvi,cprvi,mf3cf,mf3cc,dop,grvi,decomposition,vegetation, vegetation index, sarindex, isomega, compctpol,dualpol,fullpol,mrslab
+tags=sar,polsar,dprvi,rvi,prvi,cprvi,mf3cf,mf3cc,dop,grvi,decomposition,vegetation, vegetation index, sarindex, isomega, compactpol,dualpol,fullpol,mrslab
 
 homepage=https://github.com/Narayana-Rao/sar_tools/blob/master/README.md
 category=Plugins
