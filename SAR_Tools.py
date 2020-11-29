@@ -272,7 +272,13 @@ class MRSLab(object):
         self.dlg.cp_cb_C2.stateChanged.connect(self.cpc2_state_changed)
         self.dlg.cp_browse.clicked.connect(self.openRaster)
         self.dlg.cp_ws.valueChanged.connect(self.ws_update)
-        self.dlg.cp_parm.currentIndexChanged.connect(self.Cob_parm) 
+        self.dlg.cp_parm.currentIndexChanged.connect(self.Cob_parm)
+        
+        self.psi_val=0
+        self.chi_val=45
+        self.dlg.cp_sb_psi.valueChanged.connect(self.psi_update)
+        self.dlg.cp_sb_chi.valueChanged.connect(self.chi_update)
+        
         """DP"""
         self.dlg.dp_cb_C2.setChecked(False)
         self.dlg.dp_cb_T2.setChecked(True)
@@ -375,7 +381,12 @@ class MRSLab(object):
             # self.dlg.close()
             
         
-        
+    def psi_update(self):
+        self.psi_val = float(self.dlg.cp_sb_psi.value())
+
+    def chi_update(self):
+        self.chi_val = float(self.dlg.cp_sb_chi.value())
+            
     def ws_update(self):
         
         if self.dlg.tabWidget.currentIndex()==0:
@@ -580,12 +591,16 @@ class MRSLab(object):
                 self.dlg.cp_browse.setEnabled(True)
                 self.dlg.cp_cb_C2.setChecked(True)
                 # self.dlg.cp_ws.setEnabled(True)
+                self.dlg.cp_sb_psi.setEnabled(True)
+                self.dlg.cp_sb_chi.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             
             elif parm==0:
                 self.dlg.inFolder_cp.setEnabled(False)
                 self.dlg.pb_process.setEnabled(False)
                 self.dlg.cp_browse.setEnabled(False)
+                self.dlg.cp_sb_psi.setEnabled(False)
+                self.dlg.cp_sb_chi.setEnabled(False)
                 # self.dlg.fp_ws.setEnabled(False)
   
         if self.dlg.tabWidget.currentIndex() == 2:
@@ -664,6 +679,8 @@ class MRSLab(object):
         # self.dlg.fp_browse.setEnabled(False)
         self.dlg.progressBar.setValue(0)
         self.dlg.fp_ws.setValue(5)
+        self.dlg.cp_sb_psi.setValue(0)
+        self.dlg.cp_sb_chi.setValue(45)
         # self.dlg.fp_ws.setEnabled(False)
         self.dlg.fp_parm.setCurrentIndex(0)
         self.dlg.cp_ws.setValue(5)
@@ -994,7 +1011,7 @@ class MRSLab(object):
         self.dlg.terminal.append('->> Calculating iS-Omega powers...')
         tau = self.dlg.cp_cb_tau.currentIndex()
             
-        worker = iS_Omega(self.inFolder,self.C2_stack,self.ws,tau)
+        worker = iS_Omega(self.inFolder,self.C2_stack,self.ws,tau,self.psi_val,self.chi_val)
 
         # start the worker in a new thread
         thread = QtCore.QThread()

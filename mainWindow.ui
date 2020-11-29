@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>433</width>
-    <height>595</height>
+    <height>614</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -438,12 +438,12 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
          <item>
           <widget class="QLabel" name="label_7">
            <property name="text">
-            <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;Ellipticity (&amp;tau;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;Ellipticity (&amp;chi;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QDoubleSpinBox" name="cp_sb_tau">
+          <widget class="QDoubleSpinBox" name="cp_sb_chi">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -451,7 +451,7 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
             <double>45.000000000000000</double>
            </property>
            <property name="value">
-            <double>0.000000000000000</double>
+            <double>45.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -461,17 +461,17 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
             <bool>true</bool>
            </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;Orientation (&amp;theta;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;Orientation (&amp;Psi;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QDoubleSpinBox" name="cp_sb_theta">
+          <widget class="QDoubleSpinBox" name="cp_sb_psi">
            <property name="enabled">
             <bool>false</bool>
            </property>
            <property name="maximum">
-            <double>90.000000000000000</double>
+            <double>180.000000000000000</double>
            </property>
            <property name="value">
             <double>0.000000000000000</double>
@@ -495,7 +495,9 @@ MF3CC: Model Free 3-component Scattering Power Decomposition
 
 DOP: Degree of polarization for Compact Polarimetric SAR Data
 
-CpRVI: Compact-pol Radar Vegetation Index</string>
+CpRVI: Compact-pol Radar Vegetation Index
+
+iS-Omega: Improved S-Omega decomposition for compact-pol data</string>
          </property>
         </widget>
        </item>

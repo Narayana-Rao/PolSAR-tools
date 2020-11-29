@@ -23,13 +23,15 @@ import os.path
 
 class iS_Omega(QtCore.QObject):
     '''DOP CP '''
-    def __init__(self,iFolder,C2,ws,tau):
+    def __init__(self,iFolder,C2,ws,tau,psi,chi):
         QtCore.QObject.__init__(self)
 
         self.iFolder = iFolder
         self.C2 = C2
         self.ws=ws
         self.tau=tau
+        self.chi=chi
+        self.psi=psi
         self.killed = False
         # self.mainObj = MRSLab()
         
@@ -49,11 +51,11 @@ class iS_Omega(QtCore.QObject):
             def iS_Omega_fn(C2_stack,ws):
 
                 if self.tau==0:                    
-                    chi_in = -45.0
+                    chi_in = -1*(self.chi)
                 else:
-                    chi_in = 45.0
+                    chi_in = self.chi
                 
-                psi_in = self.tau    
+                psi_in = self.psi    
                 ##--------------------------------------------
                 #Input chi_in (ellipticity)-45<chi<+45 ; keep default as -45 
                 #Input psi_in (orientation) 0<psi_in<180  --in UI it is denoted as tau; keep default as 0
