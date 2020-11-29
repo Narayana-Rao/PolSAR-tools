@@ -139,8 +139,8 @@ class iS_Omega(QtCore.QObject):
                 
                 # ## Improved S-Omega (i-SOmega powers
                 ind_g1 = (CPR>1).astype(int)
-                s_new_g1 = omega*s0 - omega*(1 - omega)*SC
-                db_new_g1 = omega*(1 - omega)*SC   ##depolarized of OC x polarized of SC
+                s_new_g1 = omega*(1 - omega)*OC
+                db_new_g1 = omega*s0 - omega*(1 - omega)*OC   ##depolarized of OC x polarized of SC
             
                 ind_l1 = (CPR<1).astype(int)
                 s_new_l1 = omega*s0 - omega*(1 - omega)*SC
