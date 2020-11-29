@@ -85,28 +85,88 @@ class iS_Omega(QtCore.QObject):
                 # m1 = np.real(np.sqrt(1.0-(4.0*c2_det/np.power(c2_trace,2))))
 
                 # Stokes Parameter
-                s0 = c11s + c22s;
-                s1 = c11s - c22s;
-                s2 = (c12s + c21s);
+                #s0 = c11s + c22s;
+                #s1 = c11s - c22s;
+                #s2 = (c12s + c21s);
+
+                #if (chi_in >= 0):
+                #    s3 = (1j*(c12s - c21s)); # The sign is according to RC or LC sign !!
+                #if (chi_in < 0):
+                #    s3 = -(1j*(c12s - c21s)); # The sign is according to RC or LC sign !!
+                    
+                # Stokes Parameter
+                s0 = np.float32(np.real(c11s + c22s))
+                s1 = np.float32(np.real(c11s - c22s))
+                s2 = np.float32(np.real(c12s + c21s))
 
                 if (chi_in >= 0):
-                    s3 = (1j*(c12s - c21s)); # The sign is according to RC or LC sign !!
+                    s3 = np.float32(np.real(1j*(c12s - c21s))) # The sign is according to RC or LC sign !!
                 if (chi_in < 0):
-                    s3 = -(1j*(c12s - c21s)); # The sign is according to RC or LC sign !!
+                    s3 = np.float32(np.real(-(1j*(c12s - c21s)))) # The sign is according to RC or LC sign !!
                 
-
-                dop= np.sqrt(np.power(s1,2) + np.power(s2,2) + np.power(s3,2))/(s0);
+                ## Stokes child parameters
+                SC = ((s0)-(s3))/2;
+                OC = ((s0)+(s3))/2;
+                #old_err_state = np.seterr(divide='raise')
+                #ignored_states = np.seterr(**old_err_state)
+                CPR = np.divide(SC,OC)  ##SC/OC
+                
+                ##scattered fields    
+                dop= np.sqrt(np.power(s1,2) + np.power(s2,2) + np.power(s3,2))/(s0)
+                Psi = 0.5*((180/np.pi)*np.arctan2(s2,s1))
+                DOCP = (-s3)/(dop*s0);
+                Chi = 0.5*((180/np.pi)*np.arcsin(DOCP))
+                ##---------------------------------
+                psi_in = self.tau
+                
+                ##---------------------------------
+                # Calculating Omega from S-Omega decomposition        
+                x1 = np.cos(2*chi_in*np.pi/180)*np.cos(2*psi_in*np.pi/180)*np.cos(2*Chi*np.pi/180)*np.cos(2*Psi*np.pi/180)
+                x2 = np.cos(2*chi_in*np.pi/180)*np.sin(2*psi_in*np.pi/180)*np.cos(2*Chi*np.pi/180)*np.sin(2*Psi*np.pi/180)
+                x3 = np.abs(np.sin(2*chi_in*np.pi/180)*np.sin(2*Chi*np.pi/180))
+                Prec =  dop*(1 + x1 + x2 + x3)
+                Prec1 = (1 - dop) + dop*(1 + x1 + x2 + x3)
+                omega = (Prec/Prec1)
+                
+                
+                ## Improved S-Omega (i-SOmega powers
+        
+                if (CPR > 1.0):
+                    surface_new = omega*s0 - omega*(1 - omega)*SC
+                    double_bounce_new = omega*(1 - omega)*SC   ##depolarized of OC x polarized of SC
+            
+                elif (CPR < 1.0):
+                    surface_new = omega*(1 - omega)*OC    ##depolarized of SC x polarized of OC
+                    double_bounce_new = omega*s0 - omega*(1 - omega)*OC
+            
+                elif (CPR == 1.0):
+                    surface_new = omega*OC
+                    double_bounce_new = omega*SC
+    
+                else:
+                    surface_new = np.nan
+                    double_bounce_new = np.nan
+                    diffused_new = np.nan
+        
+                diffused_new = (1 - omega)*s0; ##diffused scattering
+                
                 self.pBar.emit(90)                        
                 
                 self.progress.emit('->> Write files to disk...')
                 """Write files to disk"""
                 infile = self.iFolder+'/C11.bin'
                 
-                ofiledop = self.iFolder+'/DOP_CP.bin'
-                write_bin(ofiledop,dop,infile)
+                ofileps = self.iFolder+'/Ps_iSOmega.bin'
+                write_bin(ofileps,surface_new,infile)
+                
+                ofilepd = self.iFolder+'/Pd_iSOmega.bin'
+                write_bin(ofilepd,double_bounce_new,infile)
+                
+                ofilepv = self.iFolder+'/Pv_iSOmega.bin'
+                write_bin(ofilepv,diffused_new,infile)
                 
                 self.pBar.emit(100)
-                self.progress.emit('->> Finished DOP calculation!!')
+                self.progress.emit('->> Finished i-SOmega power calculation!!')
 
 
             
