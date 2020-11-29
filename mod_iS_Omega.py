@@ -51,9 +51,9 @@ class iS_Omega(QtCore.QObject):
             def iS_Omega_fn(C2_stack,ws):
 
                 if self.tau==0:                    
-                    chi_in = -1*(self.chi)
+                    chi_in = (self.chi)
                 else:
-                    chi_in = self.chi
+                    chi_in = -1*(self.chi)
                 
                 psi_in = self.psi    
                 ##--------------------------------------------
