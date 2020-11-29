@@ -55,8 +55,8 @@ class iS_Omega(QtCore.QObject):
                 
                 psi_in = self.tau    
                 ##--------------------------------------------
-                #Input chi_in (ellipticity)-45<chi<+45
-                #Input psi_in (orientation) 0<psi_in<180  --in UI it is denoted as tau
+                #Input chi_in (ellipticity)-45<chi<+45 ; keep default as -45 
+                #Input psi_in (orientation) 0<psi_in<180  --in UI it is denoted as tau; keep default as 0
 
                 kernel = np.ones((ws,ws),np.float32)/(ws*ws)
                 c11_T1 = C2_stack[:,:,0]
