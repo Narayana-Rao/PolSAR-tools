@@ -110,7 +110,7 @@ class iS_Omega(QtCore.QObject):
                 #old_err_state = np.seterr(divide='raise')
                 #ignored_states = np.seterr(**old_err_state)
                 CPR = np.divide(SC,OC)  ##SC/OC
-                
+                # CPR = SC/OC
                 ##scattered fields    
                 dop= np.sqrt(np.power(s1,2) + np.power(s2,2) + np.power(s3,2))/(s0)
                 Psi = 0.5*((180/np.pi)*np.arctan2(s2,s1))
@@ -128,27 +128,34 @@ class iS_Omega(QtCore.QObject):
                 Prec1 = (1 - dop) + dop*(1 + x1 + x2 + x3)
                 omega = (Prec/Prec1)
                 
+                self.pBar.emit(65)                        
                 
-                ## Improved S-Omega (i-SOmega powers
-        
-                if (CPR > 1.0):
-                    surface_new = omega*s0 - omega*(1 - omega)*SC
-                    double_bounce_new = omega*(1 - omega)*SC   ##depolarized of OC x polarized of SC
+                # ## Improved S-Omega (i-SOmega powers
+                ind_g1 = (CPR>1).astype(int)
+                s_new_g1 = omega*s0 - omega*(1 - omega)*SC
+                db_new_g1 = omega*(1 - omega)*SC   ##depolarized of OC x polarized of SC
             
-                elif (CPR < 1.0):
-                    surface_new = omega*(1 - omega)*OC    ##depolarized of SC x polarized of OC
-                    double_bounce_new = omega*s0 - omega*(1 - omega)*OC
+                ind_l1 = (CPR<1).astype(int)
+                s_new_l1 = omega*s0 - omega*(1 - omega)*SC
+                db_new_l1 = omega*(1 - omega)*SC   ##depolarized of OC x polarized of SC
             
-                elif (CPR == 1.0):
-                    surface_new = omega*OC
-                    double_bounce_new = omega*SC
+                ind_e1 = (CPR==1).astype(int)
+                s_new_e1 = omega*OC
+                db_new_e1 = omega*SC
+                
+                self.pBar.emit(80)                        
+                
+                surface_new = s_new_g1*ind_g1+s_new_l1*ind_l1+s_new_e1*ind_e1
+                double_bounce_new = db_new_g1*ind_g1+db_new_l1*ind_l1+db_new_e1*ind_e1
     
-                else:
-                    surface_new = np.nan
-                    double_bounce_new = np.nan
-                    diffused_new = np.nan
-        
+                
                 diffused_new = (1 - omega)*s0; ##diffused scattering
+                
+                self.pBar.emit(85)                        
+                
+                surface_new[surface_new==0] = np.nan
+                double_bounce_new[double_bounce_new==0] = np.nan
+                diffused_new[diffused_new==0] = np.nan
                 
                 self.pBar.emit(90)                        
                 
@@ -166,7 +173,7 @@ class iS_Omega(QtCore.QObject):
                 write_bin(ofilepv,diffused_new,infile)
                 
                 self.pBar.emit(100)
-                self.progress.emit('->> Finished i-SOmega power calculation!!')
+                self.progress.emit('->> Finished iS-Omega power calculation!!')
 
 
             
