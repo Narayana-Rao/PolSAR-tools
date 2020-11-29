@@ -52,6 +52,11 @@ class iS_Omega(QtCore.QObject):
                     chi_in = -45.0
                 else:
                     chi_in = 45.0
+                
+                psi_in = self.tau    
+                ##--------------------------------------------
+                #Input chi_in (ellipticity)-45<chi<+45
+                #Input psi_in (orientation) 0<psi_in<180  --in UI it is denoted as tau
 
                 kernel = np.ones((ws,ws),np.float32)/(ws*ws)
                 c11_T1 = C2_stack[:,:,0]
@@ -117,7 +122,7 @@ class iS_Omega(QtCore.QObject):
                 DOCP = (-s3)/(dop*s0);
                 Chi = 0.5*((180/np.pi)*np.arcsin(DOCP))
                 ##---------------------------------
-                psi_in = self.tau
+                #psi_in = self.tau
                 
                 ##---------------------------------
                 # Calculating Omega from S-Omega decomposition        
