@@ -34,7 +34,7 @@ bibliography: paper.bib
 With increasing number of Synthetic Aperture Radar satellite missions and datasets, the demand for processing tools is also increasing. However, to process Synthetic Aperture Radar data very limited free tools are available ([PolSARpro](https://earth.esa.int/web/polsarpro/home), [SNAP](https://step.esa.int/main/toolboxes/snap/)) with major concentration on pre-processing. In application user point of view there is a neccesity for tools to derive polarimetric descriptors like vegetation indices and decomposition parameters. In addition there are no free tools in a GIS platform, which is very much essential as remote sensing and GIS are highly inter-dependent.
   
 '''SAR tools''' plugin generates polarimetric descriptors (viz. vegetation indices, polarimetric decomposition parameters) from C3/T3/C2/T2 matrices obtained from PolSARpro The input data needs to be in PolSARpro format (*\*.bin and \*.hdr*).	
-The plug-in is coded in Python and is dependant of the Quantum GIS framework. More 	specifically, it makes use of following libraries (bundled with Quantum GIS): [numpy](https://numpy.org/), [gdal](https://gdal.org/) and [QGIS](https://qgis.org/en/site/index.html)core library.
+The plug-in is coded in Python and is dependant of the Quantum GIS framework. More 	specifically, it makes use of following libraries (bundled with Quantum GIS): [numpy](https://numpy.org/), [gdal](https://gdal.org/) and [QGIS](https://qgis.org/en/site/index.html) core library.
 
 # SAR tools Audience
 
