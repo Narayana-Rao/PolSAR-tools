@@ -35,6 +35,9 @@ With increasing number of Synthetic Aperture Radar satellite missions and datase
 ```SAR tools``` plugin generates polarimetric descriptors (viz. vegetation indices, polarimetric decomposition parameters) from C3/T3/C2/T2 matrices obtained from PolSARpro The input data needs to be in PolSARpro format (```*.bin``` and ```*.hdr```). 	
 The plug-in is coded in Python and is dependant of the Quantum GIS framework. More specifically, it makes use of following libraries (bundled with Quantum GIS): [numpy](https://numpy.org/), [gdal](https://gdal.org/) and [QGIS](https://qgis.org/en/site/index.html) core library.
 
+# Background
+The decomposition techniques which are incorporated in this QGIS based plugin are model-free, i.e. to compute the decomposition power components no prior assumptions on the volume models is considered. The conventional model-based methods utilize a typical hierarchical process to enumerate power components uses various branching conditions, leading to several limitations. In this regard, these decomposition techniques utilizes some roll-invariant target characterization parameters to decompose the total power into even bounce, odd bounce and diffused power components. The powers obtained from the proposed technique are guaranteed to be non-negative, with the total power being conserved.
+
 # SAR tools Audience
 
 **SAR tools** is intended for students, researchers and polarimetry experts who would like to derive different SAR descriptors, utilizing the ```QGIS``` and ```python``` ecosystem of diverse tools. Especially for non-domain and application users the plugin interface provides an easy way to process the pre-procesed SAR polarimetric data. 
