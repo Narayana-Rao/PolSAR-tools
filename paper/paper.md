@@ -19,7 +19,7 @@ authors:
   - name: Avik Bhattacharya
   	orcid: 0000-0001-6720-6108
   	affliation: 1
-  - name: Rao Y. S.
+  - name: Y. S. Rao
   	affliation: 1
 
 affiliations:
