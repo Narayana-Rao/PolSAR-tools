@@ -14,7 +14,7 @@ authors:
   	orcid: 0000-0002-4979-0192
   	affliation: 1
   - name: Dipankar Mandal
-  	orcid:
+  	orcid: 0000-0001-8407-7125
   	affliation: 1
   - name: Avik Bhattacharya
   	orcid:
@@ -37,6 +37,9 @@ The plug-in is coded in Python and is dependant of the Quantum GIS framework. Mo
 
 # Background
 The polarimetric decomposition techniques which are incorporated in this QGIS based plugin are model-free, i.e. to compute the decomposition power components no prior assumptions on the volume models is considered. The conventional model-based methods utilize a typical hierarchical process to enumerate power components uses various branching conditions, leading to several limitations. In this regard, these decomposition techniques utilizes some roll-invariant target characterization parameters to decompose the total power into even bounce, odd bounce and diffused power components. The powers obtained from the proposed technique are guaranteed to be non-negative, with the total power being conserved.
+
+Vegetation indices are often used as a proxy to plant growth. While appreciating the potential of vegetation indices derived from optical remote sensing sensors, regional to global products have been supported for operational uses. The Earth Observation (EO) community is relying upon the Synthetic Aperture Radar (SAR) imaging technology due to its all-weather imaging capability among its numerous advantages. The radar images are presently processed by several downstream users and are more frequently interpreted by non-radar specialists. This shift in paradigm offers the utility of radar-derived vegetation indices quintessential towards the goal of Analysis Ready Data (ARD) products. Recently, we proposed three vegetation indices namely GRVI (Generalized Radar Vegetation Index) [@ratha2019generalized], CpRVI (Compact-pol Radar Vegetation Index) [@mandal2020radar], and Dual-pol Radar Vegetation Index (DpRVI) [@mandal2020dual] for distinct acquisition modes. The vegetation indices have indicated an opportunity to directly estimate biophysical parameters from vegetation index images with fitted models. The retrieval of biophysical parameters from SAR observations is of vital importance for in-season monitoring of crop growth. 
+
 
 # SAR tools Audience
 
