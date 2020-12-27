@@ -65,6 +65,6 @@ The key functionality of **SAR tools** is organized into three modules:
     - Degree of Polarization (DOP) [@barakat1977degree]
 
 # Acknowledgements
-The authors would like to thank the developers of [QGIS Plugin Builder](https://github.com/g-sherman/Qgis-Plugin-Builder). 
+The authors would like to thank the developers of [QGIS Plugin Builder](https://github.com/g-sherman/Qgis-Plugin-Builder). Authors acknowledge the GEO-AWS Earth Observation Cloud Credits Program, which supported the computation, development, and testing of 'SARtools' on AWS cloud platform through the project: 'AWS4AgriSAR-Crop inventory mapping from SAR data on cloud computing platform.'
 	
 # References
