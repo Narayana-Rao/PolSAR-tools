@@ -5,28 +5,28 @@ tags:
   - QGIS
   - Vegetation indices
   - Polarimetric decompositions
-  
 authors:
   - name: Narayanarao Bhogapurapu
     orcid: 0000-0002-6496-7283
     affiliation: 1
   - name: Subhadip Dey
-  	orcid: 0000-0002-4979-0192
-  	affliation: 1
+    orcid: 0000-0002-4979-0192
+    affliation: 1
   - name: Dipankar Mandal
-  	orcid: 0000-0001-8407-7125
-  	affliation: 1
+    orcid: 0000-0001-8407-7125
+    affliation: 1
   - name: Avik Bhattacharya
-  	orcid: 0000-0001-6720-6108
-  	affliation: 1
+    orcid: 0000-0001-6720-6108
+    affliation: 1
   - name: Y. S. Rao
-  	affliation: 1
-
+    affliation: 1
 affiliations:
  - name: Microwave Remote Sensing Lab, Centre of Studies in Resources Engineering, Indian Institute of Technology Bombay, Mumbai-400076, India
    index: 1
+
 date: 2 December 2020
 bibliography: paper.bib
+
 ---
 
 # Summary
@@ -48,7 +48,7 @@ Recently, we proposed three vegetation indices: ```GRVI``` (Generalized Radar Ve
 
 # SAR tools Functionality
 
-The key functionality of **SAR tools** is organized into three modules to handle the data from three different modes of SAR : 
+The functionalities of ```SAR tools``` are organized into three modules to handle the data from three different SAR polarization modes. The following is the list of the available functions in the ```SAR tool```:
 
 * Full-pol : 
     * Radar Vegetation Index (RVI) [@Kim_2009]
