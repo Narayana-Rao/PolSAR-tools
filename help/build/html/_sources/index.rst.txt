@@ -5,10 +5,14 @@
 
 Welcome to SAR tools's documentation!
 =====================================
+SAR tools is a QGIS plugin, which generates derived SAR parameters ( vegetation indices, polarimetric decomposition parameters) from input polarimetric matrix (C3, T3, C2, T2).
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
+
+   files/General_Information
+   files/functions_description
 
 
 
@@ -18,3 +22,7 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+About
+=====
+SAR tools is licensed under the GPL-3.0 license.
