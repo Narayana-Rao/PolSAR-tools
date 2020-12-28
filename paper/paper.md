@@ -48,23 +48,24 @@ Recently, we proposed three vegetation indices: ```GRVI``` (Generalized Radar Ve
 
 # SAR tools Functionality
 
-The key functionality of **SAR tools** is organized into three modules:
-  - **Full-pol**: 
-    - Radar Vegetation Index (RVI) [@Kim_2009]
-    - Generalized volume Radar Vegetation Index (GRVI) [@ratha2019generalized]
-    - Polarimetric Radar Vegetation Index (PRVI) [@chang2018polarimetric] 
-    - Model free 3-Component decomposition for full-pol data (MF3CF) [@dey2020target]
-    - Degree of Polarization (DOP) [@barakat1977degree]
-  - **Compact-pol**:
-    - Model free 3-Component decomposition for compact-pol data (MF3CC) [@dey2020target]
-    - Improved S-Omega decomposition for compact-pol data (iS-Omega) [@kumar2020crop]
-    - Compact-pol Radar Vegetation Index (CpRVI) [@mandal2020radar]
-    - Degree of Polarization (DOP) 
-  - **Dual-pol**:
-    - Radar Vegetation Index (RVI) [@trudel2012using]
-    - Dual-pol Radar Vegetation Index (DpRVI) [@mandal2020dual], 
-    - Polarimetric Radar Vegetation Index (PRVI) 
-    - Degree of Polarization (DOP) [@barakat1977degree]
+The key functionality of **SAR tools** is organized into three modules to handle the data from three different modes of SAR : 
+
+* Full-pol : 
+    * Radar Vegetation Index (RVI) [@Kim_2009]
+    * Generalized volume Radar Vegetation Index (GRVI) [@ratha2019generalized]
+    * Polarimetric Radar Vegetation Index (PRVI) [@chang2018polarimetric] 
+    * Model free 3-Component decomposition for full-pol data (MF3CF) [@dey2020target]
+    * Degree of Polarization (DOP) [@barakat1977degree]
+* Compact-pol :
+    * Model free 3-Component decomposition for compact-pol data (MF3CC) [@dey2020target]
+    * Improved S-Omega decomposition for compact-pol data (iS-Omega) [@kumar2020crop]
+    * Compact-pol Radar Vegetation Index (CpRVI) [@mandal2020radar]
+    * Degree of Polarization (DOP) 
+ * Dual-pol :
+    * Radar Vegetation Index (RVI) [@trudel2012using]
+    * Dual-pol Radar Vegetation Index (DpRVI) [@mandal2020dual], 
+    * Polarimetric Radar Vegetation Index (PRVI) 
+    * Degree of Polarization (DOP) [@barakat1977degree]
 
 # Acknowledgements
 The authors would like to thank the developers of [QGIS Plugin Builder](https://github.com/g-sherman/Qgis-Plugin-Builder). Authors acknowledge the [GEO-AWS Earth Observation Cloud Credits Program](https://www.earthobservations.org/aws.php), which supported the computation, development, and testing of ```SAR tools``` on AWS cloud platform through the project: ```AWS4AgriSAR-Crop inventory mapping from SAR data on cloud computing platform.```
