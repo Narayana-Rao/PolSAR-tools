@@ -12,6 +12,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Functions Description" href="functions_description.html" />
@@ -32,10 +33,13 @@
             
   <div class="section" id="general-information">
 <h1>General Information<a class="headerlink" href="#general-information" title="Permalink to this headline">¶</a></h1>
-<p>This plugin generates derived SAR parameters (viz. vegetation indices, polarimetric decomposition parameters) from input polarimetric matrix (C3, T3, C2, T2). The input data needs to be in [PolSARpro](<a class="reference external" href="https://earth.esa.int/web/polsarpro/home)/[ENVI](https://www.l3harrisgeospatial.com/Software-Technology/ENVI">https://earth.esa.int/web/polsarpro/home)/[ENVI](https://www.l3harrisgeospatial.com/Software-Technology/ENVI</a>) format (*.bin and *.hdr). It requires [numpy](<a class="reference external" href="https://numpy.org/">https://numpy.org/</a>), [matplotlib](<a class="reference external" href="https://matplotlib.org/">https://matplotlib.org/</a>) python libraries pre-installed.</p>
+<p>This plugin generates derived SAR parameters (viz. vegetation indices, polarimetric decomposition parameters) from input polarimetric matrix (C3, T3, C2, T2). The input data needs to be in <a class="reference external" href="https://earth.esa.int/web/polsarpro/home">PolSARpro</a>/<a class="reference external" href="https://www.l3harrisgeospatial.com/Software-Technology/ENVI">ENVI</a> format (*.bin and *.hdr). It requires <a class="reference external" href="https://numpy.org/">numpy</a>, <a class="reference external" href="https://matplotlib.org/">matplotlib</a> python libraries pre-installed.</p>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>&gt; <strong>__Note:__</strong> SAR tools requires QGIS version &gt;=3.0.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SAR tools requires QGIS version &gt;=3.0.</p>
+</div>
 <ul class="simple">
 <li><dl class="simple">
 <dt>The easiest way (requires internet connection) :</dt><dd><ul>
@@ -46,7 +50,7 @@
 </li>
 <li><dl class="simple">
 <dt>Alternative way (offline installation) :</dt><dd><ul>
-<li><p>Go to [releases](<a class="reference external" href="https://github.com/Narayana-Rao/SAR-tools/releases">https://github.com/Narayana-Rao/SAR-tools/releases</a>) of this repository -&gt; select desired version -&gt; download the <code class="docutils literal notranslate"><span class="pre">`.zip`</span></code> file.</p></li>
+<li><p>Go to <a class="reference external" href="https://github.com/Narayana-Rao/SAR-tools/releases">releases</a> of SAR tools -&gt; select desired version -&gt; download the <code class="docutils literal notranslate"><span class="pre">`.zip`</span></code> file.</p></li>
 <li><p>Open QGIS -&gt; Plugins -&gt; Manage and Install Plugins… -&gt; <code class="docutils literal notranslate"><span class="pre">`install</span> <span class="pre">from</span> <span class="pre">ZIP`</span></code> tab –&gt; select the downloaded zip –&gt; install plugin (ignore warnings, if any).</p></li>
 </ul>
 </dd>
@@ -74,7 +78,7 @@
 <dt>Polarimetric Decompositions :</dt><dd><ul>
 <li><p>Model free 3-Component decomposition for full-pol data (MF3CF).</p></li>
 <li><p>Model free 3-Component decomposition for compact-pol data (MF3CC)</p></li>
-<li><p>Improved S-Omega decomposition for compact-pol data (iS-Omega)</p></li>
+<li><p>Improved S-Omega decomposition for compact-pol data (iS-Omega</p></li>
 </ul>
 </dd>
 </dl>
