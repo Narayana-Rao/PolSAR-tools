@@ -17,12 +17,12 @@ SAR tools is a QGIS plugin, which generates derived SAR parameters ( vegetation 
 
 
 
-Indices and tables
-==================
+.. Indices and tables
+.. ==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
 
 About
 =====
