@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DpRVI &mdash; SAR tools v0.6 documentation</title>
+  <title>GRVI &mdash; SAR tools v0.6 documentation</title>
   
 
   
@@ -37,8 +37,7 @@
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="CpRVI" href="../compact_pol/cprvi.html" />
-    <link rel="prev" title="RVI dual-pol" href="RVI_dp.html" /> 
+    <link rel="prev" title="RVI full-pol" href="RVI_fp.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,9 +85,14 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../General_Information.html">General Information</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../functions_description.html">Functions Description</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../References.html">References</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">DpRVI</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../functions_description.html">Functions Description</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../functions_description.html#dual-pol">Dual pol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../functions_description.html#compact-pol">Compact pol</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../functions_description.html#full-pol">Full pol</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="RVI_fp.html">RVI full-pol</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">GRVI</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -139,13 +143,13 @@
         
           <li><a href="../../functions_description.html">Functions Description</a> &raquo;</li>
         
-      <li>DpRVI</li>
+      <li>GRVI</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/files/functions/dual_pol/DpRVI.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/files/functions/full_pol/GRVI.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -158,12 +162,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="dprvi">
-<h1>DpRVI<a class="headerlink" href="#dprvi" title="Permalink to this headline">¶</a></h1>
-<p>Dual-pol Radar Vegetation Index <span id="id1">[<a class="reference internal" href="../../General_Information.html#id3"><span>MKR+20</span></a>]</span>.</p>
+  <div class="section" id="grvi">
+<h1>GRVI<a class="headerlink" href="#grvi" title="Permalink to this headline">¶</a></h1>
+<p>Generalized volume Radar Vegetation Index for full-pol SAR data.</p>
 <div class="math notranslate nohighlight">
-\[\text{DpRVI} = 1- m \beta\]</div>
-<p id="id2"></p>
+\[\text{GRVI} = \left(1 - \text{GD}_{\text{GV}}\right)\Big(\frac{p}{q}\Big)^{2\,\text{GD}_{\text{GV}}}, \quad 0\le \text{GRVI} \le 1\]</div>
+<p>where, <span class="math notranslate nohighlight">\(\text{GD}_{\text{GV}}\)</span> is the geodesic distance between Kennaugh <span class="math notranslate nohighlight">\((\mathbf{K})\)</span> matrices of the observed and the generalized volume scattering model, <span class="math notranslate nohighlight">\(p,q\)</span> are minimum and maximum value of distances between <span class="math notranslate nohighlight">\(\mathbf{K}\)</span> matrices of the observed and elementary targets respectively. A detailed explanation of GRVI is available in~cite{ratha2019generalized}</p>
 </div>
 
 
@@ -174,10 +178,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../compact_pol/cprvi.html" class="btn btn-neutral float-right" title="CpRVI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="RVI_dp.html" class="btn btn-neutral float-left" title="RVI dual-pol" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="RVI_fp.html" class="btn btn-neutral float-left" title="RVI full-pol" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

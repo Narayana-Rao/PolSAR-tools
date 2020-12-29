@@ -27,4 +27,6 @@ Full pol
     :maxdepth: 3
 
     functions/full_pol/RVI_fp
+    functions/full_pol/GRVI
  
+

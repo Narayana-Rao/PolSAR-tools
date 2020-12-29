@@ -13,6 +13,7 @@ SAR tools is a QGIS plugin, which generates derived SAR parameters ( vegetation 
 
    files/General_Information
    files/functions_description
+   files/References
 
 
 

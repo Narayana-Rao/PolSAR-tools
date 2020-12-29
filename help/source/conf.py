@@ -31,7 +31,7 @@ release = 'v0.6'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-'sphinx_rtd_theme'
+	'sphinx_rtd_theme',
     # 'sphinx.ext.mathjax',
     # 'sphinx.ext.ifconfig',
     # 'sphinx.ext.viewcode',
@@ -43,7 +43,7 @@ extensions = [
     # #    'nbsphinx',
     # 'sphinx.ext.napoleon',
     # 'sphinx.ext.autosectionlabel',
-    # 'sphinxcontrib.bibtex'
+    'sphinxcontrib.bibtex'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -83,3 +83,4 @@ html_static_path = ['_static']
 #     'includehidden': True,
 #     'titles_only': False
 # }
+bibtex_bibfiles = ['files/ref.bib']

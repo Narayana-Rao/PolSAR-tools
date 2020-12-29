@@ -23,7 +23,7 @@ Available functionalities:
 
   * Indices :
   	* Radar Vegetation Index (RVI) (Full-pol and dual-pol)
-  	* Generalized volume Radar Vegetation Index (GRVI)
+  	* Generalized volume Radar Vegetation Index (GRVI) :cite:`ratha2019generalized`
   	* Polarimetric Radar Vegetation Index (PRVI) (Full-pol and dual-pol) 
   	* Dual-pol Radar Vegetation Index (DpRVI)
   	* Degree of Polarization (DOP) (Full-pol, dual-pol, and compact-pol)
@@ -33,6 +33,11 @@ Available functionalities:
   	* Model free 3-Component decomposition for full-pol data (MF3CF).
   	* Model free 3-Component decomposition for compact-pol data (MF3CC) 
   	* Improved S-Omega decomposition for compact-pol data (iS-Omega
+
+
+.. bibliography:: ref.bib
+    :cited:
+
 
 .. _PolSARpro: https://earth.esa.int/web/polsarpro/home
 .. _ENVI: https://www.l3harrisgeospatial.com/Software-Technology/ENVI
