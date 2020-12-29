@@ -10,6 +10,7 @@ Dual pol
 
     functions/dual_pol/RVI_dp
     functions/dual_pol/DpRVI
+    functions/dual_pol/DOP_dp
 
 Compact pol
 ----------------------
@@ -18,6 +19,8 @@ Compact pol
     :maxdepth: 3
 
     functions/compact_pol/cprvi
+    functions/compact_pol/iS_Omega
+    functions/compact_pol/MF3CC
 
 
 Full pol
@@ -28,5 +31,6 @@ Full pol
 
     functions/full_pol/RVI_fp
     functions/full_pol/GRVI
+    functions/full_pol/MF3CF
  
 

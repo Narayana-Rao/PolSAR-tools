@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DpRVI &mdash; SAR tools v0.6 documentation</title>
+  <title>DOP dual-pol &mdash; SAR tools v0.6 documentation</title>
   
 
   
@@ -37,8 +37,8 @@
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="DOP dual-pol" href="DOP_dp.html" />
-    <link rel="prev" title="RVI dual-pol" href="RVI_dp.html" /> 
+    <link rel="next" title="CpRVI" href="../compact_pol/cprvi.html" />
+    <link rel="prev" title="DpRVI" href="DpRVI.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,8 +89,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../functions_description.html">Functions Description</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../functions_description.html#dual-pol">Dual pol</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="RVI_dp.html">RVI dual-pol</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">DpRVI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="DOP_dp.html">DOP dual-pol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DpRVI.html">DpRVI</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">DOP dual-pol</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../functions_description.html#compact-pol">Compact pol</a></li>
@@ -146,13 +146,13 @@
         
           <li><a href="../../functions_description.html">Functions Description</a> &raquo;</li>
         
-      <li>DpRVI</li>
+      <li>DOP dual-pol</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/files/functions/dual_pol/DpRVI.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/files/functions/dual_pol/DOP_dp.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -165,16 +165,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="dprvi">
-<h1>DpRVI<a class="headerlink" href="#dprvi" title="Permalink to this headline">¶</a></h1>
-<p>Dual-pol Radar Vegetation Index <span id="id1">[<a class="reference internal" href="../../General_Information.html#id3"><span>MKR+20</span></a>]</span>.</p>
-<div class="math notranslate nohighlight">
-\[\text{DpRVI} = 1- \text{DOP}_{dp}\Big(\frac{\lambda_1}{\lambda_1+\lambda_2}\Big)\]</div>
-<p>where,</p>
+  <div class="section" id="dop-dual-pol">
+<h1>DOP dual-pol<a class="headerlink" href="#dop-dual-pol" title="Permalink to this headline">¶</a></h1>
+<p>Degree of Polarization for dual-pol SAR data.</p>
 <div class="math notranslate nohighlight">
 \[\text{DOP}_{dp} = \sqrt{1-\frac{4\times \text{det ([C2])}}{\text{(Trace [C2])}^2}}\]</div>
-<p><span class="math notranslate nohighlight">\(\text{[C2]}\)</span> is co-variance matrix,  and <span class="math notranslate nohighlight">\(\lambda_1, \lambda_2\)</span> are the eigen values of <span class="math notranslate nohighlight">\(\langle\mathbf{[C2]}\rangle\)</span> matrix in descending order.</p>
-<p id="id2"></p>
+<p>where <span class="math notranslate nohighlight">\(\text{[C2]}\)</span> is co-variance matrix.</p>
 </div>
 
 
@@ -185,10 +181,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="DOP_dp.html" class="btn btn-neutral float-right" title="DOP dual-pol" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../compact_pol/cprvi.html" class="btn btn-neutral float-right" title="CpRVI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="RVI_dp.html" class="btn btn-neutral float-left" title="RVI dual-pol" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="DpRVI.html" class="btn btn-neutral float-left" title="DpRVI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

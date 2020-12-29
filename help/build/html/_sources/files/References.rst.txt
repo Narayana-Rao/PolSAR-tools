@@ -1,10 +1,6 @@
 References
 ----------
 
-Documentation of the classes and functions of the models.
+References of the research work used in this plugin.
 
-.. toctree::
-   :maxdepth: 3
-
-   functions/dual_pol/DpRVI
 
