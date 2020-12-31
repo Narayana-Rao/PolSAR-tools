@@ -13,26 +13,26 @@ jobs:
     - uses: ammaraskar/sphinx-action@0.4
       with:
         pre-build-command: python -m pip install -r help/requirements.txt
-        docs-folder: "help/source/"
+        docs-folder: "help/"
     # Example of using a custom build-command.
     - uses: ammaraskar/sphinx-action@0.4
       with:
-        build-command: "sphinx-build -b html . build"
-        docs-folder: "help/source/"
-    # Grabbing custom dependencies and building as a pdf.
-    - uses: ammaraskar/sphinx-action@0.4
-      with:
-        pre-build-command: "apt-get update -y && apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended"
-        build-command: "make latexpdf"
-        docs-folder: "help/source/"
-    # Great extra actions to compose with:
-    # Create an artifact of the html output.
-    - uses: actions/upload-artifact@v1
-      with:
-        name: DocumentationHTML
-        path: help/build/html/
-    # Create an artifact out of the previously built pdf.
-    - uses: actions/upload-artifact@v1
-      with:
-        name: Documentation
-        path: help/build/latex/pdfexample.pdf
+        build-command: "sphinx-build -b html"
+        docs-folder: "help/"
+#     # Grabbing custom dependencies and building as a pdf.
+#     - uses: ammaraskar/sphinx-action@0.4
+#       with:
+#         pre-build-command: "apt-get update -y && apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended"
+#         build-command: "make latexpdf"
+#         docs-folder: "help/source/"
+#     # Great extra actions to compose with:
+#     # Create an artifact of the html output.
+#     - uses: actions/upload-artifact@v1
+#       with:
+#         name: DocumentationHTML
+#         path: help/build/html/
+#     # Create an artifact out of the previously built pdf.
+#     - uses: actions/upload-artifact@v1
+#       with:
+#         name: Documentation
+#         path: help/build/latex/pdfexample.pdf
