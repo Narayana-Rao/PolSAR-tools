@@ -12,7 +12,7 @@ jobs:
     # Standard drop-in approach that should work for most people.
     - uses: ammaraskar/sphinx-action@master
       with:
-        pre-build-command: python -m pip install sphinx-rtd-theme
+        pre-build-command: python -m pip install -r help/requirements.txt
         docs-folder: "help/"
     # Example of using a custom build-command.
     - uses: ammaraskar/sphinx-action@master
