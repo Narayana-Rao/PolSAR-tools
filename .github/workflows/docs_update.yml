@@ -13,7 +13,7 @@ jobs:
     - uses: ammaraskar/sphinx-action@0.4
       with:
         pre-build-command: python -m pip install -r help/requirements.txt
-        docs-folder: "help/source/"
+        docs-folder: "help/"
     # Example of using a custom build-command.
     - uses: ammaraskar/sphinx-action@0.4
       with:
