@@ -10,17 +10,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     # Standard drop-in approach that should work for most people.
-    - uses: ammaraskar/sphinx-action@master
+    - uses: ammaraskar/sphinx-action@0.4
       with:
         pre-build-command: python -m pip install -r help/requirements.txt
         docs-folder: "help/source/"
     # Example of using a custom build-command.
-    - uses: ammaraskar/sphinx-action@master
+    - uses: ammaraskar/sphinx-action@0.4
       with:
         build-command: "sphinx-build -b html . build"
         docs-folder: "help/source/"
     # Grabbing custom dependencies and building as a pdf.
-    - uses: ammaraskar/sphinx-action@master
+    - uses: ammaraskar/sphinx-action@0.4
       with:
         pre-build-command: "apt-get update -y && apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended"
         build-command: "make latexpdf"
