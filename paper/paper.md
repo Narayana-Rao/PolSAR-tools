@@ -62,7 +62,7 @@ The functionalities of ```SAR tools``` are organized into three modules to handl
     * Compact-pol Radar Vegetation Index (CpRVI) [@mandal2020radar]
     * Degree of Polarization (DOP) 
  * Dual-pol :
-    * Radar Vegetation Index (RVI) [@trudel2012using]
+    * Radar Vegetation Index (RVI) 
     * Dual-pol Radar Vegetation Index (DpRVI) [@mandal2020dual], 
     * Polarimetric Radar Vegetation Index (PRVI) 
     * Degree of Polarization (DOP) [@barakat1977degree]
