@@ -11,15 +11,15 @@ authors:
     affiliation: 1
   - name: Subhadip Dey
     orcid: 0000-0002-4979-0192
-    affliation: 1
+    affiliation: 1
   - name: Dipankar Mandal
     orcid: 0000-0001-8407-7125
-    affliation: 1
+    affiliation: 1
   - name: Avik Bhattacharya
     orcid: 0000-0001-6720-6108
-    affliation: 1
+    affiliation: 1
   - name: Y. S. Rao
-    affliation: 1
+    affiliation: 1
 affiliations:
  - name: Microwave Remote Sensing Lab, Centre of Studies in Resources Engineering, Indian Institute of Technology Bombay, Mumbai-400076, India
    index: 1
@@ -29,7 +29,7 @@ bibliography: paper.bib
 
 ---
 
-# Summary
+# Statement of need
 
 The demand for processing tools increases with the increasing number of ***Synthetic Aperture Radar (SAR)*** satellite missions and datasets. However, to process SAR data, a minimal number of free tools are available ([PolSARpro](https://earth.esa.int/web/polsarpro/home), [SNAP](https://step.esa.int/main/toolboxes/snap/)), which consolidates all necessary pre-processing steps. Bearing this in mind, there is a need to develop specific tools for the remote sensing user community to derive polarimetric descriptors like the vegetation indices and decomposition parameters. Besides, to the best of our knowledge, there are no such free tools available on the GIS platform, which are quite necessary for SAR remote sensing. 
 
