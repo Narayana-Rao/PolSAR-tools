@@ -825,11 +825,11 @@ class MRSLab(object):
 ###############################################################
     def load_C2(self,folder):
     
-        C11 = self.read_bin(folder+"\C11.bin")
-        C22 = self.read_bin(folder+"\C22.bin")
+        C11 = self.read_bin(folder+"/C11.bin")
+        C22 = self.read_bin(folder+"/C22.bin")
     
-        C12_i = self.read_bin(folder+'\C12_imag.bin')
-        C12_r = self.read_bin(folder+'\C12_real.bin')
+        C12_i = self.read_bin(folder+'/C12_imag.bin')
+        C12_r = self.read_bin(folder+'/C12_real.bin')
     
         C12 = C12_r + 1j*C12_i
     
@@ -837,16 +837,16 @@ class MRSLab(object):
 
     def load_C3(self,folder):
         
-        C11 = self.read_bin(folder+"\C11.bin")
-        C22 = self.read_bin(folder+"\C22.bin")
-        C33 = self.read_bin(folder+"\C33.bin")
+        C11 = self.read_bin(folder+"/C11.bin")
+        C22 = self.read_bin(folder+"/C22.bin")
+        C33 = self.read_bin(folder+"/C33.bin")
 
-        C12_i = self.read_bin(folder+'\C12_imag.bin')
-        C12_r = self.read_bin(folder+'\C12_real.bin')
-        C13_i = self.read_bin(folder+'\C13_imag.bin')
-        C13_r = self.read_bin(folder+'\C13_real.bin')
-        C23_i = self.read_bin(folder+'\C23_imag.bin')
-        C23_r = self.read_bin(folder+'\C23_real.bin')
+        C12_i = self.read_bin(folder+'/C12_imag.bin')
+        C12_r = self.read_bin(folder+'/C12_real.bin')
+        C13_i = self.read_bin(folder+'/C13_imag.bin')
+        C13_r = self.read_bin(folder+'/C13_real.bin')
+        C23_i = self.read_bin(folder+'/C23_imag.bin')
+        C23_r = self.read_bin(folder+'/C23_real.bin')
             
         C12 = C12_r + 1j*C12_i
         C13 = C13_r + 1j*C13_i
@@ -857,16 +857,16 @@ class MRSLab(object):
     
     def load_T3(self,folder):
         
-        T11 = self.read_bin(folder+"\T11.bin")
-        T22 = self.read_bin(folder+"\T22.bin")
-        T33 = self.read_bin(folder+"\T33.bin")
+        T11 = self.read_bin(folder+"/T11.bin")
+        T22 = self.read_bin(folder+"/T22.bin")
+        T33 = self.read_bin(folder+"/T33.bin")
 
-        T12_i = self.read_bin(folder+'\T12_imag.bin')
-        T12_r = self.read_bin(folder+'\T12_real.bin')
-        T13_i = self.read_bin(folder+'\T13_imag.bin')
-        T13_r = self.read_bin(folder+'\T13_real.bin')
-        T23_i = self.read_bin(folder+'\T23_imag.bin')
-        T23_r = self.read_bin(folder+'\T23_real.bin')
+        T12_i = self.read_bin(folder+'/T12_imag.bin')
+        T12_r = self.read_bin(folder+'/T12_real.bin')
+        T13_i = self.read_bin(folder+'/T13_imag.bin')
+        T13_r = self.read_bin(folder+'/T13_real.bin')
+        T23_i = self.read_bin(folder+'/T23_imag.bin')
+        T23_r = self.read_bin(folder+'/T23_real.bin')
             
         T12 = T12_r + 1j*T12_i
         T13 = T13_r + 1j*T13_i
