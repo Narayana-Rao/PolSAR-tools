@@ -6,7 +6,7 @@
 name=SAR tools
 qgisMinimumVersion=3.0
 description=This plugin generates polarimetric descriptors from SAR data.
-version=0.6
+version=0.6.1
 author=Narayanarao; Subhadip; Dipankar
 email=bnarayanarao@iitb.ac.in
 owners=bnarayanarao
