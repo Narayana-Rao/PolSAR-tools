@@ -22,7 +22,10 @@ repository=https://github.com/Narayana-Rao/sar_tools.git
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog= 
-
+	
+	0.6.1
+	- Extended compatibility for linux distributions.
+	
 	0.6
 	- Added Compact-pol Radar Vegetation Index (CpRVI)
 	- Added Improved S-Omega decomposition for compact-pol data (iS-Omega)
