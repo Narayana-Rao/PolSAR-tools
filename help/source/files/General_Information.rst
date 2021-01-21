@@ -12,14 +12,45 @@ Installation
 
 
 * The easiest way (requires internet connection) : 
-	- Open QGIS -> Plugins -> Manage and Install Plugins... -> select ```All``` tab -> search for ```SAR tools``` --> select and install plugin
+	- Open QGIS -> Plugins -> Manage and Install Plugins... --> select ``All`` tab -> search for ``SAR tools`` --> select and install plugin
 * Alternative way (offline installation) : 
-	- Go to `releases`_ of SAR tools -> select desired version -> download the ```.zip``` file.
-	- Open QGIS -> Plugins -> Manage and Install Plugins... -> ```install from ZIP``` tab --> select the downloaded zip --> install plugin (ignore warnings, if any).
+	- Go to `releases`_ of SAR tools -> select desired version -> download the ``.zip`` file.
+	- Open QGIS -> Plugins -> Manage and Install Plugins... --> ``install from ZIP`` tab --> select the downloaded zip --> install plugin (ignore warnings, if any).
+
+Up and running
+--------------
+
+After successful installation, find the plugin by opening **QGIS** --> Plugins --> ``SAR tools`` --> Process. As shown in the following figure.
+
+.. figure:: figures/open_ui.png
+    :scale: 80%
+    :align: center
+    
+    Opening the plugin 
+
+.. figure:: figures/main_ui.png
+    :scale: 60%
+    :align: center
+    
+    GUI-Main window layout
+
+**Layout**:
+
+1.  Data type tabs: Functions are arranged according to the data dype (full-, compact- and dual-pol).
+2.  Function detials viewer: Contains list of functions for respective data tab. 
+3. Derived arameter selection, required input variables and constraints.
+4. Input data folder
+5. Logger: displays the log of procesing parameters
+6. progressbar: displays the progress of current task.
+7. Credits and quick help.
+
+
+Additional ``reset`` button to clear the envirinment, ``view data`` button to import the data into **QGIS** environment and ``Process`` button to start processing after selecting valid input data variables. 
+
  
 
-Available functionalities:
--------------------
+Available functionalities
+--------------------------
 
   * Indices :
   	* Radar Vegetation Index (RVI) (Full-pol and dual-pol)
@@ -33,6 +64,9 @@ Available functionalities:
   	* Model free 3-Component decomposition for full-pol data (MF3CF).
   	* Model free 3-Component decomposition for compact-pol data (MF3CC) 
   	* Improved S-Omega decomposition for compact-pol data (iS-Omega
+
+
+
 
 
 .. bibliography:: ref.bib
