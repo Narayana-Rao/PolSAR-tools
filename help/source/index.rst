@@ -26,4 +26,5 @@ SAR tools is a QGIS plugin, which generates derived SAR parameters ( vegetation 
 
 About
 =====
-SAR tools is licensed under the GPL-3.0 license.
+The current version on SAR tools is v0.6.1 and is licensed under the GPL-3.0 license. 
+
