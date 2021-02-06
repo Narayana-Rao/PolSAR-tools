@@ -9,17 +9,17 @@ import requests
 import numpy as np
 import multiprocessing
 
-from .resources import *
+from ...resources import *
 # Import the code for the dialog
-from .SAR_Tools_dialog import MRSLabDialog
+from ...SAR_Tools_dialog import MRSLabDialog
 import os.path
 from osgeo import gdal
 import time
 import os.path
 
 
-class dop_dp(QtCore.QObject):
-    '''DOP dual-pol '''
+class PRVI_dp(QtCore.QObject):
+    '''PRVI dual-pol '''
     def __init__(self,iFolder,C2,ws):
         QtCore.QObject.__init__(self)
 
@@ -42,7 +42,7 @@ class dop_dp(QtCore.QObject):
     def run(self):
         finish_cond = 0
         try:
-            def DpRVI_fn(C2_stack,ws):
+            def prvidp_fn(C2_stack,ws):
                 
                 kernel = np.ones((ws,ws),np.float32)/(ws*ws)
                 c11_T1 = C2_stack[:,:,0]
@@ -75,8 +75,8 @@ class dop_dp(QtCore.QObject):
                 # t2_span = t11s*t22s
                 m = (np.sqrt(1.0-(4.0*c2_det/np.power(c2_trace,2))))
                 self.pBar.emit(70)
-
-            
+                prvi = (1-m)*c22s
+                            
                 self.pBar.emit(90)
                 """Write files to disk"""
                 
@@ -86,14 +86,14 @@ class dop_dp(QtCore.QObject):
                 ofiledop = self.iFolder+'/dop_dp.bin'
                 write_bin(ofiledop,m,infile)
 
-                # ofilebt = self.iFolder+'/beta_dp.bin'
-                # write_bin(ofilebt,beta,infile)                
+                ofileprvi = self.iFolder+'/prvi_dp.bin'
+                write_bin(ofileprvi,prvi,infile)                
                 
                 self.pBar.emit(100)
-                self.progress.emit('->> Finished DOP calculation!!')        
-                
+                self.progress.emit('->> Finished PRVI calculation!!')        
                 
 
+            
             def write_bin(file,wdata,refData):
        
                 ds = gdal.Open(refData)
@@ -109,7 +109,7 @@ class dop_dp(QtCore.QObject):
                 # outdata.GetRasterBand(1).SetNoDataValue(np.NaN)##if you want these values transparent
                 outdata.FlushCache() ##saves to disk!!    
         
-            DpRVI_fn(self.C2,self.ws)
+            prvidp_fn(self.C2,self.ws)
             
             finish_cond = 1
             

@@ -9,26 +9,30 @@ import requests
 import numpy as np
 import multiprocessing
 
-from .resources import *
+# Initialize Qt resources from file resources.py
+from ...resources import *
 # Import the code for the dialog
-from .SAR_Tools_dialog import MRSLabDialog
+from ...SAR_Tools_dialog import MRSLabDialog
 import os.path
 from osgeo import gdal
 import time
 import os.path
 
 
-class PRVI_dp(QtCore.QObject):
-    '''PRVI dual-pol '''
-    def __init__(self,iFolder,C2,ws):
+##############################################################################################
+
+class dop_cp(QtCore.QObject):
+    '''DOP CP '''
+    def __init__(self,iFolder,C2,ws,tau):
         QtCore.QObject.__init__(self)
 
         self.iFolder = iFolder
-        
         self.C2 = C2
-        self.ws = ws
+        self.ws=ws
+        self.tau=tau
         self.killed = False
         # self.mainObj = MRSLab()
+        
     def conv2d(self,a, f):
         filt = np.zeros(a.shape)
         wspad = int(f.shape[0]/2)
@@ -38,12 +42,17 @@ class PRVI_dp(QtCore.QObject):
         filt_data = np.einsum('ij,ijkl->kl', f, subM)
         filt[wspad:wspad+filt_data.shape[0],wspad:wspad+filt_data.shape[1]] = filt_data
         return filt
-
+    
     def run(self):
         finish_cond = 0
         try:
-            def prvidp_fn(C2_stack,ws):
-                
+            def dopcp_fn(C2_stack,ws):
+
+                if self.tau==0:                    
+                    chi_in = -45.0
+                else:
+                    chi_in = 45.0
+
                 kernel = np.ones((ws,ws),np.float32)/(ws*ws)
                 c11_T1 = C2_stack[:,:,0]
                 c12_T1 = C2_stack[:,:,1]
@@ -70,32 +79,40 @@ class PRVI_dp(QtCore.QObject):
 
                 self.pBar.emit(50)
 
-                c2_det = (c11s*c22s-c12s*c21s)
-                c2_trace = c11s+c22s
+                # c2_det = (c11s*c22s-c12s*c21s)
+                # c2_trace = c11s+c22s
                 # t2_span = t11s*t22s
-                m = (np.sqrt(1.0-(4.0*c2_det/np.power(c2_trace,2))))
-                self.pBar.emit(70)
-                prvi = (1-m)*c22s
-                            
-                self.pBar.emit(90)
-                """Write files to disk"""
+                # m1 = np.real(np.sqrt(1.0-(4.0*c2_det/np.power(c2_trace,2))))
+
+                # Stokes Parameter
+                s0 = c11s + c22s;
+                s1 = c11s - c22s;
+                s2 = (c12s + c21s);
+
+                if (chi_in >= 0):
+                    s3 = (1j*(c12s - c21s)); # The sign is according to RC or LC sign !!
+                if (chi_in < 0):
+                    s3 = -(1j*(c12s - c21s)); # The sign is according to RC or LC sign !!
                 
+
+                dop= np.sqrt(np.power(s1,2) + np.power(s2,2) + np.power(s3,2))/(s0);
+                self.pBar.emit(90)                        
+                
+                self.progress.emit('->> Write files to disk...')
+                """Write files to disk"""
                 infile = self.iFolder+'/C11.bin'
                 
-                self.pBar.emit(95)
-                ofiledop = self.iFolder+'/dop_dp.bin'
-                write_bin(ofiledop,m,infile)
-
-                ofileprvi = self.iFolder+'/prvi_dp.bin'
-                write_bin(ofileprvi,prvi,infile)                
+                ofiledop = self.iFolder+'/DOP_CP.bin'
+                write_bin(ofiledop,dop,infile)
                 
                 self.pBar.emit(100)
-                self.progress.emit('->> Finished PRVI calculation!!')        
-                
+                self.progress.emit('->> Finished DOP calculation!!')
+
 
             
+
             def write_bin(file,wdata,refData):
-       
+                
                 ds = gdal.Open(refData)
                 [cols, rows] = wdata.shape
             
@@ -109,7 +126,8 @@ class PRVI_dp(QtCore.QObject):
                 # outdata.GetRasterBand(1).SetNoDataValue(np.NaN)##if you want these values transparent
                 outdata.FlushCache() ##saves to disk!!    
         
-            prvidp_fn(self.C2,self.ws)
+            # self.dop_fp(self.T3)
+            dopcp_fn(self.C2,self.ws)
             
             finish_cond = 1
             

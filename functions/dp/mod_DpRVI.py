@@ -9,9 +9,9 @@ import requests
 import numpy as np
 import multiprocessing
 
-from .resources import *
+from ...resources import *
 # Import the code for the dialog
-from .SAR_Tools_dialog import MRSLabDialog
+from ...SAR_Tools_dialog import MRSLabDialog
 import os.path
 from osgeo import gdal
 import time

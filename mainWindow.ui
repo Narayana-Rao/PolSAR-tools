@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>433</width>
-    <height>614</height>
+    <width>537</width>
+    <height>641</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -53,6 +53,9 @@
    </item>
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
+     <property name="toolTip">
+      <string/>
+     </property>
      <property name="styleSheet">
       <string notr="true"/>
      </property>
@@ -63,12 +66,15 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <property name="movable">
       <bool>true</bool>
      </property>
      <widget class="QWidget" name="fp_tab">
+      <property name="toolTip">
+       <string/>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
@@ -78,6 +84,9 @@
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="0">
         <widget class="QPlainTextEdit" name="plainTextEdit">
+         <property name="toolTip">
+          <string>Full polarimetric functions</string>
+         </property>
          <property name="styleSheet">
           <string notr="true"/>
          </property>
@@ -180,6 +189,9 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
              <height>16777215</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>Select the folder</string>
+           </property>
            <property name="text">
             <string>...</string>
            </property>
@@ -198,6 +210,9 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
          </item>
          <item>
           <widget class="QComboBox" name="fp_parm">
+           <property name="toolTip">
+            <string>Select the SAR descriptor</string>
+           </property>
            <item>
             <property name="text">
              <string>Select</string>
@@ -267,6 +282,9 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
       </layout>
      </widget>
      <widget class="QWidget" name="cp_tab">
+      <property name="toolTip">
+       <string/>
+      </property>
       <attribute name="title">
        <string>Compact-pol</string>
       </attribute>
@@ -282,6 +300,9 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
          </item>
          <item>
           <widget class="QComboBox" name="cp_parm">
+           <property name="toolTip">
+            <string>Select the SAR descriptor</string>
+           </property>
            <item>
             <property name="text">
              <string>Select</string>
@@ -371,6 +392,9 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
           <layout class="QHBoxLayout" name="horizontalLayout_17">
            <item>
             <widget class="QLineEdit" name="inFolder_cp">
+             <property name="toolTip">
+              <string>Select folder using '...' button</string>
+             </property>
              <property name="readOnly">
               <bool>true</bool>
              </property>
@@ -388,6 +412,9 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
              <width>40</width>
              <height>16777215</height>
             </size>
+           </property>
+           <property name="toolTip">
+            <string>Select the folder</string>
            </property>
            <property name="text">
             <string>...</string>
@@ -485,6 +512,9 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
          <property name="enabled">
           <bool>true</bool>
          </property>
+         <property name="toolTip">
+          <string>Compact polarimetric functions</string>
+         </property>
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -504,6 +534,9 @@ iS-Omega: Improved S-Omega decomposition for compact-pol data</string>
       </layout>
      </widget>
      <widget class="QWidget" name="dp_tab">
+      <property name="toolTip">
+       <string/>
+      </property>
       <attribute name="title">
        <string>Dual-pol</string>
       </attribute>
@@ -519,6 +552,9 @@ iS-Omega: Improved S-Omega decomposition for compact-pol data</string>
          </item>
          <item>
           <widget class="QComboBox" name="dp_parm">
+           <property name="toolTip">
+            <string>Select the SAR descriptor</string>
+           </property>
            <item>
             <property name="text">
              <string>Select</string>
@@ -637,6 +673,9 @@ iS-Omega: Improved S-Omega decomposition for compact-pol data</string>
           <layout class="QHBoxLayout" name="horizontalLayout_34">
            <item>
             <widget class="QLineEdit" name="inFolder_dp">
+             <property name="toolTip">
+              <string>Select folder using '...' button</string>
+             </property>
              <property name="readOnly">
               <bool>true</bool>
              </property>
@@ -655,6 +694,9 @@ iS-Omega: Improved S-Omega decomposition for compact-pol data</string>
              <height>16777215</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>Select the folder</string>
+           </property>
            <property name="text">
             <string>...</string>
            </property>
@@ -664,6 +706,9 @@ iS-Omega: Improved S-Omega decomposition for compact-pol data</string>
        </item>
        <item row="0" column="0">
         <widget class="QPlainTextEdit" name="plainTextEdit_3">
+         <property name="toolTip">
+          <string>Dual polarimetric functions</string>
+         </property>
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -706,15 +751,11 @@ DOP: Degree of polarization for Dual Polarimetric (XX/XY) SAR Data [(X, Y): (H, 
       <layout class="QFormLayout" name="formLayout">
        <item row="2" column="0">
         <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="1">
-          <widget class="QPushButton" name="pb_view">
-           <property name="text">
-            <string>View Data</string>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="0">
           <widget class="QPushButton" name="clear_terminal">
+           <property name="toolTip">
+            <string>Reset the environment</string>
+           </property>
            <property name="text">
             <string>Reset</string>
            </property>
@@ -746,6 +787,16 @@ DOP: Degree of polarization for Dual Polarimetric (XX/XY) SAR Data [(X, Y): (H, 
            </property>
           </spacer>
          </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="pb_view">
+           <property name="toolTip">
+            <string>Import data into QGIS for visualization!</string>
+           </property>
+           <property name="text">
+            <string>View data</string>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="4">
           <spacer name="horizontalSpacer_4">
            <property name="orientation">
@@ -761,8 +812,28 @@ DOP: Degree of polarization for Dual Polarimetric (XX/XY) SAR Data [(X, Y): (H, 
          </item>
         </layout>
        </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QTextBrowser" name="terminal">
+         <property name="toolTip">
+          <string>Processing log</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <widget class="QProgressBar" name="progressBar">
+         <property name="toolTip">
+          <string>Process status</string>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
        <item row="2" column="1">
         <widget class="QPushButton" name="pb_process">
+         <property name="toolTip">
+          <string>Start processing</string>
+         </property>
          <property name="autoFillBackground">
           <bool>false</bool>
          </property>
@@ -777,16 +848,6 @@ DOP: Degree of polarization for Dual Polarimetric (XX/XY) SAR Data [(X, Y): (H, 
          </property>
          <property name="flat">
           <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0" colspan="2">
-        <widget class="QTextBrowser" name="terminal"/>
-       </item>
-       <item row="4" column="0" colspan="2">
-        <widget class="QProgressBar" name="progressBar">
-         <property name="value">
-          <number>0</number>
          </property>
         </widget>
        </item>

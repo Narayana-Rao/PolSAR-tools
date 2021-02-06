@@ -42,17 +42,21 @@ import time
 from PyQt5 import QtWidgets
 # import QtCore
 #################
-from .mod_DpRVI import DpRVI
-from .mod_NM3CF import NM3CF
-from .mod_NM3CC import NM3CC
-from .mod_GRVI import GRVI
-from .mod_PRVI import PRVI
-from .mod_PRVI_dp import PRVI_dp
-from .mod_dop_fp import dop_FP
-from .mod_dop_dp import dop_dp
-from .mod_dop_cp import dop_cp
-from .mod_CpRVI import CpRVI
-from .mod_iS_Omega import iS_Omega
+
+
+from .functions.dp.mod_DpRVI import DpRVI
+from .functions.dp.mod_PRVI_dp import PRVI_dp
+from .functions.dp.mod_dop_dp import dop_dp
+
+from .functions.fp.mod_NM3CF import NM3CF
+from .functions.fp.mod_GRVI import GRVI
+from .functions.fp.mod_PRVI import PRVI
+from .functions.fp.mod_dop_fp import dop_FP
+
+from .functions.cp.mod_dop_cp import dop_cp
+from .functions.cp.mod_CpRVI import CpRVI
+from .functions.cp.mod_iS_Omega import iS_Omega
+from .functions.cp.mod_NM3CC import NM3CC
 #############################
 
 # Create a lock for multiprocess

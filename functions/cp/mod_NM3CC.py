@@ -10,9 +10,9 @@ import numpy as np
 import multiprocessing
 
 # Initialize Qt resources from file resources.py
-from .resources import *
+from ...resources import *
 # Import the code for the dialog
-from .SAR_Tools_dialog import MRSLabDialog
+from ...SAR_Tools_dialog import MRSLabDialog
 import os.path
 from osgeo import gdal
 import time
@@ -21,8 +21,8 @@ import os.path
 
 ##############################################################################################
 
-class dop_cp(QtCore.QObject):
-    '''DOP CP '''
+class NM3CC(QtCore.QObject):
+    '''NM3CC '''
     def __init__(self,iFolder,C2,ws,tau):
         QtCore.QObject.__init__(self)
 
@@ -46,7 +46,7 @@ class dop_cp(QtCore.QObject):
     def run(self):
         finish_cond = 0
         try:
-            def dopcp_fn(C2_stack,ws):
+            def NM3CC_fn(C2_stack,ws):
 
                 if self.tau==0:                    
                     chi_in = -45.0
@@ -79,10 +79,10 @@ class dop_cp(QtCore.QObject):
 
                 self.pBar.emit(50)
 
-                # c2_det = (c11s*c22s-c12s*c21s)
-                # c2_trace = c11s+c22s
+                c2_det = (c11s*c22s-c12s*c21s)
+                c2_trace = c11s+c22s
                 # t2_span = t11s*t22s
-                # m1 = np.real(np.sqrt(1.0-(4.0*c2_det/np.power(c2_trace,2))))
+                m1 = np.real(np.sqrt(1.0-(4.0*c2_det/np.power(c2_trace,2))))
 
                 # Stokes Parameter
                 s0 = c11s + c22s;
@@ -94,19 +94,38 @@ class dop_cp(QtCore.QObject):
                 if (chi_in < 0):
                     s3 = -(1j*(c12s - c21s)); # The sign is according to RC or LC sign !!
                 
+                SC = ((s0)-(s3))/2;
+                OC = ((s0)+(s3))/2;
 
-                dop= np.sqrt(np.power(s1,2) + np.power(s2,2) + np.power(s3,2))/(s0);
+                h = (OC-SC)
+                span = c11s + c22s
+
+                val = ((m1*s0*h))/((SC*OC + (m1**2)*(s0**2)))
+                thet = np.real(np.arctan(val))
+                theta_CP = np.rad2deg(thet)
+
+                Ps_CP= (((m1*(span)*(1.0+np.sin(2*thet))/2)))
+                Pd_CP= (((m1*(span)*(1.0-np.sin(2*thet))/2)))
+                Pv_CP= (span*(1.0-m1))
+                
                 self.pBar.emit(90)                        
                 
                 self.progress.emit('->> Write files to disk...')
                 """Write files to disk"""
+                # ofilervi = self.iFolder+'/RVI.bin'
                 infile = self.iFolder+'/C11.bin'
-                
-                ofiledop = self.iFolder+'/DOP_CP.bin'
-                write_bin(ofiledop,dop,infile)
-                
+                # write_bin(ofilervi,rvi,infile)
+                ofilegrvi = self.iFolder+'/Theta_CP.bin'
+                write_bin(ofilegrvi,theta_CP,infile)
+                ofilegrvi1 = self.iFolder+'/Pd_CP.bin'
+                write_bin(ofilegrvi1,Pd_CP,infile)
+                ofilegrvi2 = self.iFolder+'/Ps_CP.bin'
+                write_bin(ofilegrvi2,Ps_CP,infile)
+                ofilegrvi3 = self.iFolder+'/Pv_CP.bin'
+                write_bin(ofilegrvi3,Pv_CP,infile)     
+    
                 self.pBar.emit(100)
-                self.progress.emit('->> Finished DOP calculation!!')
+                self.progress.emit('->> Finished MF3CC calculation!!')
 
 
             
@@ -127,7 +146,7 @@ class dop_cp(QtCore.QObject):
                 outdata.FlushCache() ##saves to disk!!    
         
             # self.dop_fp(self.T3)
-            dopcp_fn(self.C2,self.ws)
+            NM3CC_fn(self.C2,self.ws)
             
             finish_cond = 1
             
