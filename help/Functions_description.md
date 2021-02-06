@@ -6,7 +6,7 @@
  * Generalized volume based Radar Vegetation Index (GRVI) 
     <center>
 
-    ![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{GRVI}=\left(1-\text{GD}_{\text{GV}}\right)\Big(\frac{p}{q}\Big)^{2\,\text{GD}_{\text{GV}}},\quad0\le\text{GRVI}\le1)
+    ![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\centering\text{GRVI}=\left(1-\text{GD}_{\text{GV}}\right)\Big(\frac{p}{q}\Big)^{2\,\text{GD}_{\text{GV}}},\quad0\le\text{GRVI}\le1)
     
     </center> 
 
