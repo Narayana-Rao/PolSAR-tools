@@ -23,11 +23,11 @@ Contribute to the software
       \**vars :  list of required variables(E.g. **window_size**, **ellipticity** etc.)
 
 
-> A template module is provided in the functions folder [mod_template](functions/mod_template.py)
+> A template module is provided in the functions folder [mod_template](../functions/mod_template.py)
 
   * Updating the GUI 
     - Open the **mainWindow.ui** file in the Qt Designer and update the elements.
-    - link the module with the ui elements in [SAR_Tools.py](SAR_Tools.py)
+    - link the module with the ui elements in [SAR_Tools.py](../SAR_Tools.py)
 
 > Alternatively create your function and share it with us. We will update the plugin. 
 
