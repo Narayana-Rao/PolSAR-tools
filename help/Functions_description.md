@@ -29,7 +29,7 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
 
     <center>
 
-    ![tfp](https://latex.codecogs.com/svg.latex?\Large&space;P_{d}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}{\left(1-\sin2\theta_{\text{FP}}\right)};\\\P_{v}^{\text{FP}}={\text{Span}}\left(1-m_{\text{FP}}\right);\\\P_{s}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right))
+    ![tfp](https://latex.codecogs.com/svg.latex?\Large&space;\noindentP_{d}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}{\left(1-\sin2\theta_{\text{FP}}\right)};\\\P_{v}^{\text{FP}}={\text{Span}}\left(1-m_{\text{FP}}\right);\\\P_{s}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right))
     
     </center>
 
