@@ -84,6 +84,7 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
 
 
 
+
 **Compact-pol functions**
 -------------------------
 
