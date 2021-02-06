@@ -29,7 +29,7 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
 
     <center>
 
-    ![tfp](https://latex.codecogs.com/svg.latex?\Large&space;P_{d}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}{\left(1-\sin2\theta_{\text{FP}}\right)};P_{v}^{\text{FP}}={\text{Span}}\,\left(1-m_{\text{FP}}\right),\text{and};P_{s}^{\text{FP}}=\frac{m_{\text{FP}}\,{\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right))
+    ![tfp](https://latex.codecogs.com/svg.latex?\Large&space;P_{d}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}{\left(1-\sin2\theta_{\text{FP}}\right)};\\\P_{v}^{\text{FP}}={\text{Span}}\,\left(1-m_{\text{FP}}\right);\\\P_{s}^{\text{FP}}=\frac{m_{\text{FP}}\,{\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right))
     
     </center>
 
@@ -84,7 +84,6 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
 
 
 
-
 **Compact-pol functions**
 -------------------------
 
@@ -100,12 +99,12 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
 
     <center>
 
-    ![cppowers](https://latex.codecogs.com/svg.latex?\Large&space;P_{d}^{\text{CP}}=\frac{m_{\text{FP}}{S_0}}{2}{\left(1-\sin2\theta_{\text{CP}}\right)};P_{v}^{\text{CP}}={S_0}\left(1-m_{\text{CP}}\right),\text{and};P_{s}^{\text{CP}}=\frac{m_{\text{CP}}{S_0}}{2}\left(1+\sin2\theta_{\text{CP}}\right))
+    ![cppowers](https://latex.codecogs.com/svg.latex?\Large&space;P_{d}^{\text{CP}}=\frac{m_{\text{FP}}{S_0}}{2}{\left(1-\sin2\theta_{\text{CP}}\right)};\\\P_{v}^{\text{CP}}={S_0}\left(1-m_{\text{CP}}\right);\\\P_{s}^{\text{CP}}=\frac{m_{\text{CP}}{S_0}}{2}\left(1+\sin2\theta_{\text{CP}}\right))
     
     </center>
     <center>
 
-    ![sparm](https://latex.codecogs.com/svg.latex?\Large&space;S_0=\text{C11+C22};S_1=\text{C11-C22};S_2=\text{C12+C21};S_3=\pm\text{j(C12-C21)})
+    ![sparm](https://latex.codecogs.com/svg.latex?\Large&space;S_0=\text{C11+C22};S_1=\text{C11-C22};\\\S_2=\text{C12+C21};S_3=\pm\text{j(C12-C21)})
     
     </center>
 
