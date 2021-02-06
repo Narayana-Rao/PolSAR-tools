@@ -22,14 +22,16 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
     
     <center>
 
-    ![mfp](https://latex.codecogs.com/svg.latex?\Large&space;m_{\text{FP}}=\sqrt{1-\frac{27|\mathbf{T3}|}{\big(\mathrm{Trace}(\mathbf{T3})\big)^3}};\tan\theta_{\text{FP}}=\frac{m_{\text{FP}}\,{\text{Span}}\,\left(T_{11}-T_{22}-T_{33}\right)}{T_{11}\left(T_{22}+T_{33}\right)+m_{\text{FP}}^{2}\,{\text{Span}}^{2}})
+    ![mfp](https://latex.codecogs.com/svg.latex?\Large&space;m_{\text{FP}}=\sqrt{1-\frac{27|\mathbf{T3}|}{\big(\mathrm{Trace}(\mathbf{T3})\big)^3}})
+    
+    ![mfp](https://latex.codecogs.com/svg.latex?\Large&space;\tan\theta_{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}\left(T_{11}-T_{22}-T_{33}\right)}{T_{11}\left(T_{22}+T_{33}\right)+m_{\text{FP}}^{2}{\text{Span}}^{2}})
     
     </center> 
 
 
     <center>
 
-    ![tfp](https://latex.codecogs.com/svg.latex?\Large&space;P_{d}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}{\left(1-\sin2\theta_{\text{FP}}\right)};\\\P_{v}^{\text{FP}}={\text{Span}}\,\left(1-m_{\text{FP}}\right);\\\P_{s}^{\text{FP}}=\frac{m_{\text{FP}}\,{\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right))
+    ![tfp](https://latex.codecogs.com/svg.latex?\Large&space;\noindent\\\P_{d}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}{\left(1-\sin2\theta_{\text{FP}}\right)}\\\P_{v}^{\text{FP}}={\text{Span}}\left(1-m_{\text{FP}}\right)\\\P_{s}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right))
     
     </center>
 
