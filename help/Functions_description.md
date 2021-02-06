@@ -4,28 +4,102 @@
 ------------
 
  * Generalized volume based Radar Vegetation Index (GRVI) 
+    <center>
 
-
-![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{GRVI}=\left(1-\text{GD}_{\text{GV}}\right)\Big(\frac{p}{q}\Big)^{2\,\text{GD}_{\text{GV}}},\quad0\le\text{GRVI}\le1)
+    ![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{GRVI}=\left(1-\text{GD}_{\text{GV}}\right)\Big(\frac{p}{q}\Big)^{2\,\text{GD}_{\text{GV}}},\quad0\le\text{GRVI}\le1)
+    
+    </center> 
 
 where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of the observed and the generalized volume scattering model, p,q are minimum and maximum value of distances between K matrices of the observed and elementary targets respectively. A detailed explanation of GRVI is available in [[2]](#2).
+
 
 ````python
     input : input_T3_folder, window_size
     output: GRVI.bin
 ````
 
+ * Model Free 3-Component decomposition for Full-pol data (MF3CF) 
+    
+    <center>
+
+    ![mfp](https://latex.codecogs.com/svg.latex?\Large&space;m_{\text{FP}}=\sqrt{1-\frac{27|\mathbf{T3}|}{\big(\mathrm{Trace}(\mathbf{T3})\big)^3}})
+    
+    </center> 
+
+    <center>
+
+    ![tfp](https://latex.codecogs.com/svg.latex?\Large&space;\tan\theta_{\text{FP}}=\frac{m_{\text{FP}}\,{\text{Span}}\,\left(T_{11}-T_{22}-T_{33}\right)}{T_{11}\left(T_{22}+T_{33}\right)+m_{\text{FP}}^{2}\,{\text{Span}}^{2}})
+    
+    </center>
+
+    <center>
+
+    ![spanfp](https://latex.codecogs.com/svg.latex?\Large&space;\text{Span}=T_{11}+T_{22}+T_{33})
+    
+    </center>
+
+    <center>
+
+    ![tfp](https://latex.codecogs.com/svg.latex?\Large&space;P_{d}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}{\left(1-\sin2\theta_{\text{FP}}\right)}\\\P_{v}^{\text{FP}}={\text{Span}}\,\left(1-m_{\text{FP}}\right),\text{and}\\\P_{s}^{\text{FP}}=\frac{m_{\text{FP}}\,{\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right))
+    
+    </center>
+
+<!-- P_{d}^{\text{FP}} &= \frac{m_{\text{FP}}\, {\text{Span}}}{2}\left(1-\sin2\theta_{\text{FP}}\right) \label{eq:eq_fp7},  \\%[5pt]
+P_{v}^{\text{FP}} &= {\text{Span}}\, \left(1-m_{\text{FP}}\right),\text{ and} \label{eq:eq_fp8}\\
+P_{s}^{\text{FP}} &= \frac{m_{\text{FP}}\, {\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right). -->
+
+````python
+    input : input_T3_folder, window_size
+    output: Ps.bin,Pd.bin,Pv.bin,Theta_FP.bin
+````
+
+ * Radar Vegetation Index (RVI) 
+<center>
+
+![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{RVI}_{fp}=\frac{8\sigma^\circ_{\text{HV}}}{\sigma^\circ_{\text{HH}}+\sigma^\circ_{\text{VV}}+2\sigma^\circ_{\text{HV}}})
+    
+</center> 
+
+
+````python
+    input : input_c2_folder, window_size
+    output: RVI.bin
+````
+ * Polarimetric Radar Vegetation Index (PRVI) 
+<center>
+
+![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{PRVI}_{fp}=(1-\text{DOP}_{fp})\sigma^\circ_{\text{XY}})
+    
+</center> 
+
+
+````python
+    input : input_c2_folder, window_size
+    output: PRVI.bin
+````
+
+ * Degree of Polarization (DOP) 
+<center>
+
+![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{DOP}_{fp}=\sqrt{1-\frac{27\times\text{det([T3])}}{\text{(Trace[T3])}^3}})
+    
+</center> 
+
+````python
+    input : input_c2_folder, window_size
+    output: dop_fp.bin
+````
 
 **Dual-pol**
 ------------
 
  * Dual-pol Radar Vegetation Index (DpRVI) 
 
-<p align="center">
-<img src="https://latex.codecogs.com/svg.latex?\Large&space;
-    \text{DpRVI} = 1- \Big(\frac{\lambda_1}{\lambda_1+\lambda_2}\Big)\sqrt{1-\frac{4\times \text{det ([C2])}}{\text{(Trace [C2])}^2}}
-" title="dprvi" />
-</p>
+    <center>
+
+    ![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{DpRVI}=1-\Big(\frac{\lambda_1}{\lambda_1+\lambda_2}\Big)\sqrt{1-\frac{4\times\text{det([C2])}}{\text{(Trace[C2])}^2}})
+    
+    </center> 
 
 where, C2 is co-variance matrix,  and  &lambda;<sub>1</sub> and &lambda;<sub>2</sub> are the eigen values of C2 matrix in descending order.
 
@@ -35,39 +109,41 @@ where, C2 is co-variance matrix,  and  &lambda;<sub>1</sub> and &lambda;<sub>2</
 ````
 
  * Radar Vegetation Index (RVI) 
+<center>
 
-<p align="center">
-<img src="https://latex.codecogs.com/svg.latex?\Large&space;\text{RVI}_{dp} = \frac{4\sigma^\circ_{\text{XY}}}{\sigma^\circ_{\text{XX}}+\sigma^\circ_{\text{XY}}}  
-" title="rvi_dp" />
-</p>
+![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{RVI}_{dp}=\frac{4\sigma^\circ_{\text{XY}}}{\sigma^\circ_{\text{XX}}+\sigma^\circ_{\text{XY}}})
+    
+</center> 
+
 
 ````python
-input : input_c2_folder, window_size
-output: RVI_dp.bin
+    input : input_c2_folder, window_size
+    output: RVI_dp.bin
 ````
 
  * Polarimetric Radar Vegetation Index (PRVI) 
+<center>
 
-<p align="center">
-<img src="https://latex.codecogs.com/svg.latex?\Large&space;\text{PRVI}_{dp} = (1-\text{DOP}_{dp})\sigma^\circ_{\text{XY}}
-" title="x2" />
-</p>
+![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{PRVI}_{dp}=(1-\text{DOP}_{dp})\sigma^\circ_{\text{XY}})
+    
+</center> 
+
 
 ````python
-input : input_c2_folder, window_size
-output: PRVI_dp.bin
+    input : input_c2_folder, window_size
+    output: PRVI_dp.bin
 ````
 
  * Degree of Polarization (DOP) 
+<center>
 
-<p align="center">
-<img src="https://latex.codecogs.com/svg.latex?\Large&space;\text{DOP}_{dp} = \sqrt{1-\frac{4\times \text{det ([C2])}}{\text{(Trace [C2])}^2}}
-" title="x2" />
-</p>
+![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{DOP}_{dp}=\sqrt{1-\frac{4\times\text{det([C2])}}{\text{(Trace[C2])}^2}})
+    
+</center> 
 
 ````python
-input : input_c2_folder, window_size
-output: dop_dp.bin
+    input : input_c2_folder, window_size
+    output: dop_dp.bin
 ````
 
 
