@@ -22,9 +22,7 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
     
     <center>
 
-    ![mfp](https://latex.codecogs.com/svg.latex?\Large&space;m_{\text{FP}}=\sqrt{1-\frac{27|\mathbf{T3}|}{\big(\mathrm{Trace}(\mathbf{T3})\big)^3}})
-    
-    ![mfp](https://latex.codecogs.com/svg.latex?\Large&space;\tan\theta_{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}\left(T_{11}-T_{22}-T_{33}\right)}{T_{11}\left(T_{22}+T_{33}\right)+m_{\text{FP}}^{2}{\text{Span}}^{2}})
+    ![mfp](https://latex.codecogs.com/svg.latex?\Large&space;m_{\text{FP}}=\sqrt{1-\frac{27|\mathbf{T3}|}{\big(\mathrm{Trace}(\mathbf{T3})\big)^3}};\qquad{}\tan\theta_{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}\left(T_{11}-T_{22}-T_{33}\right)}{T_{11}\left(T_{22}+T_{33}\right)+m_{\text{FP}}^{2}{\text{Span}}^{2}})
     
     </center> 
 
@@ -43,20 +41,28 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
 
 ````python
     input : input_T3_folder, window_size
-    output: Ps.bin,Pd.bin,Pv.bin,Theta_FP.bin
+    output: Ps_FP.bin,Pd_FP.bin,Pv_FP.bin,Theta_FP.bin
 ````
 
  * Radar Vegetation Index (RVI) 
-<center>
 
-![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{RVI}_{fp}=\frac{8\sigma^\circ_{\text{HV}}}{\sigma^\circ_{\text{HH}}+\sigma^\circ_{\text{VV}}+2\sigma^\circ_{\text{HV}}})
+    <center>
+
+    ![rvifp](https://latex.codecogs.com/svg.latex?\Large&space;\text{RVI}_{fp}=\frac{4\lambda_1}{\lambda_1+\lambda_2+\lambda_3})
+        
+    </center>
+
+
+<!-- <center>
+
+![rvifp](https://latex.codecogs.com/svg.latex?\Large&space;\text{RVI}_{fp}=\frac{8\sigma^\circ_{\text{HV}}}{\sigma^\circ_{\text{HH}}+\sigma^\circ_{\text{VV}}+2\sigma^\circ_{\text{HV}}})
     
-</center> 
+</center>  -->
 
 
 ````python
     input : input_c2_folder, window_size
-    output: RVI.bin
+    output: RVI_FP.bin
 ````
  * Polarimetric Radar Vegetation Index (PRVI) 
 <center>
@@ -68,7 +74,7 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
 
 ````python
     input : input_c2_folder, window_size
-    output: PRVI.bin
+    output: PRVI_FP.bin
 ````
 
  * Degree of Polarization (DOP) 
@@ -95,36 +101,113 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
     
     <center>
 
-    ![mcp](https://latex.codecogs.com/svg.latex?\Large&space;m_{\text{CP}}=\sqrt{1-\frac{4|\mathbf{C2}|}{\big(\mathrm{Trace}(\mathbf{C2})\big)^2}};\tan\theta_{\text{CP}}=\frac{m_{\text{CP}}{S_0}\left(\text{OC}-\text{SC}\right)}{\text{OC}\times\text{SC}+m_{\text{CP}}^{2}{S_0}^{2}})
+    ![mcp](https://latex.codecogs.com/svg.latex?\Large&space;m_{\text{CP}}=\sqrt{1-\frac{4|\mathbf{C2}|}{\big(\mathrm{Trace}(\mathbf{C2})\big)^2}};\qquad{}\tan\theta_{\text{CP}}=\frac{m_{\text{CP}}{S_0}\left(\text{OC}-\text{SC}\right)}{\text{OC}\times\text{SC}+m_{\text{CP}}^{2}{S_0}^{2}})
     
     </center> 
 
 
     <center>
 
-    ![cppowers](https://latex.codecogs.com/svg.latex?\Large&space;P_{d}^{\text{CP}}=\frac{m_{\text{FP}}{S_0}}{2}{\left(1-\sin2\theta_{\text{CP}}\right)};\\\P_{v}^{\text{CP}}={S_0}\left(1-m_{\text{CP}}\right);\\\P_{s}^{\text{CP}}=\frac{m_{\text{CP}}{S_0}}{2}\left(1+\sin2\theta_{\text{CP}}\right))
+    ![cppowers](https://latex.codecogs.com/svg.latex?\Large&space;\\\P_{d}^{\text{CP}}=\frac{m_{\text{FP}}{S_0}}{2}{\left(1-\sin2\theta_{\text{CP}}\right)};\\\P_{v}^{\text{CP}}={S_0}\left(1-m_{\text{CP}}\right);\\\P_{s}^{\text{CP}}=\frac{m_{\text{CP}}{S_0}}{2}\left(1+\sin2\theta_{\text{CP}}\right))
     
     </center>
     <center>
 
-    ![sparm](https://latex.codecogs.com/svg.latex?\Large&space;S_0=\text{C11+C22};S_1=\text{C11-C22};\\\S_2=\text{C12+C21};S_3=\pm\text{j(C12-C21)})
+    ![sparm](https://latex.codecogs.com/svg.latex?\Large&space;\\\S_0=\text{C11+C22};\qquad{}S_1=\text{C11-C22};\\\S_2=\text{C12+C21};\qquad{}S_3=\pm\text{j(C12-C21)})
     
-    </center>
-
-    <center>
-
-    ![cparm](https://latex.codecogs.com/svg.latex?\Large&space;\text{SC}=\frac{S_0-S_3}{2};\text{OC}=\frac{S_0+S_3}{2};)
+    ![cparm](https://latex.codecogs.com/svg.latex?\Large&space;\text{SC}=\frac{S_0-S_3}{2};\qquad{}\text{OC}=\frac{S_0+S_3}{2};)
     
     </center>
 
 
 ````python
     input : input_C2_folder, window_size
-    output: Ps.bin,Pd.bin,Pv.bin,Theta_FP.bin
+    output: Ps_CP.bin, Pd_CP.bin, Pv_CP.bin, Theta_CP.bin
+````
+
+ * Compact-pol Radar Vegetation Index (CpRVI) 
+    <center>
+    
+    ![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{CpRVI}=\left(1-\dfrac{3}{2}\text{GD}_{\text{ID}}\right)\Big(\frac{p}{q}\Big)^{2(\frac{3}{2}\text{GD}_{\text{ID}})})
+
+    ![pqcp](https://latex.codecogs.com/svg.latex?\Large&space;p=\text{min\\{SC,OC\\}},q=\text{max\\{SC,OC\\}})
+    
+    ![cparm](https://latex.codecogs.com/svg.latex?\Large&space;\text{SC}=\frac{S_0-S_3}{2};\qquad{}\text{OC}=\frac{S_0+S_3}{2};)
+    
+
+    ![sparm](https://latex.codecogs.com/svg.latex?\Large&space;\\\S_0=\text{C11+C22};\qquad{}S_1=\text{C11-C22};\\\S_2=\text{C12+C21};\qquad{}S_3=\pm\text{j(C12-C21)})
+
+
+    </center> 
+
+where, GD<sub>ID</sub> is the geodesic distance between Kennaugh matrices (K) of the observed and the ideal depolarizer, p,q are minimum and maximum values of SC and OC which are functions of stocks parameters (S<sub>0</sub>, S<sub>1</sub>, S<sub>2</sub>, and S<sub>3</sub>). A detailed explanation of CpRVI is available in [[6]](#6).
+
+
+````python
+    input : input_C2_folder, window_size
+    output: CpRVI.bin
 ````
 
 
 
+ * improved S-&Omega; decomposition (iS-&Omega;) 
+    
+    The stokes paramters can be written in terms of the covariance matrx (C2) elements as follows:
+    
+    <center>
+    
+    ![sparm](https://latex.codecogs.com/svg.latex?\Large&space;\\\S_0=\text{C11+C22};\qquad{}S_1=\text{C11-C22};\\\S_2=\text{C12+C21};\qquad{}S_3=\pm\text{j(C12-C21)})    
+
+    </center> 
+
+    Then, the parameters Same-sense Circular (SC) and Opposite-sense Circular (OC) can be expressed as follows:
+
+    <center>
+
+    ![cparm](https://latex.codecogs.com/svg.latex?\Large&space;\text{SC}=\frac{S_0-S_3}{2};\qquad{}\text{OC}=\frac{S_0+S_3}{2};)
+    </center>    
+    <!-- <center>
+
+    ![cparm](https://latex.codecogs.com/svg.latex?\Large&space;\Vec{\mathbf{S}}=\begin{bmatrix}S_{0}\\\S_{1}\\\S_{2}\\\\S_{3}\end{bmatrix}=\begin{bmatrix}C_{11}+C_{22}\\\C_{11}-C_{22}\\\C_{12}+C_{21}\\\pm\left(C_{12}-C_{21}\right)\end{bmatrix})
+
+    </center> -->
+
+    <center>
+
+    ![cparm](https://latex.codecogs.com/svg.latex?\Large&space;\text{SC/OC}<1;\qquad{}\qquad{}\qquad{}\text{SC/OC}>1\\\P_s=\Omega\left(S_{r0}-\left(1-\Omega\right)\text{SC}\right);\qquad{}P_s=\Omega\left(1-\Omega\right)\text{OC}\\\P_d=\Omega\left(1-\Omega\right)\text{SC};\qquad{}P_d=\Omega\left(S_{r0}-\left(1-\Omega\right)\text{OC}\right))
+
+    ![cparm](https://latex.codecogs.com/svg.latex?\Large&space;P_v=S_{r0}\left(1-\Omega\right))
+
+    
+    </center>    
+
+````python
+    input : input_C2_folder, window_size, tau, psi, chi
+    output: Ps_iSOmega.bin, Pd_iSOmega.bin,Pv_iSOmega.bin
+````
+
+ * Degree of Polarization (DOP<sub>cp</sub>) [[11]](#11)
+    
+    The stokes paramters can be written in terms of the covariance matrx (C2) elements as follows:
+    
+    <center>
+    
+    ![sparm](https://latex.codecogs.com/svg.latex?\Large&space;\\\S_0=\text{C11+C22};\qquad{}S_1=\text{C11-C22};\\\S_2=\text{C12+C21};\qquad{}S_3=\pm\text{j(C12-C21)})    
+
+    </center>  
+
+    then,
+
+    <center>
+
+    ![dopcp](https://latex.codecogs.com/svg.latex?\Large&space;\text{DOP}_{cp}=\frac{\sqrt{S^2_1+S^2_2+S^2_3}}{S_0})
+        
+    </center> 
+
+````python
+    input : input_c2_folder, window_size, tau
+    output: DOP_CP.bin
+````
 
 
 
@@ -218,3 +301,6 @@ Trudel, M., Charbonneau, F. and Leconte, R., 2012. Using RADARSAT-2 polarimetric
 
 <a id="10">[10]</a> 
 Barakat, R., 1977. Degree of polarization and the principal idempotents of the coherency matrix. Optics Communications, 23(2), pp.147-150.
+
+<a id="11">[11]</a> 
+Lee, J.S. and Pottier, E., 2009. Polarimetric radar imaging: from basics to applications. CRC press.

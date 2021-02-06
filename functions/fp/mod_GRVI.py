@@ -307,7 +307,7 @@ class GRVI(QtCore.QObject):
                 
                 self.progress.emit('->> Write files to disk...')
                 """Write files to disk"""
-                ofilervi = self.iFolder+'/RVI.bin'
+                ofilervi = self.iFolder+'/RVI_FP.bin'
                 infile = self.iFolder+'/T11.bin'
                 write_bin(ofilervi,rvi,infile)
                 self.pBar.emit(95)

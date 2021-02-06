@@ -60,11 +60,8 @@ class PRVI(QtCore.QObject):
                 """Write files to disk"""
                 
                 infile = self.iFolder+'/T11.bin'
-                
-                ofiledop = self.iFolder+'/DOP.bin'
-                write_bin(ofiledop,DOP,infile)
-                
-                ofileprvi = self.iFolder+'/PRVI.bin'
+                                
+                ofileprvi = self.iFolder+'/PRVI_FP.bin'
                 write_bin(ofileprvi,prvi,infile)
                 self.pBar.emit(100)
                 self.progress.emit('->> Finished PRVI calculation!!')
