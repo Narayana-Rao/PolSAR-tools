@@ -1,7 +1,7 @@
 ## Functions description
 
 **Full-pol functions**
-------------
+----------------------
 
  * Generalized volume based Radar Vegetation Index (GRVI) 
     <center>
@@ -22,13 +22,14 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
     
     <center>
 
-    ![mfp](https://latex.codecogs.com/svg.latex?\Large&space;m_{\text{FP}}=\sqrt{1-\frac{27|\mathbf{T3}|}{\big(\mathrm{Trace}(\mathbf{T3})\big)^3}})
+    ![mfp](https://latex.codecogs.com/svg.latex?\Large&space;m_{\text{FP}}=\sqrt{1-\frac{27|\mathbf{T3}|}{\big(\mathrm{Trace}(\mathbf{T3})\big)^3}};\tan\theta_{\text{FP}}=\frac{m_{\text{FP}}\,{\text{Span}}\,\left(T_{11}-T_{22}-T_{33}\right)}{T_{11}\left(T_{22}+T_{33}\right)+m_{\text{FP}}^{2}\,{\text{Span}}^{2}})
     
     </center> 
 
+
     <center>
 
-    ![tfp](https://latex.codecogs.com/svg.latex?\Large&space;\tan\theta_{\text{FP}}=\frac{m_{\text{FP}}\,{\text{Span}}\,\left(T_{11}-T_{22}-T_{33}\right)}{T_{11}\left(T_{22}+T_{33}\right)+m_{\text{FP}}^{2}\,{\text{Span}}^{2}})
+    ![tfp](https://latex.codecogs.com/svg.latex?\Large&space;P_{d}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}{\left(1-\sin2\theta_{\text{FP}}\right)};P_{v}^{\text{FP}}={\text{Span}}\,\left(1-m_{\text{FP}}\right),\text{and};P_{s}^{\text{FP}}=\frac{m_{\text{FP}}\,{\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right))
     
     </center>
 
@@ -37,16 +38,6 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
     ![spanfp](https://latex.codecogs.com/svg.latex?\Large&space;\text{Span}=T_{11}+T_{22}+T_{33})
     
     </center>
-
-    <center>
-
-    ![tfp](https://latex.codecogs.com/svg.latex?\Large&space;P_{d}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}{\left(1-\sin2\theta_{\text{FP}}\right)}\\\P_{v}^{\text{FP}}={\text{Span}}\,\left(1-m_{\text{FP}}\right),\text{and}\\\P_{s}^{\text{FP}}=\frac{m_{\text{FP}}\,{\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right))
-    
-    </center>
-
-<!-- P_{d}^{\text{FP}} &= \frac{m_{\text{FP}}\, {\text{Span}}}{2}\left(1-\sin2\theta_{\text{FP}}\right) \label{eq:eq_fp7},  \\%[5pt]
-P_{v}^{\text{FP}} &= {\text{Span}}\, \left(1-m_{\text{FP}}\right),\text{ and} \label{eq:eq_fp8}\\
-P_{s}^{\text{FP}} &= \frac{m_{\text{FP}}\, {\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right). -->
 
 ````python
     input : input_T3_folder, window_size
@@ -89,6 +80,53 @@ P_{s}^{\text{FP}} &= \frac{m_{\text{FP}}\, {\text{Span}}}{2}\left(1+\sin2\theta_
     input : input_c2_folder, window_size
     output: dop_fp.bin
 ````
+
+
+
+
+
+**Compact-pol functions**
+-------------------------
+
+
+ * Model Free 3-Component decomposition for Full-pol data (MF3CF) 
+    
+    <center>
+
+    ![mcp](https://latex.codecogs.com/svg.latex?\Large&space;m_{\text{CP}}=\sqrt{1-\frac{4|\mathbf{C2}|}{\big(\mathrm{Trace}(\mathbf{C2})\big)^2}};\tan\theta_{\text{CP}}=\frac{m_{\text{CP}}{S_0}\left(\text{OC}-\text{SC}\right)}{\text{OC}\times\text{SC}+m_{\text{CP}}^{2}{S_0}^{2}})
+    
+    </center> 
+
+
+    <center>
+
+    ![cppowers](https://latex.codecogs.com/svg.latex?\Large&space;P_{d}^{\text{CP}}=\frac{m_{\text{FP}}{S_0}}{2}{\left(1-\sin2\theta_{\text{CP}}\right)};P_{v}^{\text{CP}}={S_0}\left(1-m_{\text{CP}}\right),\text{and};P_{s}^{\text{CP}}=\frac{m_{\text{CP}}{S_0}}{2}\left(1+\sin2\theta_{\text{CP}}\right))
+    
+    </center>
+    <center>
+
+    ![sparm](https://latex.codecogs.com/svg.latex?\Large&space;S_0=\text{C11+C22};S_1=\text{C11-C22};S_2=\text{C12+C21};S_3=\pm\text{j(C12-C21)})
+    
+    </center>
+
+    <center>
+
+    ![cparm](https://latex.codecogs.com/svg.latex?\Large&space;\text{SC}=\frac{S_0-S_3}{2};\text{OC}=\frac{S_0+S_3}{2};)
+    
+    </center>
+
+
+````python
+    input : input_C2_folder, window_size
+    output: Ps.bin,Pd.bin,Pv.bin,Theta_FP.bin
+````
+
+
+
+
+
+
+
 
 **Dual-pol**
 ------------
