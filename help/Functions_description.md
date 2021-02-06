@@ -5,11 +5,8 @@
 
  * Generalized volume based Radar Vegetation Index (GRVI) 
 
-<p align="center">
-<img src="https://latex.codecogs.com/svg.latex?\Large&space;
-    \text{GRVI} = \left(1 - \text{GD}_{\text{GV}}\right)\Big(\frac{p}{q}\Big)^{2\,\text{GD}_{\text{GV}}}, \quad 0\le \text{GRVI} \le 1
-" title="grvi" />
-</p>
+
+![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{GRVI}=\left(1-\text{GD}_{\text{GV}}\right)\Big(\frac{p}{q}\Big)^{2\,\text{GD}_{\text{GV}}},\quad0\le\text{GRVI}\le1)
 
 where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of the observed and the generalized volume scattering model, p,q are minimum and maximum value of distances between K matrices of the observed and elementary targets respectively. A detailed explanation of GRVI is available in [[2]](#2).
 
