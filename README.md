@@ -124,32 +124,14 @@ It is possible that the plugin may show not responding for larger datasets but p
   <p align="center"> <em>Imported data in QGIS</em> </p>
 </p>
 
+## Functions description
 
+Description and the details of all the core functions of this plugin are available here: [Functions_description](help/Functions_description.md)
 
 ## Contributions
 1) Contribute to the software
-  * Setting up environment
-    - Download and install anaconda (python version: >3.0)
-    - Download and install Qt Designer (Qt version: 5.0)
 
-  * Preparing your own descriptor function:
-
-    - All the core functions are arranged in separate modules. The generic structure of a module is as follows:
-        
-        ````python
-            def your_function_name (data_stack, **vars):
-                ...
-                code
-                ...
-                return your_descriptor
-                  
-        ````
-      data_stack : 3-D array of the polarimetric matrix (N x N x 9 (T3/C3); N x N x 4 (C2/T2)).
-
-      \**vars :  list of required variables(E.g. **window_size**, **ellipticity** etc.).
-      
-  * Updating the GUI
-   - Open the 
+    [Contribution guidelines for this project](help/CONTRIBUTING.md)
 
 
 2) Report issues or problems with the software
