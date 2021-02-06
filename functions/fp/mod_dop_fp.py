@@ -54,7 +54,7 @@ class dop_FP(QtCore.QObject):
                 
                 infile = self.iFolder+'/T11.bin'
                 
-                ofiledop = self.iFolder+'/DOP.bin'
+                ofiledop = self.iFolder+'/DOP_FP.bin'
                 write_bin(ofiledop,DOP,infile)
                 
                 self.pBar.emit(100)

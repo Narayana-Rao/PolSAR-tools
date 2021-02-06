@@ -44,7 +44,7 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
     output: Ps_FP.bin,Pd_FP.bin,Pv_FP.bin,Theta_FP.bin
 ````
 
- * Radar Vegetation Index (RVI) 
+ * Radar Vegetation Index (RVI<sub>fp</sub>) 
 
     <center>
 
@@ -61,10 +61,10 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
 
 
 ````python
-    input : input_c2_folder, window_size
+    input : input_T3_folder, window_size
     output: RVI_FP.bin
 ````
- * Polarimetric Radar Vegetation Index (PRVI) 
+ * Polarimetric Radar Vegetation Index (PRVI<sub>fp</sub>) 
 <center>
 
 ![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{PRVI}_{fp}=(1-\text{DOP}_{fp})\sigma^\circ_{\text{XY}})
@@ -73,11 +73,11 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
 
 
 ````python
-    input : input_c2_folder, window_size
+    input : input_T3_folder, window_size
     output: PRVI_FP.bin
 ````
 
- * Degree of Polarization (DOP) 
+ * Degree of Polarization (DOP<sub>fp</sub>) 
 <center>
 
 ![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{DOP}_{fp}=\sqrt{1-\frac{27\times\text{det([T3])}}{\text{(Trace[T3])}^3}})
@@ -85,8 +85,8 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
 </center> 
 
 ````python
-    input : input_c2_folder, window_size
-    output: dop_fp.bin
+    input : input_T3_folder, window_size
+    output: DOP_FP.bin
 ````
 
 
@@ -121,7 +121,7 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
 
 
 ````python
-    input : input_C2_folder, window_size
+    input : input_C2_folder, window_size, tau
     output: Ps_CP.bin, Pd_CP.bin, Pv_CP.bin, Theta_CP.bin
 ````
 
@@ -231,7 +231,7 @@ where, C2 is co-variance matrix,  and  &lambda;<sub>1</sub> and &lambda;<sub>2</
     output: DpRVI.bin
 ````
 
- * Radar Vegetation Index (RVI) 
+ * Radar Vegetation Index (RVI<sub>dp</sub>) 
 <center>
 
 ![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{RVI}_{dp}=\frac{4\sigma^\circ_{\text{XY}}}{\sigma^\circ_{\text{XX}}+\sigma^\circ_{\text{XY}}})
@@ -244,7 +244,7 @@ where, C2 is co-variance matrix,  and  &lambda;<sub>1</sub> and &lambda;<sub>2</
     output: RVI_dp.bin
 ````
 
- * Polarimetric Radar Vegetation Index (PRVI) 
+ * Polarimetric Radar Vegetation Index (PRVI<sub>dp</sub>) 
 <center>
 
 ![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{PRVI}_{dp}=(1-\text{DOP}_{dp})\sigma^\circ_{\text{XY}})
@@ -257,7 +257,7 @@ where, C2 is co-variance matrix,  and  &lambda;<sub>1</sub> and &lambda;<sub>2</
     output: PRVI_dp.bin
 ````
 
- * Degree of Polarization (DOP) 
+ * Degree of Polarization (DOP<sub>dp</sub>) 
 <center>
 
 ![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{DOP}_{dp}=\sqrt{1-\frac{4\times\text{det([C2])}}{\text{(Trace[C2])}^2}})
