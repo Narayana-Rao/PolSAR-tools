@@ -3,35 +3,44 @@
 **Full-pol functions**
 ----------------------
 
- * Generalized volume based Radar Vegetation Index (GRVI) 
+ * ```GRVI``` (Generalized volume based Radar Vegetation Index): This functionality computes the generalized volume based radar vegetation index for full polarimetric SAR data. The required input and the computed output are as follows:
+
+    ````python
+        input : input_T3/C3_folder, window_size
+        output: GRVI.bin
+    ````
+    
+    The formulation of GRVI is as follows:
+
     <center>
 
     ![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\centering\text{GRVI}=\left(1-\text{GD}_{\text{GV}}\right)\Big(\frac{p}{q}\Big)^{2\,\text{GD}_{\text{GV}}},\quad0\le\text{GRVI}\le1)
-    
+
     </center> 
 
-where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of the observed and the generalized volume scattering model, p,q are minimum and maximum value of distances between K matrices of the observed and elementary targets respectively. A detailed explanation of GRVI is available in [[2]](#2).
+    where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of the observed and the generalized volume scattering model, p,q are minimum and maximum value of distances between K matrices of the observed and elementary targets respectively. A detailed explanation of GRVI is available in [[2]](#2).
 
 
-````python
-    input : input_T3_folder, window_size
-    output: GRVI.bin
-````
+ * ```MF3CF``` (Model Free 3-Component decomposition for Full-pol data): This functionality computes the model free 3 component scattering power decomposition for full polarimetric SAR data. The required input and the computed output are as follows:
 
- * Model Free 3-Component decomposition for Full-pol data (MF3CF) 
+    ````python
+        input : input_T3/C3_folder, window_size
+        output: Ps_FP.bin, Pd_FP.bin, Pv_FP.bin, Theta_FP.bin
+    ````
     
-    <center>
-
-    ![mfp](https://latex.codecogs.com/svg.latex?\Large&space;m_{\text{FP}}=\sqrt{1-\frac{27|\mathbf{T3}|}{\big(\mathrm{Trace}(\mathbf{T3})\big)^3}};\qquad{}\tan\theta_{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}\left(T_{11}-T_{22}-T_{33}\right)}{T_{11}\left(T_{22}+T_{33}\right)+m_{\text{FP}}^{2}{\text{Span}}^{2}})
-    
-    </center> 
-
-
+    The formulation of the scattering powers (P<sub>s</sub>: Surface, P<sub>d</sub>: Double bounce, P<sub>v</sub>: volume) is as follows:
     <center>
 
     ![tfp](https://latex.codecogs.com/svg.latex?\Large&space;\noindent\\\P_{d}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}{\left(1-\sin2\theta_{\text{FP}}\right)}\\\P_{v}^{\text{FP}}={\text{Span}}\left(1-m_{\text{FP}}\right)\\\P_{s}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right))
     
     </center>
+    where m<sub>FP</sub> is degree of polarization, &theta;<sub>FP</sub> scattering type parameter, Span is the sum of the diagonal elements os coherence matrix (T3).  The derivation of these parameters in-terms of coherancey matrix (T3) elements is as shown below. Further details can be obtained from [[4]](#4)
+
+    <center>
+
+    ![mfp](https://latex.codecogs.com/svg.latex?\Large&space;m_{\text{FP}}=\sqrt{1-\frac{27|\mathbf{T3}|}{\big(\mathrm{Trace}(\mathbf{T3})\big)^3}};\qquad{}\tan\theta_{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}\left(T_{11}-T_{22}-T_{33}\right)}{T_{11}\left(T_{22}+T_{33}\right)+m_{\text{FP}}^{2}{\text{Span}}^{2}})
+    
+    </center> 
 
     <center>
 
@@ -39,19 +48,21 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
     
     </center>
 
-````python
-    input : input_T3_folder, window_size
-    output: Ps_FP.bin,Pd_FP.bin,Pv_FP.bin,Theta_FP.bin
-````
 
- * Radar Vegetation Index (RVI<sub>fp</sub>) 
+ * ```RVI``` (Radar Vegetation Index): This functionality computes the Radar vegetation index for full polarimetric SAR data. The required input and the computed output are as follows:
+    ````python
+        input : input_T3/C3_folder, window_size
+        output: RVI_FP.bin
+    ````
+    
+    The formulation of RVI is as follows:
 
     <center>
 
     ![rvifp](https://latex.codecogs.com/svg.latex?\Large&space;\text{RVI}_{fp}=\frac{4\lambda_1}{\lambda_1+\lambda_2+\lambda_3})
         
     </center>
-
+where, &lambda;<sub>1</sub>, &lambda;<sub>2</sub> and &lambda;<sub>3</sub> are the eigen values of coherency matrix (T3) in descending order (&lambda;<sub>1</sub>> &lambda;<sub>2</sub>>&lambda;<sub>3</sub>). Further details can be found in [[8]](#8)
 
 <!-- <center>
 
@@ -60,10 +71,6 @@ where, GD<sub>GV</sub> is the geodesic distance between Kennaugh matrices (K) of
 </center>  -->
 
 
-````python
-    input : input_T3_folder, window_size
-    output: RVI_FP.bin
-````
  * Polarimetric Radar Vegetation Index (PRVI<sub>fp</sub>) 
 <center>
 
