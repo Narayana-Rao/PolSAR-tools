@@ -118,18 +118,18 @@ class MRSLab(object):
         # self.dlg.inFolder_fp.setEnabled(False)
         self.dlg.inFolder_fp.setEnabled(False)
         self.dlg.fp_browse.setEnabled(False)
-        self.dlg.fp_cb_C3.setEnabled(False)
-        self.dlg.fp_cb_T3.setEnabled(False)
+        # self.dlg.fp_cb_C3.setEnabled(False)
+        # self.dlg.fp_cb_T3.setEnabled(False)
        
         self.dlg.inFolder_cp.setEnabled(False)
         self.dlg.cp_browse.setEnabled(False)
-        self.dlg.cp_cb_C2.setEnabled(False)
-        self.dlg.cp_cb_T2.setEnabled(False)
+        # self.dlg.cp_cb_C2.setEnabled(False)
+        # self.dlg.cp_cb_T2.setEnabled(False)
         
         self.dlg.inFolder_dp.setEnabled(False)
         self.dlg.dp_browse.setEnabled(False)
-        self.dlg.dp_cb_C2.setEnabled(False)
-        self.dlg.dp_cb_T2.setEnabled(False)
+        # self.dlg.dp_cb_C2.setEnabled(False)
+        # self.dlg.dp_cb_T2.setEnabled(False)
                      
         
         self.dlg.fp_ws.setEnabled(True)
@@ -257,10 +257,10 @@ class MRSLab(object):
         # logger.append(str(self.dlg.tabWidget.currentIndex()))
         # self.dlg.fp_parm.currentIndexChanged.connect(self.Cob_mode)
         """CP"""
-        self.dlg.fp_cb_C3.setChecked(False)
-        self.dlg.fp_cb_T3.setChecked(True)
-        self.dlg.fp_cb_T3.stateChanged.connect(self.fpt3_state_changed)
-        self.dlg.fp_cb_C3.stateChanged.connect(self.fpc3_state_changed)
+        # self.dlg.fp_cb_C3.setChecked(False)
+        # self.dlg.fp_cb_T3.setChecked(True)
+        # self.dlg.fp_cb_T3.stateChanged.connect(self.fpt3_state_changed)
+        # self.dlg.fp_cb_C3.stateChanged.connect(self.fpc3_state_changed)
 
         self.dlg.fp_browse.clicked.connect(self.openRaster)
 
@@ -270,10 +270,10 @@ class MRSLab(object):
         self.dlg.fp_ws.valueChanged.connect(self.ws_update)
         
         """CP"""
-        self.dlg.cp_cb_C2.setChecked(False)
-        self.dlg.cp_cb_T2.setChecked(True)
-        self.dlg.cp_cb_T2.stateChanged.connect(self.cpt2_state_changed)
-        self.dlg.cp_cb_C2.stateChanged.connect(self.cpc2_state_changed)
+        # self.dlg.cp_cb_C2.setChecked(False)
+        # self.dlg.cp_cb_T2.setChecked(True)
+        # self.dlg.cp_cb_T2.stateChanged.connect(self.cpt2_state_changed)
+        # self.dlg.cp_cb_C2.stateChanged.connect(self.cpc2_state_changed)
         self.dlg.cp_browse.clicked.connect(self.openRaster)
         self.dlg.cp_ws.valueChanged.connect(self.ws_update)
         self.dlg.cp_parm.currentIndexChanged.connect(self.Cob_parm)
@@ -284,10 +284,10 @@ class MRSLab(object):
         self.dlg.cp_sb_chi.valueChanged.connect(self.chi_update)
         
         """DP"""
-        self.dlg.dp_cb_C2.setChecked(False)
-        self.dlg.dp_cb_T2.setChecked(True)
-        self.dlg.dp_cb_T2.stateChanged.connect(self.dpt2_state_changed)
-        self.dlg.dp_cb_C2.stateChanged.connect(self.dpc2_state_changed)
+        # self.dlg.dp_cb_C2.setChecked(False)
+        # self.dlg.dp_cb_T2.setChecked(True)
+        # self.dlg.dp_cb_T2.stateChanged.connect(self.dpt2_state_changed)
+        # self.dlg.dp_cb_C2.stateChanged.connect(self.dpc2_state_changed)
         self.dlg.dp_browse.clicked.connect(self.openRaster)
         self.dlg.dp_ws.valueChanged.connect(self.ws_update)
         self.dlg.dp_parm.currentIndexChanged.connect(self.Cob_parm) 
@@ -320,49 +320,49 @@ class MRSLab(object):
             pol_mode = i
             # logger.append(str(pol_mode))
             
-    # update the T3/C3 or T2/C2 check relative to each other
-    def fpt3_state_changed(self, i):
-        # logger.append(str(i))
-        if i==2:
-            self.dlg.fp_cb_C3.setChecked(False)
-        if i==0:
-            self.dlg.fp_cb_C3.setChecked(True)
+    # # update the T3/C3 or T2/C2 check relative to each other
+    # def fpt3_state_changed(self, i):
+    #     # logger.append(str(i))
+    #     if i==2:
+    #         self.dlg.fp_cb_C3.setChecked(False)
+    #     if i==0:
+    #         self.dlg.fp_cb_C3.setChecked(True)
     
-    def fpc3_state_changed(self, i):
+    # def fpc3_state_changed(self, i):
         
-        if i==2:
-            self.dlg.fp_cb_T3.setChecked(False)
-        if i==0:
-            self.dlg.fp_cb_T3.setChecked(True)
+    #     if i==2:
+    #         self.dlg.fp_cb_T3.setChecked(False)
+    #     if i==0:
+    #         self.dlg.fp_cb_T3.setChecked(True)
 
-    def cpt2_state_changed(self, i):
-        # logger.append(str(i))
-        if i==2:
-            self.dlg.cp_cb_C2.setChecked(False)
-        if i==0:
-            self.dlg.cp_cb_C2.setChecked(True)
+    # def cpt2_state_changed(self, i):
+    #     # logger.append(str(i))
+    #     if i==2:
+    #         self.dlg.cp_cb_C2.setChecked(False)
+    #     if i==0:
+    #         self.dlg.cp_cb_C2.setChecked(True)
     
-    def cpc2_state_changed(self, i):
+    # def cpc2_state_changed(self, i):
         
-        if i==2:
-            self.dlg.cp_cb_T2.setChecked(False)
-        if i==0:
-            self.dlg.cp_cb_T2.setChecked(True)
+    #     if i==2:
+    #         self.dlg.cp_cb_T2.setChecked(False)
+    #     if i==0:
+    #         self.dlg.cp_cb_T2.setChecked(True)
             
 
-    def dpt2_state_changed(self, i):
-        # logger.append(str(i))
-        if i==2:
-            self.dlg.dp_cb_C2.setChecked(False)
-        if i==0:
-            self.dlg.dp_cb_C2.setChecked(True)
+    # def dpt2_state_changed(self, i):
+    #     # logger.append(str(i))
+    #     if i==2:
+    #         self.dlg.dp_cb_C2.setChecked(False)
+    #     if i==0:
+    #         self.dlg.dp_cb_C2.setChecked(True)
     
-    def dpc2_state_changed(self, i):
+    # def dpc2_state_changed(self, i):
         
-        if i==2:
-            self.dlg.dp_cb_T2.setChecked(False)
-        if i==0:
-            self.dlg.dp_cb_T2.setChecked(True)
+    #     if i==2:
+    #         self.dlg.dp_cb_T2.setChecked(False)
+    #     if i==0:
+    #         self.dlg.dp_cb_T2.setChecked(True)
 
 
             
@@ -530,14 +530,14 @@ class MRSLab(object):
                 # logger.append('->>      GRVI')
                 self.dlg.inFolder_fp.setEnabled(True)
                 self.dlg.fp_browse.setEnabled(True)
-                self.dlg.fp_cb_T3.setChecked(True)
+                # self.dlg.fp_cb_T3.setChecked(True)
                 # self.dlg.fp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             elif parm == 2:
                 # logger.append('->>      MF3CF')
                 self.dlg.inFolder_fp.setEnabled(True)
                 self.dlg.fp_browse.setEnabled(True)
-                self.dlg.fp_cb_T3.setChecked(True)
+                # self.dlg.fp_cb_T3.setChecked(True)
                 # self.dlg.fp_browse.setEnabled(True)
                 # self.dlg.fp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
@@ -545,14 +545,14 @@ class MRSLab(object):
                 # logger.append('->>      PRVI')
                 self.dlg.inFolder_fp.setEnabled(True)
                 self.dlg.fp_browse.setEnabled(True)
-                self.dlg.fp_cb_T3.setChecked(True)
+                # self.dlg.fp_cb_T3.setChecked(True)
                 # self.dlg.fp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             elif parm == 4:
                 # logger.append('->>      DOP')
                 self.dlg.inFolder_fp.setEnabled(True)
                 self.dlg.fp_browse.setEnabled(True)
-                self.dlg.fp_cb_T3.setChecked(True)
+                # self.dlg.fp_cb_T3.setChecked(True)
                 # self.dlg.fp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
 
@@ -569,7 +569,7 @@ class MRSLab(object):
                 # logger.append('->>     MF3CC')
                 self.dlg.inFolder_cp.setEnabled(True)
                 self.dlg.cp_browse.setEnabled(True)
-                self.dlg.cp_cb_C2.setChecked(True)
+                # self.dlg.cp_cb_C2.setChecked(True)
                 # self.dlg.cp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             
@@ -577,7 +577,7 @@ class MRSLab(object):
                 # logger.append('->>     DOP')
                 self.dlg.inFolder_cp.setEnabled(True)
                 self.dlg.cp_browse.setEnabled(True)
-                self.dlg.cp_cb_C2.setChecked(True)
+                # self.dlg.cp_cb_C2.setChecked(True)
                 # self.dlg.cp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             
@@ -585,7 +585,7 @@ class MRSLab(object):
                 # logger.append('->>    CpRVI')
                 self.dlg.inFolder_cp.setEnabled(True)
                 self.dlg.cp_browse.setEnabled(True)
-                self.dlg.cp_cb_C2.setChecked(True)
+                # self.dlg.cp_cb_C2.setChecked(True)
                 # self.dlg.cp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             
@@ -593,7 +593,7 @@ class MRSLab(object):
                 # logger.append('->>    CpRVI')
                 self.dlg.inFolder_cp.setEnabled(True)
                 self.dlg.cp_browse.setEnabled(True)
-                self.dlg.cp_cb_C2.setChecked(True)
+                # self.dlg.cp_cb_C2.setChecked(True)
                 # self.dlg.cp_ws.setEnabled(True)
                 self.dlg.cp_sb_psi.setEnabled(True)
                 self.dlg.cp_sb_chi.setEnabled(True)
@@ -612,21 +612,21 @@ class MRSLab(object):
             
             if parm == 1:
                 # logger.append('->>      DpRVI')
-                self.dlg.dp_cb_C2.setChecked(True)
+                # self.dlg.dp_cb_C2.setChecked(True)
                 self.dlg.inFolder_dp.setEnabled(True)
                 self.dlg.dp_browse.setEnabled(True)
                 # self.dlg.dp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             if parm == 2:
                 # logger.append('->>      PRVI')
-                self.dlg.dp_cb_C2.setChecked(True)
+                # self.dlg.dp_cb_C2.setChecked(True)
                 self.dlg.inFolder_dp.setEnabled(True)
                 self.dlg.dp_browse.setEnabled(True)
                 # self.dlg.dp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
             if parm == 3:
                 # logger.append('->>      DOP')
-                self.dlg.dp_cb_C2.setChecked(True)
+                # self.dlg.dp_cb_C2.setChecked(True)
                 self.dlg.inFolder_dp.setEnabled(True)
                 self.dlg.dp_browse.setEnabled(True)
                 # self.dlg.dp_ws.setEnabled(True)
@@ -738,7 +738,7 @@ class MRSLab(object):
         self.dlg.progressBar.setValue(100)
         return T3_stack
     
-    def showDialog(self):
+    def showTip(self):
        msgBox = QMessageBox()
        msgBox.setIcon(QMessageBox.Information)
        msgBox.setText("Please select a valid matrix folder \
@@ -753,77 +753,106 @@ class MRSLab(object):
        # if returnValue == QMessageBox.Ok:
           # print('OK clicked')
 
+    def showError3(self):
+       msgBox = QMessageBox()
+       msgBox.setIcon(QMessageBox.Information)
+       msgBox.setText("Please select a valid C3/T3 matrix folder \
+                      \n generated from PolSARpro \
+                      \n file format: *.bin, *.hdr")
+       msgBox.setWindowTitle("Error!")
+       msgBox.setStandardButtons(QMessageBox.Ok)
+       # msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+       # msgBox.buttonClicked.connect(msgButtonClick)
+    
+       returnValue = msgBox.exec()
+       # if returnValue == QMessageBox.Ok:
+          # print('OK clicked')
 
+    def showError2(self):
+       msgBox = QMessageBox()
+       msgBox.setIcon(QMessageBox.Information)
+       msgBox.setText("Please select a valid C2 matrix folder \
+                      \n generated from PolSARpro \
+                      \n file format: *.bin, *.hdr")
+       msgBox.setWindowTitle("Error!")
+       msgBox.setStandardButtons(QMessageBox.Ok)
+       # msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+       # msgBox.buttonClicked.connect(msgButtonClick)
+    
+       returnValue = msgBox.exec()
+       # if returnValue == QMessageBox.Ok:
+          # print('OK clicked')
 
 
     def openRaster(self):
         """Open raster from file dialog"""
         # logger.append(str(self.dlg.tabWidget.currentIndex()))
-        self.showDialog() # pop-up tip
+        self.showTip() # pop-up tip
         
         if self.dlg.tabWidget.currentIndex() == 0:
             self.inFolder = str(QFileDialog.getExistingDirectory(
                             self.dlg, "Select T3/C3 Folder"))                   
             self.dlg.inFolder_fp.setText(self.inFolder)
             
-            if self.inFolder and self.dlg.fp_cb_C3.isChecked():
-                try:
-                    self.C3_stack = self.load_C3(self.inFolder)
-                    logger.append('->> C3 Loaded \nConverting C3 to T3...')
-                    self.T3_stack  = self.C3_T3(self.C3_stack)
-                    logger.append('->> Ready to process.')
-                except:
-                    logger.append('->> Error! Please check the matrix type and folder')
-            if self.inFolder and self.dlg.fp_cb_T3.isChecked():
+            if self.inFolder:
                 try:
                     self.T3_stack = self.load_T3(self.inFolder)
-                    # logger.append('>>> T3 Loaded \nConverting T3 to C3...')
-                    # self.C3_stack  = self.T3_C3(self.T3_stack)
                     logger.append('->> Ready to process.')
+                    
                 except:
-                    logger.append('->> Error! Please check the matrix type and folder')
+                    try:
+                        self.C3_stack = self.load_C3(self.inFolder)
+                        logger.append('->> C3 Loaded \nConverting C3 to T3...')
+                        self.T3_stack  = self.C3_T3(self.C3_stack)
+                        logger.append('->> Ready to process.')
+                        self.dlg.fp_ws.setEnabled(True)
+                        self.dlg.fp_parm.setEnabled(True)
+                    except:
+                        logger.append('->> Error! \n ->> Please select a valid C3/T3 folder')
+                        self.showError3()
             
-            
-            if self.inFolder:
-                self.dlg.fp_ws.setEnabled(True)
-                self.dlg.fp_parm.setEnabled(True)
+            # if self.inFolder:
+            #     self.dlg.fp_ws.setEnabled(True)
+            #     self.dlg.fp_parm.setEnabled(True)
                 
                 
         if self.dlg.tabWidget.currentIndex() == 1:
             self.inFolder = str(QFileDialog.getExistingDirectory(
-                            self.dlg, "Select T2/C2 Folder"))
+                            self.dlg, "Select C2 Folder"))
             self.dlg.inFolder_cp.setText(self.inFolder)
             
-            
-            if self.inFolder and self.dlg.cp_cb_C2.isChecked():
+            if self.inFolder:
                 try:
-                    logger.append('->> C2 selected')
+                    # logger.append('->> C2 selected')
                     self.C2_stack = self.load_C2(self.inFolder)
                     logger.append('->> Ready to process.')
+                    self.dlg.cp_ws.setEnabled(True)
+                    self.dlg.cp_parm.setEnabled(True)
                 except:
-                    logger.append('->> Error! Please check the matrix type and folder')
+                    logger.append('->> Error! \n ->> Please select a valid C2 folder')
+                    self.showError2()
             
-            if self.inFolder:
-                self.dlg.cp_ws.setEnabled(True)
-                self.dlg.cp_parm.setEnabled(True)
+            # if self.inFolder:
+
+
                 
         if self.dlg.tabWidget.currentIndex() == 2:
             self.inFolder = str(QFileDialog.getExistingDirectory(
-                            self.dlg, "Select T2/C2 Folder"))                   
+                            self.dlg, "Select C2 Folder"))                   
             self.dlg.inFolder_dp.setText(self.inFolder)
             
-            if self.inFolder and self.dlg.dp_cb_C2.isChecked():
+            if self.inFolder:
                 try:
                     logger.append('->> C2 selected')
                     self.C2_stack = self.load_C2(self.inFolder)
                     logger.append('->> Ready to process.')
+                    self.dlg.dp_ws.setEnabled(True)
+                    self.dlg.dp_parm.setEnabled(True)
                 except:
-                    logger.append('->> Error! Please check the matrix type and folder')
-            
-            if self.inFolder:
-                self.dlg.dp_ws.setEnabled(True)
-                self.dlg.dp_parm.setEnabled(True)
- 
+                    logger.append('->> Error! \n ->> Please select a valid C2 folder')
+                    self.showError2()
+
+
 
             
 ###############################################################
@@ -917,10 +946,9 @@ class MRSLab(object):
         logger = self.dlg.terminal
         logger.append('\t                       Welcome to SAR_tools.'+
                       '\n\t This plugin generates derived SAR parameters')
-        logger.append('\t     SAR indices | Decomposition parameters')
-        logger.append('\t              Start by selecting a parameter\n')
-        logger.append('------------------------------------------------------------------------------------------------')
-        
+        logger.append('\t     SAR indices | Decomposition parameters')        
+        logger.append('---------------------------------------------------------------------------------------------')
+        logger.append('Note: Start by selecting a parameter from "select parameter" dropdown\n')
         """ Process button calls"""
 
     def startPRVIdp(self):

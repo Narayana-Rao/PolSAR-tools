@@ -30,7 +30,7 @@ After successful installation, find the plugin by opening **QGIS** --> Plugins -
 </p>
 
 <p align="center">
-  <img src="help/source/files/figures/main_ui.png" alt="GUI-Main window layout"/>
+  <img height=80% width=80% src="help/source/files/figures/main_ui.png" alt="GUI-Main window layout"/>
   <p align="center"> <em>GUI-Main window layout</em> </p>
 </p>
 
@@ -72,7 +72,7 @@ Additional ``reset`` button to clear the environment, ``view data`` button to im
     * Polarimetric Radar Vegetation Index (PRVI) [[1]](#1)
 
 ## Example usage
-> Note: All the following processing steps should be done in sequential manner.
+> Note: All the following processing steps should be done in sequential manner. Sample data for all the polarization modes is provided in [sample_data](/sample_data/) folder.
 
 
 **STEP 1**: Open the plugin as explained in [Up and Running section](#Up-and-running).
