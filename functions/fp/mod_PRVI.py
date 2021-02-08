@@ -59,8 +59,11 @@ class PRVI(QtCore.QObject):
             
                 """Write files to disk"""
                 
-                infile = self.iFolder+'/T11.bin'
-                                
+                if os.path.exists(self.iFolder+'/T11.bin'):
+                    infile = self.iFolder+'/T11.bin'
+                elif os.path.exists(self.iFolder+'/C11.bin'):
+                    infile = self.iFolder+'/C11.bin'
+          
                 ofileprvi = self.iFolder+'/PRVI_FP.bin'
                 write_bin(ofileprvi,prvi,infile)
                 self.pBar.emit(100)

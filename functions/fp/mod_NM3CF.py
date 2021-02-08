@@ -124,7 +124,11 @@ class NM3CF(QtCore.QObject):
                 self.pBar.emit(90)
                 self.progress.emit('>>> Writing files to disk...')
                 """Write files to disk"""
-                infile = self.iFolder+'/T11.bin'
+                if os.path.exists(self.iFolder+'/T11.bin'):
+                    infile = self.iFolder+'/T11.bin'
+                elif os.path.exists(self.iFolder+'/C11.bin'):
+                    infile = self.iFolder+'/C11.bin'
+
                 
                 ofilegrvi = self.iFolder+'/Theta_FP.bin'
                 write_bin(ofilegrvi,theta_FP,infile)

@@ -186,7 +186,7 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
            </item>
            <item>
             <property name="text">
-             <string>GRVI &amp; RVI</string>
+             <string>GRVI</string>
             </property>
            </item>
            <item>
@@ -202,6 +202,11 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
            <item>
             <property name="text">
              <string>DOP</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>RVI</string>
             </property>
            </item>
           </widget>
@@ -507,7 +512,7 @@ iS-Omega: Improved S-Omega decomposition for compact-pol data</string>
            </item>
            <item>
             <property name="text">
-             <string>DpRVI &amp; RVI</string>
+             <string>DpRVI</string>
             </property>
            </item>
            <item>
@@ -518,6 +523,11 @@ iS-Omega: Improved S-Omega decomposition for compact-pol data</string>
            <item>
             <property name="text">
              <string>DOP</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>RVI</string>
             </property>
            </item>
           </widget>

@@ -18,7 +18,7 @@ import time
 import os.path
 
 
-class DpRVI(QtCore.QObject):
+class RVIdp(QtCore.QObject):
     '''DpRVI '''
     def __init__(self,iFolder,C2,ws):
         QtCore.QObject.__init__(self)
@@ -56,7 +56,7 @@ class DpRVI(QtCore.QObject):
     def run(self):
         finish_cond = 0
         try:
-            def DpRVI_fn(C2_stack,ws):
+            def RVIdp_fn(C2_stack,ws):
                 
                 kernel = np.ones((ws,ws),np.float32)/(ws*ws)
                 c11_T1 = C2_stack[:,:,0]
@@ -86,27 +86,19 @@ class DpRVI(QtCore.QObject):
 
                 c2_det = (c11s*c22s-c12s*c21s)
                 c2_trace = c11s+c22s
-                # t2_span = t11s*t22s
-                m = (np.sqrt(1.0-(4.0*c2_det/np.power(c2_trace,2))))
-                self.pBar.emit(70)
-                egv1,egv2 = self.eig22(np.dstack([c11s,c12s,c21s,c22s]))
-                egf = np.vstack([egv1,egv2])
-                egfmax = egf.max(axis=0)#.reshape(np.shape(C2_stack[:,:,0]))
-                beta = (egfmax/(egv1+egv2)).reshape(np.shape(C2_stack[:,:,0]))
-                self.pBar.emit(80)
-                dprvi = 1-(m*beta)
-                
+                rvi = 4*c22s/c2_trace
+            
                 self.pBar.emit(90)
                 self.progress.emit('->> Write files to disk...')
                 """Write files to disk"""
                 
                 infile = self.iFolder+'/C11.bin'
                 
-                ofiledprvi = self.iFolder+'/DpRVI.bin'
-                write_bin(ofiledprvi,dprvi,infile)
+                ofilervidp = self.iFolder+'/RVI_dp.bin'
+                write_bin(ofilervidp,rvi,infile)
                 
                 self.pBar.emit(100)
-                self.progress.emit('->> Finished DpRVI calculation!!')        
+                self.progress.emit('->> Finished RVI calculation!!')        
                 
                 
             
@@ -131,7 +123,7 @@ class DpRVI(QtCore.QObject):
                 # outdata.GetRasterBand(1).SetNoDataValue(np.NaN)##if you want these values transparent
                 outdata.FlushCache() ##saves to disk!!    
         
-            DpRVI_fn(self.C2,self.ws)
+            RVIdp_fn(self.C2,self.ws)
             
             finish_cond = 1
             

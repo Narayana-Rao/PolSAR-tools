@@ -52,7 +52,11 @@ class dop_FP(QtCore.QObject):
 
                 """Write files to disk"""
                 
-                infile = self.iFolder+'/T11.bin'
+                if os.path.exists(self.iFolder+'/T11.bin'):
+                    infile = self.iFolder+'/T11.bin'
+                elif os.path.exists(self.iFolder+'/C11.bin'):
+                    infile = self.iFolder+'/C11.bin'
+
                 
                 ofiledop = self.iFolder+'/DOP_FP.bin'
                 write_bin(ofiledop,DOP,infile)

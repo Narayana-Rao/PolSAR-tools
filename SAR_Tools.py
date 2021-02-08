@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- MRSLab
+
                                  A QGIS plugin
 This plugin generates derived SAR parameters from input polarimetric matrix (C3, T3, C2, T2).
                               -------------------
@@ -47,11 +47,13 @@ from PyQt5 import QtWidgets
 from .functions.dp.mod_DpRVI import DpRVI
 from .functions.dp.mod_PRVI_dp import PRVI_dp
 from .functions.dp.mod_dop_dp import dop_dp
+from .functions.dp.mod_RVI_dp import RVIdp
 
 from .functions.fp.mod_NM3CF import NM3CF
 from .functions.fp.mod_GRVI import GRVI
 from .functions.fp.mod_PRVI import PRVI
 from .functions.fp.mod_dop_fp import dop_FP
+from .functions.fp.mod_RVIFP import RVI_FP
 
 from .functions.cp.mod_dop_cp import dop_cp
 from .functions.cp.mod_CpRVI import CpRVI
@@ -445,7 +447,12 @@ class MRSLab(object):
                     self.startDOPfp()
                 except:
                     self.dtype_error()
-
+            if indX==5:
+                try:
+                    logger.append('->> --------------------')
+                    self.startRVIFP()
+                except:
+                    self.dtype_error()
             else:
                 pass
             
@@ -507,6 +514,13 @@ class MRSLab(object):
                     self.startDOPdp()
                 except:
                     self.dtype_error()
+            if indX==4:
+                try:                    
+                    logger.append('->> --------------------')
+                    self.startRVIdp()
+                except:
+                    self.dtype_error()
+
 
             else:
                 pass
@@ -550,6 +564,13 @@ class MRSLab(object):
                 self.dlg.pb_process.setEnabled(True)
             elif parm == 4:
                 # logger.append('->>      DOP')
+                self.dlg.inFolder_fp.setEnabled(True)
+                self.dlg.fp_browse.setEnabled(True)
+                # self.dlg.fp_cb_T3.setChecked(True)
+                # self.dlg.fp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
+            elif parm == 5:
+                # logger.append('->>      RVI')
                 self.dlg.inFolder_fp.setEnabled(True)
                 self.dlg.fp_browse.setEnabled(True)
                 # self.dlg.fp_cb_T3.setChecked(True)
@@ -626,6 +647,13 @@ class MRSLab(object):
                 self.dlg.pb_process.setEnabled(True)
             if parm == 3:
                 # logger.append('->>      DOP')
+                # self.dlg.dp_cb_C2.setChecked(True)
+                self.dlg.inFolder_dp.setEnabled(True)
+                self.dlg.dp_browse.setEnabled(True)
+                # self.dlg.dp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
+            if parm == 4:
+                # logger.append('->>      RVI')
                 # self.dlg.dp_cb_C2.setChecked(True)
                 self.dlg.inFolder_dp.setEnabled(True)
                 self.dlg.dp_browse.setEnabled(True)
@@ -718,7 +746,7 @@ class MRSLab(object):
                 C3 = np.matmul(np.matmul((D.T),T3),D);
                 C3_stack[i,j,:] = C3.flatten()
                 
-        self.dlg.progressBar.setValue(100)
+        self.dlg.progressBar.setValue(0)
         return C3_stack
     
     def C3_T3(self,C3_stack):
@@ -735,7 +763,7 @@ class MRSLab(object):
                 C3 = np.reshape(C3,(3,3))
                 T3 = np.matmul(np.matmul((D),C3),D.T);
                 T3_stack[i,j,:] = T3.flatten()
-        self.dlg.progressBar.setValue(100)
+        self.dlg.progressBar.setValue(0)
         return T3_stack
     
     def showTip(self):
@@ -797,18 +825,20 @@ class MRSLab(object):
             if self.inFolder:
                 try:
                     self.T3_stack = self.load_T3(self.inFolder)
-                    logger.append('->> Ready to process.')
+                    logger.append('->> Ready to process. Click the "process" button!')
                     
                 except:
                     try:
                         self.C3_stack = self.load_C3(self.inFolder)
-                        logger.append('->> C3 Loaded \nConverting C3 to T3...')
+                        logger.append('->> C3 Loaded \n->> Converting C3 to T3...')
+
                         self.T3_stack  = self.C3_T3(self.C3_stack)
-                        logger.append('->> Ready to process.')
+                        
+                        logger.append('->> Ready to process. Click the "process" button!')
                         self.dlg.fp_ws.setEnabled(True)
                         self.dlg.fp_parm.setEnabled(True)
                     except:
-                        logger.append('->> Error! \n ->> Please select a valid C3/T3 folder')
+                        logger.append('->> Error! \n->> Please select a valid C3/T3 folder')
                         self.showError3()
             
             # if self.inFolder:
@@ -829,7 +859,7 @@ class MRSLab(object):
                     self.dlg.cp_ws.setEnabled(True)
                     self.dlg.cp_parm.setEnabled(True)
                 except:
-                    logger.append('->> Error! \n ->> Please select a valid C2 folder')
+                    logger.append('->> Error! \n->> Please select a valid C2 folder')
                     self.showError2()
             
             # if self.inFolder:
@@ -849,7 +879,7 @@ class MRSLab(object):
                     self.dlg.dp_ws.setEnabled(True)
                     self.dlg.dp_parm.setEnabled(True)
                 except:
-                    logger.append('->> Error! \n ->> Please select a valid C2 folder')
+                    logger.append('->> Error! \n->> Please select a valid C2 folder')
                     self.showError2()
 
 
@@ -1154,11 +1184,55 @@ class MRSLab(object):
         self.worker = worker
         # time.sleep(0.1)
         # worker.kill
+
+    def startRVIdp(self):
+        
+        self.dlg.terminal.append('->> Calculating RVI... ')
+        worker = RVIdp(self.inFolder,self.C2_stack,self.ws)
+
+        # start the worker in a new thread
+        thread = QtCore.QThread()
+        worker.moveToThread(thread)
+        # self.workerFinished =1
+        worker.finished.connect(self.workerFinished)
+        worker.error.connect(self.workerError)
+
+        worker.progress.connect(self.showmsg)
+        worker.pBar.connect(self.pBarupdate)
+        thread.started.connect(worker.run)
+        thread.start()
+        
+        self.thread = thread
+        self.worker = worker
+        # time.sleep(0.1)
+        # worker.kill
             
     def startNM3CF(self):
         
         self.dlg.terminal.append('->> Calculating MF3CF...')
         worker = NM3CF(self.inFolder,self.T3_stack,self.ws)
+
+        # start the worker in a new thread
+        thread = QtCore.QThread()
+        worker.moveToThread(thread)
+        # self.workerFinished =1
+        worker.finished.connect(self.workerFinished)
+        worker.error.connect(self.workerError)
+
+        worker.progress.connect(self.showmsg)
+        worker.pBar.connect(self.pBarupdate)
+        thread.started.connect(worker.run)
+        thread.start()
+        
+        self.thread = thread
+        self.worker = worker
+        # time.sleep(0.1)
+        # worker.kill
+
+    def startRVIFP(self):
+        
+        self.dlg.terminal.append('->> Calculating RVI...')
+        worker = RVI_FP(self.inFolder,self.T3_stack,self.ws)
 
         # start the worker in a new thread
         thread = QtCore.QThread()

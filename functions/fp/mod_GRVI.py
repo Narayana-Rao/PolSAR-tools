@@ -54,7 +54,7 @@ class GRVI(QtCore.QObject):
                
                 span = np.zeros((ncols,nrows))
                 rho_13_hhvv = np.zeros((ncols,nrows))
-                temp_rvi = np.zeros((ncols,nrows))
+                # temp_rvi = np.zeros((ncols,nrows))
                 fp22 = np.zeros((ncols,nrows))
                 GD_t1_t = np.zeros((ncols,nrows))
                 GD_t1_d = np.zeros((ncols,nrows))
@@ -257,34 +257,9 @@ class GRVI(QtCore.QObject):
                         a[ii,jj] = np.nanmax([t_t, t_d, t_c, t_nd]);
                         b[ii,jj] = np.nanmin([t_t, t_d, t_c, t_nd]);
                         beta[ii,jj] = (b[ii,jj]/a[ii,jj])**2;
-                        # self.progress.emit(str('Beta val Done'))
-                        # %% RVI
-                        if np.isnan(np.real(T_T1)).any() or np.isinf(np.real(T_T1)).any() or np.isneginf(np.real(T_T1)).any():
-                            T_T1 = np.array([[0,0],[0,0]])
-                            temp_rvi[ii,jj] = 0
-                            # self.progress.emit(str('invalid Value encountered!!'))
-                            continue
-                            
-                        e_v = -np.sort(-np.linalg.eigvals(T_T1)); # sorting in descending order
-                        e_v1 = e_v[0]; e_v2 = e_v[1]; e_v3 = e_v[2];
-                        # self.progress.emit(str('Eigen val Done'))
                         
-                        p1 = e_v1/(e_v1 + e_v2 + e_v3);
-                        p2 = e_v2/(e_v1 + e_v2 + e_v3);
-                        p3 = e_v3/(e_v1 + e_v2 + e_v3);
-                        
-                        p1=0 if p1<0 else p1
-                        p2=0 if p2<0 else p2
-                        p3=0 if p3<0 else p3
-                            
-                        p1=1 if p1>1 else p1
-                        p2=1 if p2>1 else p2
-                        p3=1 if p3>1 else p3
-                        
-                        
-                        
-                        temp_rvi[ii,jj] = np.real((4*p3)/(p1 + p2 + p3));
-                
+
+
                 # %% GRVI
                 f[f==0]=np.NaN
                 vi = np.power(beta, GD_t1_rv)*(1 - (1/f)*GD_t1_rv);
@@ -297,20 +272,13 @@ class GRVI(QtCore.QObject):
                 vi[idx1] = 0;
                 vi[~idx1] = vi[~idx1];
                 
-                # %% RVI scaled (0 - 1)   
-                rvi = temp_rvi;   
-                idx = np.argwhere(rvi>1)
-           
-                rvi[idx] = (3/4)*rvi[idx];
-                rvi[~idx] = rvi[~idx];
-                rvi[rvi==0] = np.NaN
-                
                 self.progress.emit('->> Write files to disk...')
                 """Write files to disk"""
-                ofilervi = self.iFolder+'/RVI_FP.bin'
-                infile = self.iFolder+'/T11.bin'
-                write_bin(ofilervi,rvi,infile)
-                self.pBar.emit(95)
+                if os.path.exists(self.iFolder+'/T11.bin'):
+                    infile = self.iFolder+'/T11.bin'
+                elif os.path.exists(self.iFolder+'/C11.bin'):
+                    infile = self.iFolder+'/C11.bin'
+
                 ofilegrvi = self.iFolder+'/GRVI.bin'
                 write_bin(ofilegrvi,vi,infile)     
                 self.pBar.emit(100)
