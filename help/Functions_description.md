@@ -261,12 +261,31 @@ Dual-pol functionalities require the SAR data in the form of 2x2 covariance matr
 
 <center>
 
-| C2 matrix files |              |
-|-----------------|--------------|
-| C11.bin         | C11.hdr      |
-| C12_real.bin    | C12_real.hdr |
-| C12_imag.bin    | C12_imag.hdr |
-| C22.bin         | C22.hdr      |
+<table>
+<thead>
+  <tr>
+    <th colspan="2">C2 matrix files</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>C11.bin</td>
+    <td>C11.hdr</td>
+  </tr>
+  <tr>
+    <td>C12_real.bin</td>
+    <td>C12_real.hdr</td>
+  </tr>
+  <tr>
+    <td>C12_imag.bin</td>
+    <td>C12_imag.hdr</td>
+  </tr>
+  <tr>
+    <td>C22.bin</td>
+    <td>C22.hdr</td>
+  </tr>
+</tbody>
+</table>
 
 </center>
 <br>
