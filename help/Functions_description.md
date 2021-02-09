@@ -2,6 +2,24 @@
 
 **Full-pol functions**
 ----------------------
+Full-pol functionalities require the SAR data in the form of covariance (C3) or coherency matrix (T3). A typical file structures of T3 and C3 matrices are as follows:
+
+<center>
+
+| C3 matrix files |              | T3 matrix files |              |
+|-----------------|--------------|----------------:|-------------:|
+| C11.bin         | C11.hdr      |         T11.bin |      T11.hdr |
+| C12_real.bin    | C12_real.hdr |    T12_real.bin | T12_real.hdr |
+| C12_imag.bin    | C12_imag.hdr |    T12_imag.bin | T12_imag.hdr |
+| C13_real.bin    | C13_real.hdr |    T13_real.bin | T13_real.hdr |
+| C13_imag.bin    | C13_imag.hdr |    T13_imag.bin | T13_imag.hdr |
+| C22.bin         | C22.hdr      |         T22.bin |      T22.hdr |
+| C23_real.bin    | C23_real.hdr |    T23_real.bin | T23_real.hdr |
+| C23_imag.bin    | C23_imag.hdr |    T23_imag.bin | T23_imag.hdr |
+| C33.bin         | C33.hdr      |         T33.bin |      T33.hdr |
+
+</center>
+<br>
 
  * ```GRVI``` (Generalized volume based Radar Vegetation Index): This functionality computes the generalized volume based radar vegetation index for full polarimetric SAR data. The required input and the computed output are as follows:
 
@@ -71,30 +89,33 @@ where, &lambda;<sub>1</sub>, &lambda;<sub>2</sub> and &lambda;<sub>3</sub> are t
 </center>  -->
 
 
- * Polarimetric Radar Vegetation Index (PRVI<sub>fp</sub>) 
-<center>
-
-![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{PRVI}_{fp}=(1-\text{DOP}_{fp})\sigma^\circ_{\text{XY}})
+ * PRVI (Polarimetric Radar Vegetation Index) : This functionality computes the polarimetric Radar vegetation index for full polarimetric SAR data. The required input and the computed output are as follows:
     
-</center> 
+    ````python
+        input : input_T3/C3_folder, window_size
+        output: PRVI_FP.bin
+    ````
+    The formlation of PRVI interms of degree of polarization and cross-pol backscatter intensity can be expressed as follows: 
+    <center>
 
+    ![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{PRVI}_{fp}=(1-\text{DOP}_{fp})\sigma^\circ_{\text{XY}})
+        
+    </center> 
 
-````python
-    input : input_T3_folder, window_size
-    output: PRVI_FP.bin
-````
+    where DOP<sub>fp</sub> 3D Barakt degree of polarization and can be expressed as shown below. Further details on the PRVI can be found in [[1]](#1)
 
- * Degree of Polarization (DOP<sub>fp</sub>) 
-<center>
+ * DOP (Degree of Polarization):  This functionality computes the 3D Barakat degree of polarization for full polarimetric SAR data. The required input and the computed output are as follows:
 
-![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{DOP}_{fp}=\sqrt{1-\frac{27\times\text{det([T3])}}{\text{(Trace[T3])}^3}})
-    
-</center> 
+    ````python
+        input : input_T3/C3_folder, window_size
+        output: DOP_FP.bin
+    ````
+    <center>
 
-````python
-    input : input_T3_folder, window_size
-    output: DOP_FP.bin
-````
+    ![dopfp](https://latex.codecogs.com/svg.latex?\Large&space;\text{DOP}_{fp}=\sqrt{1-\frac{27\times\text{det([T3])}}{\text{(Trace[T3])}^3}})
+        
+    </center> 
+    Further details on the Barakat Degree of polarization can be found in [[10]](#10)
 
 
 
@@ -102,7 +123,19 @@ where, &lambda;<sub>1</sub>, &lambda;<sub>2</sub> and &lambda;<sub>3</sub> are t
 
 **Compact-pol functions**
 -------------------------
+Compact-pol functionalities require the SAR data in the form of 2x2 covariance matrix (C2). A typical file structures of C2 matrix is as follows:
 
+<center>
+
+| C2 matrix files |              |
+|-----------------|--------------|
+| C11.bin         | C11.hdr      |
+| C12_real.bin    | C12_real.hdr |
+| C12_imag.bin    | C12_imag.hdr |
+| C22.bin         | C22.hdr      |
+
+</center>
+<br>
 
  * Model Free 3-Component decomposition for Full-pol data (MF3CF) 
     
@@ -193,9 +226,9 @@ where, GD<sub>ID</sub> is the geodesic distance between Kennaugh matrices (K) of
     output: Ps_iSOmega.bin, Pd_iSOmega.bin,Pv_iSOmega.bin
 ````
 
- * Degree of Polarization (DOP<sub>cp</sub>) [[11]](#11)
+ * Degree of Polarization (DOP<sub>cp</sub>) 
     
-    The stokes paramters can be written in terms of the covariance matrx (C2) elements as follows:
+    The conventional degree of polastokes paramters can be written in terms of the covariance matrx (C2) elements as follows:
     
     <center>
     
@@ -211,6 +244,8 @@ where, GD<sub>ID</sub> is the geodesic distance between Kennaugh matrices (K) of
         
     </center> 
 
+    [[11]](#11)
+
 ````python
     input : input_c2_folder, window_size, tau
     output: DOP_CP.bin
@@ -222,6 +257,19 @@ where, GD<sub>ID</sub> is the geodesic distance between Kennaugh matrices (K) of
 
 **Dual-pol**
 ------------
+Dual-pol functionalities require the SAR data in the form of 2x2 covariance matrix (C2). A typical file structures of C2 matrix is as follows:
+
+<center>
+
+| C2 matrix files |              |
+|-----------------|--------------|
+| C11.bin         | C11.hdr      |
+| C12_real.bin    | C12_real.hdr |
+| C12_imag.bin    | C12_imag.hdr |
+| C22.bin         | C22.hdr      |
+
+</center>
+<br>
 
  * Dual-pol Radar Vegetation Index (DpRVI) 
 
