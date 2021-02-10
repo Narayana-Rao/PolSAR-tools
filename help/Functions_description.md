@@ -6,17 +6,70 @@ Full-pol functionalities require the SAR data in the form of covariance (C3) or 
 
 <center>
 
-| C3 matrix files |              | T3 matrix files |              |
-|-----------------|--------------|----------------:|-------------:|
-| C11.bin         | C11.hdr      |         T11.bin |      T11.hdr |
-| C12_real.bin    | C12_real.hdr |    T12_real.bin | T12_real.hdr |
-| C12_imag.bin    | C12_imag.hdr |    T12_imag.bin | T12_imag.hdr |
-| C13_real.bin    | C13_real.hdr |    T13_real.bin | T13_real.hdr |
-| C13_imag.bin    | C13_imag.hdr |    T13_imag.bin | T13_imag.hdr |
-| C22.bin         | C22.hdr      |         T22.bin |      T22.hdr |
-| C23_real.bin    | C23_real.hdr |    T23_real.bin | T23_real.hdr |
-| C23_imag.bin    | C23_imag.hdr |    T23_imag.bin | T23_imag.hdr |
-| C33.bin         | C33.hdr      |         T33.bin |      T33.hdr |
+<table>
+<thead>
+  <tr>
+    <th colspan="2">C3 matrix files</th>
+    <th colspan="2">T3 matrix files</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>C11.bin</td>
+    <td>C11.hdr</td>
+    <td>T11.bin</td>
+    <td>T11.hdr</td>
+  </tr>
+  <tr>
+    <td>C12_real.bin</td>
+    <td>C12_real.hdr</td>
+    <td>T12_real.bin</td>
+    <td>T12_real.hdr</td>
+  </tr>
+  <tr>
+    <td>C12_imag.bin</td>
+    <td>C12_imag.hdr</td>
+    <td>T12_imag.bin</td>
+    <td>T12_imag.hdr</td>
+  </tr>
+  <tr>
+    <td>C13_real.bin</td>
+    <td>C13_real.hdr</td>
+    <td>T13_real.bin</td>
+    <td>T13_real.hdr</td>
+  </tr>
+  <tr>
+    <td>C13_imag.bin</td>
+    <td>C13_imag.hdr</td>
+    <td>T13_imag.bin</td>
+    <td>T13_imag.hdr</td>
+  </tr>
+  <tr>
+    <td>C22.bin</td>
+    <td>C22.hdr</td>
+    <td>T22.bin</td>
+    <td>T22.hdr</td>
+  </tr>
+  <tr>
+    <td>C23_real.bin</td>
+    <td>C23_real.hdr</td>
+    <td>T23_real.bin</td>
+    <td>T23_real.hdr</td>
+  </tr>
+  <tr>
+    <td>C23_imag.bin</td>
+    <td>C23_imag.hdr</td>
+    <td>T23_imag.bin</td>
+    <td>T23_imag.hdr</td>
+  </tr>
+  <tr>
+    <td>C33.bin</td>
+    <td>C33.hdr</td>
+    <td>T33.bin</td>
+    <td>T33.hdr</td>
+  </tr>
+</tbody>
+</table>
 
 </center>
 <br>
@@ -52,6 +105,7 @@ Full-pol functionalities require the SAR data in the form of covariance (C3) or 
     ![tfp](https://latex.codecogs.com/svg.latex?\Large&space;\noindent\\\P_{d}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}{\left(1-\sin2\theta_{\text{FP}}\right)}\\\P_{v}^{\text{FP}}={\text{Span}}\left(1-m_{\text{FP}}\right)\\\P_{s}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right))
     
     </center>
+
     where m<sub>FP</sub> is degree of polarization, &theta;<sub>FP</sub> scattering type parameter, Span is the sum of the diagonal elements os coherence matrix (T3).  The derivation of these parameters in-terms of coherancey matrix (T3) elements is as shown below. Further details can be obtained from [[4]](#4)
 
     <center>
@@ -80,7 +134,8 @@ Full-pol functionalities require the SAR data in the form of covariance (C3) or 
     ![rvifp](https://latex.codecogs.com/svg.latex?\Large&space;\text{RVI}_{fp}=\frac{4\lambda_1}{\lambda_1+\lambda_2+\lambda_3})
         
     </center>
-where, &lambda;<sub>1</sub>, &lambda;<sub>2</sub> and &lambda;<sub>3</sub> are the eigen values of coherency matrix (T3) in descending order (&lambda;<sub>1</sub>> &lambda;<sub>2</sub>>&lambda;<sub>3</sub>). Further details can be found in [[8]](#8)
+
+    where, &lambda;<sub>1</sub>, &lambda;<sub>2</sub> and &lambda;<sub>3</sub> are the eigen values of coherency matrix (T3) in descending order (&lambda;<sub>1</sub>> &lambda;<sub>2</sub>>&lambda;<sub>3</sub>). Further details can be found in [[8]](#8)
 
 <!-- <center>
 
@@ -115,6 +170,7 @@ where, &lambda;<sub>1</sub>, &lambda;<sub>2</sub> and &lambda;<sub>3</sub> are t
     ![dopfp](https://latex.codecogs.com/svg.latex?\Large&space;\text{DOP}_{fp}=\sqrt{1-\frac{27\times\text{det([T3])}}{\text{(Trace[T3])}^3}})
         
     </center> 
+
     Further details on the Barakat Degree of polarization can be found in [[10]](#10)
 
 
@@ -127,18 +183,52 @@ Compact-pol functionalities require the SAR data in the form of 2x2 covariance m
 
 <center>
 
-| C2 matrix files |              |
-|-----------------|--------------|
-| C11.bin         | C11.hdr      |
-| C12_real.bin    | C12_real.hdr |
-| C12_imag.bin    | C12_imag.hdr |
-| C22.bin         | C22.hdr      |
+<table>
+<thead>
+  <tr>
+    <th colspan="2">C2 matrix files</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>C11.bin</td>
+    <td>C11.hdr</td>
+  </tr>
+  <tr>
+    <td>C12_real.bin</td>
+    <td>C12_real.hdr</td>
+  </tr>
+  <tr>
+    <td>C12_imag.bin</td>
+    <td>C12_imag.hdr</td>
+  </tr>
+  <tr>
+    <td>C22.bin</td>
+    <td>C22.hdr</td>
+  </tr>
+</tbody>
+</table>
 
 </center>
 <br>
 
- * Model Free 3-Component decomposition for Full-pol data (MF3CF) 
+ * ```MF3CC``` (Model Free 3-Component decomposition for Compact-pol data): This functionality computes the model free 3 component scattering power decomposition for compact polarimetric SAR data. The required input and the computed output are as follows:
+  
+    ````python
+        input : input_C2_folder, window_size, tau
+        output: Ps_CP.bin, Pd_CP.bin, Pv_CP.bin, Theta_CP.bin
+    ````  
+
+    The formulation of the scattering powers (P<sub>s</sub>: Surface, P<sub>d</sub>: Double bounce, P<sub>v</sub>: volume) is as follows:
     
+    <center>
+
+    ![cppowers](https://latex.codecogs.com/svg.latex?\Large&space;\\\P_{d}^{\text{CP}}=\frac{m_{\text{FP}}{S_0}}{2}{\left(1-\sin2\theta_{\text{CP}}\right)};\\\P_{v}^{\text{CP}}={S_0}\left(1-m_{\text{CP}}\right);\\\P_{s}^{\text{CP}}=\frac{m_{\text{CP}}{S_0}}{2}\left(1+\sin2\theta_{\text{CP}}\right))
+    
+    </center>    
+
+    where m<sub>CP</sub> is degree of polarization, &theta;<sub>CP</sub>: scattering type parameter, S<sub>0</sub>,  - S<sub>3</sub>, are Stokes parameters. The derivation of these parameters in-terms of covariance matrix (C2) elements is as shown below. Further details can be obtained from [[4]](#4)
+
     <center>
 
     ![mcp](https://latex.codecogs.com/svg.latex?\Large&space;m_{\text{CP}}=\sqrt{1-\frac{4|\mathbf{C2}|}{\big(\mathrm{Trace}(\mathbf{C2})\big)^2}};\qquad{}\tan\theta_{\text{CP}}=\frac{m_{\text{CP}}{S_0}\left(\text{OC}-\text{SC}\right)}{\text{OC}\times\text{SC}+m_{\text{CP}}^{2}{S_0}^{2}})
@@ -146,11 +236,7 @@ Compact-pol functionalities require the SAR data in the form of 2x2 covariance m
     </center> 
 
 
-    <center>
 
-    ![cppowers](https://latex.codecogs.com/svg.latex?\Large&space;\\\P_{d}^{\text{CP}}=\frac{m_{\text{FP}}{S_0}}{2}{\left(1-\sin2\theta_{\text{CP}}\right)};\\\P_{v}^{\text{CP}}={S_0}\left(1-m_{\text{CP}}\right);\\\P_{s}^{\text{CP}}=\frac{m_{\text{CP}}{S_0}}{2}\left(1+\sin2\theta_{\text{CP}}\right))
-    
-    </center>
     <center>
 
     ![sparm](https://latex.codecogs.com/svg.latex?\Large&space;\\\S_0=\text{C11+C22};\qquad{}S_1=\text{C11-C22};\\\S_2=\text{C12+C21};\qquad{}S_3=\pm\text{j(C12-C21)})
@@ -160,15 +246,18 @@ Compact-pol functionalities require the SAR data in the form of 2x2 covariance m
     </center>
 
 
-````python
-    input : input_C2_folder, window_size, tau
-    output: Ps_CP.bin, Pd_CP.bin, Pv_CP.bin, Theta_CP.bin
-````
 
- * Compact-pol Radar Vegetation Index (CpRVI) 
+ * Compact-pol Radar Vegetation Index (CpRVI) This functionality computes the compact-pol radar vegetation index for compact polarimetric SAR data. The required input and the computed output are as follows:
+
+    ````python
+        input : input_C2_folder, window_size
+        output: CpRVI.bin
+    ````
+
+    The formulation of the CpRVI is as follows:
     <center>
     
-    ![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{CpRVI}=\left(1-\dfrac{3}{2}\text{GD}_{\text{ID}}\right)\Big(\frac{p}{q}\Big)^{2(\frac{3}{2}\text{GD}_{\text{ID}})})
+    ![cprvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{CpRVI}=\left(1-\dfrac{3}{2}\text{GD}_{\text{ID}}\right)\Big(\frac{p}{q}\Big)^{2(\frac{3}{2}\text{GD}_{\text{ID}})})
 
     ![pqcp](https://latex.codecogs.com/svg.latex?\Large&space;p=\text{min\\{SC,OC\\}},q=\text{max\\{SC,OC\\}})
     
@@ -180,18 +269,19 @@ Compact-pol functionalities require the SAR data in the form of 2x2 covariance m
 
     </center> 
 
-where, GD<sub>ID</sub> is the geodesic distance between Kennaugh matrices (K) of the observed and the ideal depolarizer, p,q are minimum and maximum values of SC and OC which are functions of stocks parameters (S<sub>0</sub>, S<sub>1</sub>, S<sub>2</sub>, and S<sub>3</sub>). A detailed explanation of CpRVI is available in [[6]](#6).
-
-
-````python
-    input : input_C2_folder, window_size
-    output: CpRVI.bin
-````
+    where, GD<sub>ID</sub> is the geodesic distance between Kennaugh matrices (K) of the observed and the ideal depolarizer, p,q are minimum and maximum values of SC and OC which are functions of stocks parameters (S<sub>0</sub>, S<sub>1</sub>, S<sub>2</sub>, and S<sub>3</sub>). A detailed explanation of CpRVI is available in [[6]](#6).
 
 
 
- * improved S-&Omega; decomposition (iS-&Omega;) 
+
+ * iS-Omega (improved S-&Omega; decomposition): 
+    This functionality computes the scattering powers for compact polarimetric SAR data. This is an improved decomposition technique based on Stokes vector(S) and the polarized power fraction (&Omega;). The required input and the computed output are as follows:
     
+    ````python
+        input : input_C2_folder, window_size, tau, psi, chi
+        output: Ps_iSOmega.bin, Pd_iSOmega.bin,Pv_iSOmega.bin
+    ````
+
     The stokes paramters can be written in terms of the covariance matrx (C2) elements as follows:
     
     <center>
@@ -212,6 +302,10 @@ where, GD<sub>ID</sub> is the geodesic distance between Kennaugh matrices (K) of
 
     </center> -->
 
+    Now, based on the ratio of SC and OC the decomposition powers can be derived as given below. Further details can be found in [[7]](#7)
+
+    <br>
+    <br>
     <center>
 
     ![cparm](https://latex.codecogs.com/svg.latex?\Large&space;\text{SC/OC}<1;\qquad{}\qquad{}\qquad{}\text{SC/OC}>1\\\P_s=\Omega\left(S_{r0}-\left(1-\Omega\right)\text{SC}\right);\qquad{}P_s=\Omega\left(1-\Omega\right)\text{OC}\\\P_d=\Omega\left(1-\Omega\right)\text{SC};\qquad{}P_d=\Omega\left(S_{r0}-\left(1-\Omega\right)\text{OC}\right))
@@ -221,35 +315,34 @@ where, GD<sub>ID</sub> is the geodesic distance between Kennaugh matrices (K) of
     
     </center>    
 
-````python
-    input : input_C2_folder, window_size, tau, psi, chi
-    output: Ps_iSOmega.bin, Pd_iSOmega.bin,Pv_iSOmega.bin
-````
 
- * Degree of Polarization (DOP<sub>cp</sub>) 
-    
-    The conventional degree of polastokes paramters can be written in terms of the covariance matrx (C2) elements as follows:
-    
-    <center>
-    
-    ![sparm](https://latex.codecogs.com/svg.latex?\Large&space;\\\S_0=\text{C11+C22};\qquad{}S_1=\text{C11-C22};\\\S_2=\text{C12+C21};\qquad{}S_3=\pm\text{j(C12-C21)})    
 
-    </center>  
+ * DOP (Degree of Polarization) This functionality computes the degree of polarization for compact polarimetric SAR data. The required input and the computed output are as follows:
+    
 
-    then,
+    ````python
+        input : input_c2_folder, window_size, tau
+        output: DOP_CP.bin
+    ````  
+    
+    The conventional degree of polarization in terms of stokes paramters can be written as follows:
 
     <center>
 
     ![dopcp](https://latex.codecogs.com/svg.latex?\Large&space;\text{DOP}_{cp}=\frac{\sqrt{S^2_1+S^2_2+S^2_3}}{S_0})
         
     </center> 
+    
+    where, 
+    <br>
 
-    [[11]](#11)
+    <center>
+    
+    ![sparm](https://latex.codecogs.com/svg.latex?\Large&space;\\\S_0=\text{C11+C22};\qquad{}S_1=\text{C11-C22};\\\S_2=\text{C12+C21};\qquad{}S_3=\pm\text{j(C12-C21)})    
 
-````python
-    input : input_c2_folder, window_size, tau
-    output: DOP_CP.bin
-````
+    </center>  
+
+
 
 
 
