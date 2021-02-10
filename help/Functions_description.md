@@ -247,7 +247,7 @@ Compact-pol functionalities require the SAR data in the form of 2x2 covariance m
 
 
 
- * Compact-pol Radar Vegetation Index (CpRVI) This functionality computes the compact-pol radar vegetation index for compact polarimetric SAR data. The required input and the computed output are as follows:
+ * CpRVI (Compact-pol Radar Vegetation Index): This functionality computes the compact-pol radar vegetation index for compact polarimetric SAR data. The required input and the computed output are as follows:
 
     ````python
         input : input_C2_folder, window_size
@@ -317,7 +317,7 @@ Compact-pol functionalities require the SAR data in the form of 2x2 covariance m
 
 
 
- * DOP (Degree of Polarization) This functionality computes the degree of polarization for compact polarimetric SAR data. The required input and the computed output are as follows:
+ * DOP (Degree of Polarization): This functionality computes the degree of polarization for compact polarimetric SAR data. The required input and the computed output are as follows:
     
 
     ````python
@@ -383,58 +383,78 @@ Dual-pol functionalities require the SAR data in the form of 2x2 covariance matr
 </center>
 <br>
 
- * Dual-pol Radar Vegetation Index (DpRVI) 
+ * DpRVI (Dual-pol Radar Vegetation Index): This functionality computes the dual polarimetric radar vegetation index for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
+
+    ````python
+        input : input_C2_folder, window_size
+        output: DpRVI.bin
+    ````
+    
+    The formulation of DpRVI is as follows:
+    <br>
 
     <center>
 
-    ![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{DpRVI}=1-\Big(\frac{\lambda_1}{\lambda_1+\lambda_2}\Big)\sqrt{1-\frac{4\times\text{det([C2])}}{\text{(Trace[C2])}^2}})
+    ![dprvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{DpRVI}=1-\Big(\frac{\lambda_1}{\lambda_1+\lambda_2}\Big)\sqrt{1-\frac{4\times\text{det([C2])}}{\text{(Trace[C2])}^2}})
     
     </center> 
 
-where, C2 is co-variance matrix,  and  &lambda;<sub>1</sub> and &lambda;<sub>2</sub> are the eigen values of C2 matrix in descending order.
+    where, C2 is co-variance matrix,  and  &lambda;<sub>1</sub> and &lambda;<sub>2</sub> are the eigen values of C2 matrix in descending order (&lambda;<sub>1</sub> > &lambda;<sub>2</sub>). Further details on DpRVI can be obtained from [[5]](#5)
 
-````python
-    input : input_C2_folder, window_size
-    output: DpRVI.bin
-````
 
- * Radar Vegetation Index (RVI<sub>dp</sub>) 
-<center>
 
-![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{RVI}_{dp}=\frac{4\sigma^\circ_{\text{XY}}}{\sigma^\circ_{\text{XX}}+\sigma^\circ_{\text{XY}}})
+
+ * RVI (Radar Vegetation Index): This functionality computes the radar vegetation index for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
+
+    ````python
+        input : input_c2_folder, window_size
+        output: RVI_dp.bin
+    ````
+    The formulatin of RVI is as follows:
+
+    <center>
+
+    ![rvidp](https://latex.codecogs.com/svg.latex?\Large&space;\text{RVI}_{dp}=\frac{4\sigma^\circ_{\text{XY}}}{\sigma^\circ_{\text{XX}}+\sigma^\circ_{\text{XY}}})
+        
+    </center> 
+
+    where, &sigma;<sup>o</sup><sub>XX</sub> and &sigma;<sup>o</sup><sub>XY</sub> co- and cross-pol backscatter intensities.
+
+ * PRVI (Polarimetric Radar Vegetation Index): This functionality computes the polarimetric radar vegetation index for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
+
+    ````python
+        input : input_c2_folder, window_size
+        output: PRVI_dp.bin
+    ````
     
-</center> 
+    The formulation of PRVI is as follows: 
+    <br>
+
+    <center>
+
+    ![prvidp](https://latex.codecogs.com/svg.latex?\Large&space;\text{PRVI}_{dp}=\Big(1-\sqrt{1-\frac{4\times\text{det([C2])}}{\text{(Trace[C2])}^2}}\Big)\sigma^\circ_{\text{XY}})
+        
+    </center> 
 
 
-````python
-    input : input_c2_folder, window_size
-    output: RVI_dp.bin
-````
 
- * Polarimetric Radar Vegetation Index (PRVI<sub>dp</sub>) 
-<center>
 
-![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{PRVI}_{dp}=(1-\text{DOP}_{dp})\sigma^\circ_{\text{XY}})
+ * DOP (Degree of Polarization):  This functionality computes the 2D Barakat degree of polarization for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
     
-</center> 
+    ````python
+        input : input_c2_folder, window_size
+        output: dop_dp.bin
+    ````
+
+    <center>
+
+    ![dopdp](https://latex.codecogs.com/svg.latex?\Large&space;\text{DOP}_{dp}=\sqrt{1-\frac{4\times\text{det([C2])}}{\text{(Trace[C2])}^2}})
+        
+    </center> 
+
+    Further details on the Barakat Degree of polarization can be found in [[10]](#10)
 
 
-````python
-    input : input_c2_folder, window_size
-    output: PRVI_dp.bin
-````
-
- * Degree of Polarization (DOP<sub>dp</sub>) 
-<center>
-
-![grvi](https://latex.codecogs.com/svg.latex?\Large&space;\text{DOP}_{dp}=\sqrt{1-\frac{4\times\text{det([C2])}}{\text{(Trace[C2])}^2}})
-    
-</center> 
-
-````python
-    input : input_c2_folder, window_size
-    output: dop_dp.bin
-````
 
 
 ## References
