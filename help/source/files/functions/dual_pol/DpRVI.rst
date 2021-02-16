@@ -1,6 +1,6 @@
 DpRVI
 ===================
-Dual-pol Radar Vegetation Index :cite:`mandal2020dual`.
+Dual-pol Radar Vegetation Index .
 
 .. math::
 

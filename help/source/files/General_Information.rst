@@ -54,7 +54,7 @@ Available functionalities
 
   * Indices :
   	* Radar Vegetation Index (RVI) (Full-pol and dual-pol)
-  	* Generalized volume Radar Vegetation Index (GRVI) :cite:`ratha2019generalized`
+  	* Generalized volume Radar Vegetation Index (GRVI) 
   	* Polarimetric Radar Vegetation Index (PRVI) (Full-pol and dual-pol) 
   	* Dual-pol Radar Vegetation Index (DpRVI)
   	* Degree of Polarization (DOP) (Full-pol, dual-pol, and compact-pol)
@@ -67,10 +67,6 @@ Available functionalities
 
 
 
-
-
-.. bibliography:: ref.bib
-    :cited:
 
 
 .. _PolSARpro: https://earth.esa.int/web/polsarpro/home
