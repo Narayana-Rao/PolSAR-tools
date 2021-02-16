@@ -13,5 +13,3 @@ where,
 
 :math:`\text{[C2]}` is co-variance matrix,  and :math:`\lambda_1, \lambda_2` are the eigen values of :math:`\langle\mathbf{[C2]}\rangle` matrix in descending order.
 
-.. bibliography:: ref.bib
-    :cited:

@@ -9,7 +9,5 @@ Generalized volume Radar Vegetation Index for full-pol SAR data.
 where, :math:`\text{GD}_{\text{GV}}` is the geodesic distance between Kennaugh :math:`(\mathbf{K})` matrices of the observed and the generalized volume scattering model, :math:`p,q` are minimum and maximum value of distances between :math:`\mathbf{K}` matrices of the observed and elementary targets respectively. A detailed explanation of GRVI is available in :cite:`ratha2019generalized`.
 
 
-.. bibliography:: ref.bib
-    :cited:
 
 
