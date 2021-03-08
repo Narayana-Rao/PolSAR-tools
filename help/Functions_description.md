@@ -410,7 +410,7 @@ Dual-pol functionalities require the SAR data in the form of 2x2 covariance matr
         input : input_c2_folder, window_size
         output: RVI_dp.bin
     ````
-    The formulatin of RVI is as follows:
+    The formulation of RVI is as follows:
 
     <center>
 

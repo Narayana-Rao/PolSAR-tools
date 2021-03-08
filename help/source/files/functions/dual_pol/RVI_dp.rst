@@ -1,7 +1,16 @@
-RVI dual-pol
-===================
-Radar Vegetation Index for dual-pol SAR data.
+``RVI`` (Radar Vegetation Index)
+================================
+This functionality computes the radar vegetation index for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
+
+.. code-block:: python
+
+        input : input_c2_folder, window_size
+        output: RVI_dp.bin
+
+The formulation of RVI is as follows:
 
 .. math::
 
-    \text{RVI}_{dp} = \frac{4\sigma^\circ_{\text{XY}}}{\sigma^\circ_{\text{XX}}+\sigma^\circ_{\text{XY}}}  
+    \text{RVI}_{dp} = \frac{4 \times \sigma^\circ_{\text{XY}}}{\sigma^\circ_{\text{XX}}+\sigma^\circ_{\text{XY}}}  
+
+where, :math:`\sigma^\circ_{\text{XX}}` is co-pol backscatter intensity and :math:`\sigma^\circ_{\text{XY}}` is corss-pol backscatter intensity

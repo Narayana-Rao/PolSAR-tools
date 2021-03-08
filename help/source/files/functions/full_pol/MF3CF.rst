@@ -7,7 +7,7 @@ This functionality computes the model free 3 component scattering power decompos
         input : input_T3/C3_folder, window_size
         output: Ps_FP.bin, Pd_FP.bin, Pv_FP.bin, Theta_FP.bin
 
-The formulation of the scattering powers (P<sub>s</sub>: Surface, P<sub>d</sub>: Double bounce, P<sub>v</sub>: volume) is as follows:
+The formulation of the scattering powers (:math:`P_s` : Surface, :math:`P_d` : Double bounce, :math:`P_v` : volume) is as follows:
 
 .. math::
     

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RVI dual-pol &mdash; SAR tools v0.6.2 documentation</title>
+  <title>RVI (Radar Vegetation Index) &mdash; SAR tools v0.6.2 documentation</title>
   
 
   
@@ -37,8 +37,8 @@
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="DpRVI" href="DpRVI.html" />
-    <link rel="prev" title="MF3CC" href="../compact_pol/MF3CC.html" /> 
+    <link rel="next" title="DpRVI (Dual-pol Radar Vegetation Index)" href="DpRVI.html" />
+    <link rel="prev" title="DOP" href="../compact_pol/DOP_cp.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -90,9 +90,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../functions_description.html#full-pol-functions"><strong>Full-pol functions</strong></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../functions_description.html#compact-pol-functions"><strong>Compact-pol functions</strong></a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../functions_description.html#dual-pol"><strong>Dual-pol</strong></a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">RVI dual-pol</a></li>
-<li class="toctree-l3"><a class="reference internal" href="DpRVI.html">DpRVI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="DOP_dp.html">DOP dual-pol</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">RVI</span></code> (Radar Vegetation Index)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DpRVI.html"><code class="docutils literal notranslate"><span class="pre">DpRVI</span></code> (Dual-pol Radar Vegetation Index)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="PRVI_dp.html"><code class="docutils literal notranslate"><span class="pre">PRVI</span></code> (Polarimetric Radar Vegetation Index)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DOP_dp.html"><code class="docutils literal notranslate"><span class="pre">DOP</span></code> (Degree of Polarization)</a></li>
 </ul>
 </li>
 </ul>
@@ -146,7 +147,7 @@
         
           <li><a href="../../functions_description.html">Functions Description</a> &raquo;</li>
         
-      <li>RVI dual-pol</li>
+      <li><code class="docutils literal notranslate"><span class="pre">RVI</span></code> (Radar Vegetation Index)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -165,11 +166,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="rvi-dual-pol">
-<h1>RVI dual-pol<a class="headerlink" href="#rvi-dual-pol" title="Permalink to this headline">¶</a></h1>
-<p>Radar Vegetation Index for dual-pol SAR data.</p>
+  <div class="section" id="rvi-radar-vegetation-index">
+<h1><code class="docutils literal notranslate"><span class="pre">RVI</span></code> (Radar Vegetation Index)<a class="headerlink" href="#rvi-radar-vegetation-index" title="Permalink to this headline">¶</a></h1>
+<p>This functionality computes the radar vegetation index for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">input</span> <span class="p">:</span> <span class="n">input_c2_folder</span><span class="p">,</span> <span class="n">window_size</span>
+<span class="n">output</span><span class="p">:</span> <span class="n">RVI_dp</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>The formulation of RVI is as follows:</p>
 <div class="math notranslate nohighlight">
-\[\text{RVI}_{dp} = \frac{4\sigma^\circ_{\text{XY}}}{\sigma^\circ_{\text{XX}}+\sigma^\circ_{\text{XY}}}\]</div>
+\[\text{RVI}_{dp} = \frac{4 \times \sigma^\circ_{\text{XY}}}{\sigma^\circ_{\text{XX}}+\sigma^\circ_{\text{XY}}}\]</div>
+<p>where, <span class="math notranslate nohighlight">\(\sigma^\circ_{\text{XX}}\)</span> is co-pol backscatter intensity and <span class="math notranslate nohighlight">\(\sigma^\circ_{\text{XY}}\)</span> is corss-pol backscatter intensity</p>
 </div>
 
 
@@ -180,10 +187,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="DpRVI.html" class="btn btn-neutral float-right" title="DpRVI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="DpRVI.html" class="btn btn-neutral float-right" title="DpRVI (Dual-pol Radar Vegetation Index)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../compact_pol/MF3CC.html" class="btn btn-neutral float-left" title="MF3CC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../compact_pol/DOP_cp.html" class="btn btn-neutral float-left" title="DOP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

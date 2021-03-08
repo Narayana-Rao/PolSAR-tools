@@ -92,7 +92,7 @@
 <li class="toctree-l3"><a class="reference internal" href="GRVI.html"><code class="docutils literal notranslate"><span class="pre">GRVI</span></code> (Generalized volume based Radar Vegetation Index)</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">MF3CF</span></code> (Model Free 3-Component decomposition for Full-pol data)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="PRVI_fp.html"><code class="docutils literal notranslate"><span class="pre">PRVI</span></code> (Polarimetric Radar Vegetation Index)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="DOP_fp.html">DOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DOP_fp.html"><code class="docutils literal notranslate"><span class="pre">DOP</span></code> (Degree of Polarization)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../functions_description.html#compact-pol-functions"><strong>Compact-pol functions</strong></a></li>
@@ -174,7 +174,7 @@
 <span class="n">output</span><span class="p">:</span> <span class="n">Ps_FP</span><span class="o">.</span><span class="n">bin</span><span class="p">,</span> <span class="n">Pd_FP</span><span class="o">.</span><span class="n">bin</span><span class="p">,</span> <span class="n">Pv_FP</span><span class="o">.</span><span class="n">bin</span><span class="p">,</span> <span class="n">Theta_FP</span><span class="o">.</span><span class="n">bin</span>
 </pre></div>
 </div>
-<p>The formulation of the scattering powers (P&lt;sub&gt;s&lt;/sub&gt;: Surface, P&lt;sub&gt;d&lt;/sub&gt;: Double bounce, P&lt;sub&gt;v&lt;/sub&gt;: volume) is as follows:</p>
+<p>The formulation of the scattering powers (<span class="math notranslate nohighlight">\(P_s\)</span> : Surface, <span class="math notranslate nohighlight">\(P_d\)</span> : Double bounce, <span class="math notranslate nohighlight">\(P_v\)</span> : volume) is as follows:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}P_{d}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}{\left(1-\sin2\theta_{\text{FP}}\right)}\\P_{v}^{\text{FP}}={\text{Span}}\left(1-m_{\text{FP}}\right)\\P_{s}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right)\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(m_\text{FP}\)</span> is degree of polarization, <span class="math notranslate nohighlight">\(\theta_\text{FP}\)</span> scattering type parameter, Span is the sum of the diagonal elements os coherence matrix (T3).  The derivation of these parameters in-terms of coherancey matrix (T3) elements is as shown below. Further details can be obtained from [[4]](#4)</p>
