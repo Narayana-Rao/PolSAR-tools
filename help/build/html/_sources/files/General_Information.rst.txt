@@ -55,7 +55,7 @@ Available functionalities
 --------------------------
   1. **Full-pol** 
 
-    * Model free 3-Component decomposition for full-pol data (MF3CF)
+    * Model free 3-Component decomposition for full-pol data (MF3CF) 
     * Radar Vegetation Index (RVI) 
     * Generalized volume Radar Vegetation Index (GRVI) 
     * Polarimetric Radar Vegetation Index (PRVI) 
@@ -70,10 +70,10 @@ Available functionalities
 
   3. **Dual-pol**
 
-    * Dual-pol Radar Vegetation Index (`DpRVI <functions/dual_pol/DpRVI.html>`_)
-    * Radar Vegetation Index (`RVI <functions/dual_pol/RVI_dp.html>`_) 
-    * Degree of Polarization (`DOP <functions/dual_pol/DOP_dp.html>`_) 
-    * Polarimetric Radar Vegetation Index (`PRVI <functions/dual_pol/PRVI_dp.html>`_)
+    * Dual-pol Radar Vegetation Index (`DpRVI <functions/dual_pol/DpRVI.html>`_) :cite:`mandal2020dual`
+    * Radar Vegetation Index (`RVI <functions/dual_pol/RVI_dp.html>`_) :cite:`Kim_2009`
+    * Degree of Polarization (`DOP <functions/dual_pol/DOP_dp.html>`_) :cite:`barakat1977degree`
+    * Polarimetric Radar Vegetation Index (`PRVI <functions/dual_pol/PRVI_dp.html>`_) :cite:`chang2018polarimetric`
 
 Example usage
 --------------
