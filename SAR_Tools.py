@@ -1292,7 +1292,7 @@ class MRSLab(object):
 
         #set progress bar to Zero
         pB = self.dlg.progressBar
-        pB.setValue(0)
+        pB.setValue(100)
 
         self.worker.deleteLater()
         self.thread.quit()
@@ -1302,6 +1302,7 @@ class MRSLab(object):
         if finish_cond == 0:
             # self.worke
             logger.append('->> Process stopped in between ! You are good to go again.')
+            pB.setValue(0)
 
     def workerError(self, e, exception_string):
         logger = self.dlg.terminal
