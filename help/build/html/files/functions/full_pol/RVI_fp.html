@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RVI full-pol &mdash; SAR tools v0.6.2 documentation</title>
+  <title>RVI (Radar Vegetation Index) &mdash; SAR tools v0.6.2 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="GRVI" href="GRVI.html" />
+    <link rel="next" title="GRVI (Generalized volume based Radar Vegetation Index)" href="GRVI.html" />
     <link rel="prev" title="Functions Description" href="../../functions_description.html" /> 
 </head>
 
@@ -88,9 +88,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../General_Information.html">General Information</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../functions_description.html">Functions Description</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../functions_description.html#full-pol-functions"><strong>Full-pol functions</strong></a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">RVI full-pol</a></li>
-<li class="toctree-l3"><a class="reference internal" href="GRVI.html">GRVI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MF3CF.html">MF3CF</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">RVI</span></code> (Radar Vegetation Index)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GRVI.html"><code class="docutils literal notranslate"><span class="pre">GRVI</span></code> (Generalized volume based Radar Vegetation Index)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MF3CF.html"><code class="docutils literal notranslate"><span class="pre">MF3CF</span></code> (Model Free 3-Component decomposition for Full-pol data)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="PRVI_fp.html"><code class="docutils literal notranslate"><span class="pre">PRVI</span></code> (Polarimetric Radar Vegetation Index)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DOP_fp.html">DOP</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../functions_description.html#compact-pol-functions"><strong>Compact-pol functions</strong></a></li>
@@ -146,7 +148,7 @@
         
           <li><a href="../../functions_description.html">Functions Description</a> &raquo;</li>
         
-      <li>RVI full-pol</li>
+      <li><code class="docutils literal notranslate"><span class="pre">RVI</span></code> (Radar Vegetation Index)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -165,11 +167,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="rvi-full-pol">
-<h1>RVI full-pol<a class="headerlink" href="#rvi-full-pol" title="Permalink to this headline">¶</a></h1>
-<p>Radar Vegetation Index for full-pol SAR data.</p>
+  <div class="section" id="rvi-radar-vegetation-index">
+<h1><code class="docutils literal notranslate"><span class="pre">RVI</span></code> (Radar Vegetation Index)<a class="headerlink" href="#rvi-radar-vegetation-index" title="Permalink to this headline">¶</a></h1>
+<p>This functionality computes the Radar vegetation index for full polarimetric SAR data. The required input and the computed output are as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">input</span> <span class="p">:</span> <span class="n">input_T3</span><span class="o">/</span><span class="n">C3_folder</span><span class="p">,</span> <span class="n">window_size</span>
+<span class="n">output</span> <span class="p">:</span> <span class="n">RVI_FP</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>The formulation of RVI is as follows:</p>
 <div class="math notranslate nohighlight">
-\[\text{RVI}_{fp} = \frac{4\sigma^\circ_{\text{HV}}}{\sigma^\circ_{\text{HH}}+\sigma^\circ_{\text{VV}}+\sigma^\circ_{\text{HV}}}\]</div>
+\[\text{RVI}_{fp} = \frac{4 \times \lambda_3}{\lambda_1+\lambda_2+\lambda_3}\]</div>
+<p>where, <span class="math notranslate nohighlight">\(\lambda_1, \lambda_2\)</span> and <span class="math notranslate nohighlight">\(\lambda_3\)</span> are the eigen values of coherency matrix (T3) in descending order (<span class="math notranslate nohighlight">\(\lambda_1 &gt; \lambda_2 &gt; \lambda_3\)</span>). Further details can be found in [[8]](#8)</p>
 </div>
 
 
@@ -180,7 +188,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="GRVI.html" class="btn btn-neutral float-right" title="GRVI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="GRVI.html" class="btn btn-neutral float-right" title="GRVI (Generalized volume based Radar Vegetation Index)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../../functions_description.html" class="btn btn-neutral float-left" title="Functions Description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

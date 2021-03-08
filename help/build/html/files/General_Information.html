@@ -191,13 +191,13 @@
 <div class="section" id="up-and-running">
 <span id="id1"></span><h2>Up and running<a class="headerlink" href="#up-and-running" title="Permalink to this headline">¶</a></h2>
 <p>After successful installation, find the plugin by opening <strong>QGIS</strong> –&gt; Plugins –&gt; <code class="docutils literal notranslate"><span class="pre">SAR</span> <span class="pre">tools</span></code> –&gt; Process. As shown in the following figure.</p>
-<div class="figure align-center" id="id2">
-<a class="reference internal image-reference" href="../_images/open_ui.png"><img alt="../_images/open_ui.png" src="../_images/open_ui.png" style="width: 380.8px; height: 136.8px;" /></a>
-<p class="caption"><span class="caption-text">Opening the plugin</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
 <div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="../_images/open_ui.png"><img alt="../_images/open_ui.png" src="../_images/open_ui.png" style="width: 380.8px; height: 136.8px;" /></a>
+<p class="caption"><span class="caption-text">Opening the plugin</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id4">
 <a class="reference internal image-reference" href="../_images/main_ui.png"><img alt="../_images/main_ui.png" src="../_images/main_ui.png" style="width: 475.2px; height: 613.1999999999999px;" /></a>
-<p class="caption"><span class="caption-text">GUI-Main window layout</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">GUI-Main window layout</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 <p><strong>Layout</strong>:</p>
 <ol class="arabic simple">
@@ -214,24 +214,40 @@
 <div class="section" id="available-functionalities">
 <h2>Available functionalities<a class="headerlink" href="#available-functionalities" title="Permalink to this headline">¶</a></h2>
 <blockquote>
+<div><ol class="arabic simple">
+<li><p><strong>Full-pol</strong></p></li>
+</ol>
+<blockquote>
 <div><ul class="simple">
-<li><p>Full-pol :
-* Model free 3-Component decomposition for full-pol data (MF3CF)</p></li>
-<li><p>Radar Vegetation Index (RVI)
-* Generalized volume Radar Vegetation Index (GRVI)
-* Polarimetric Radar Vegetation Index (PRVI)
-* Degree of Polarization (DOP)</p></li>
-<li><p>Compact-pol :
-* Model free 3-Component decomposition for compact-pol data (MF3CC)
-* Improved S-Omega decomposition for compact-pol data (iS-Omega)
-* Compact-pol Radar Vegetation Index (CpRVI)
-* Degree of Polarization (DOP)</p></li>
-<li><p>Dual-pol:</p></li>
-<li><p>Dual-pol Radar Vegetation Index (DpRVI)</p></li>
-<li><p>Radar Vegetation Index (RVI)
-* Degree of Polarization (DOP)
-* Polarimetric Radar Vegetation Index (PRVI)</p></li>
+<li><p>Model free 3-Component decomposition for full-pol data (MF3CF)</p></li>
+<li><p>Radar Vegetation Index (RVI)</p></li>
+<li><p>Generalized volume Radar Vegetation Index (GRVI)</p></li>
+<li><p>Polarimetric Radar Vegetation Index (PRVI)</p></li>
+<li><p>Degree of Polarization (DOP)</p></li>
 </ul>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p><strong>Compact-pol</strong></p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Model free 3-Component decomposition for compact-pol data (MF3CC)</p></li>
+<li><p>Improved S-Omega decomposition for compact-pol data (iS-Omega)</p></li>
+<li><p>Compact-pol Radar Vegetation Index (CpRVI)</p></li>
+<li><p>Degree of Polarization (DOP)</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p><strong>Dual-pol</strong></p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Dual-pol Radar Vegetation Index (<a class="reference external" href="functions/dual_pol/DpRVI.html">DpRVI</a>)</p></li>
+<li><p>Radar Vegetation Index (<a class="reference external" href="functions/dual_pol/RVI_dp.html">RVI</a>)</p></li>
+<li><p>Degree of Polarization (<a class="reference external" href="functions/dual_pol/DOP_dp.html">DOP</a>)</p></li>
+<li><p>Polarimetric Radar Vegetation Index (<a class="reference external" href="functions/dual_pol/PRVI_dp.html">PRVI</a>)</p></li>
+</ul>
+</div></blockquote>
 </div></blockquote>
 </div>
 <div class="section" id="example-usage">
@@ -242,24 +258,24 @@
 </div>
 <p><strong>STEP 1</strong>: Open the plugin as explained in <a class="reference internal" href="#up-and-running"><span class="std std-ref">Up and running</span></a> section.</p>
 <p><strong>STEP 2</strong>: Select the polarimetric data type (Full/compact/dual).</p>
-<div class="figure align-center" id="id4">
+<div class="figure align-center" id="id5">
 <a class="reference internal image-reference" href="../_images/step2.png"><img alt="../_images/step2.png" src="../_images/step2.png" style="width: 338.5px; height: 502.0px;" /></a>
-<p class="caption"><span class="caption-text">Selecting the polarimetric mode</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Selecting the polarimetric mode</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
 <p><strong>STEP 3</strong>: Select the parameter/descriptor from the dropdown menu.</p>
-<div class="figure align-center" id="id5">
+<div class="figure align-center" id="id6">
 <a class="reference internal image-reference" href="../_images/step3.png"><img alt="../_images/step3.png" src="../_images/step3.png" style="width: 305.5px; height: 450.0px;" /></a>
-<p class="caption"><span class="caption-text">Selecting the polarimetric descriptor</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Selecting the polarimetric descriptor</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 <p><strong>STEP 4</strong>: Provide the required input variables.</p>
-<div class="figure align-center" id="id6">
+<div class="figure align-center" id="id7">
 <a class="reference internal image-reference" href="../_images/step4.png"><img alt="../_images/step4.png" src="../_images/step4.png" style="width: 303.5px; height: 450.0px;" /></a>
-<p class="caption"><span class="caption-text">Selecting the input variables</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Selecting the input variables</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </div>
 <p><strong>STEP 5</strong>: Select the input matrix folder.</p>
-<div class="figure align-center" id="id7">
+<div class="figure align-center" id="id8">
 <a class="reference internal image-reference" href="../_images/step5.png"><img alt="../_images/step5.png" src="../_images/step5.png" style="width: 465.75px; height: 245.70000000000002px;" /></a>
-<p class="caption"><span class="caption-text">Selecting the input folder</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Selecting the input folder</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
 <p><strong>STEP 6</strong>: Wait for the logger to prompt <code class="docutils literal notranslate"><span class="pre">`-&gt;&gt;</span> <span class="pre">Ready</span> <span class="pre">to</span> <span class="pre">process.`</span></code> –&gt; click process</p>
 <div class="admonition note">
@@ -267,23 +283,23 @@
 <p>Do not click process button more than once while it is processing. It may crash the QGIS and the plugin.
 It is possible that the plugin may show not responding for larger datasets but please wait for the process to complete.</p>
 </div>
-<div class="figure align-center" id="id8">
+<div class="figure align-center" id="id9">
 <a class="reference internal image-reference" href="../_images/step6.png"><img alt="../_images/step6.png" src="../_images/step6.png" style="width: 587.7px; height: 405.0px;" /></a>
-<p class="caption"><span class="caption-text">Processing the data for selected descriptor</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Processing the data for selected descriptor</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 <p><strong>STEP 7</strong> (optional): Click view data to import the data into QGIS for vizualisation of the generated descriptors.</p>
-<div class="figure align-center" id="id9">
-<a class="reference internal image-reference" href="../_images/step7a.png"><img alt="../_images/step7a.png" src="../_images/step7a.png" style="width: 763.2px; height: 405.0px;" /></a>
-<p class="caption"><span class="caption-text">Importing the data into QGIS for visualization</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
-</div>
 <div class="figure align-center" id="id10">
+<a class="reference internal image-reference" href="../_images/step7a.png"><img alt="../_images/step7a.png" src="../_images/step7a.png" style="width: 763.2px; height: 405.0px;" /></a>
+<p class="caption"><span class="caption-text">Importing the data into QGIS for visualization</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id11">
 <a class="reference internal image-reference" href="../_images/step7b.png"><img alt="../_images/step7b.png" src="../_images/step7b.png" style="width: 675.0px; height: 405.0px;" /></a>
-<p class="caption"><span class="caption-text">Imported data in QGIS</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Imported data in QGIS</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="functions-description">
 <h2>Functions description<a class="headerlink" href="#functions-description" title="Permalink to this headline">¶</a></h2>
-<p>Description and the details of all the core functions of this plugin are available here: [Functions_description](help/Functions_description.md)</p>
+<p>Description and the details of all the core functions of this plugin are available here: (<a class="reference external" href="functions_description.html">Functions description</a>)</p>
 </div>
 <div class="section" id="contributions">
 <h2>Contributions<a class="headerlink" href="#contributions" title="Permalink to this headline">¶</a></h2>

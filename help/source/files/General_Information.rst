@@ -38,8 +38,8 @@ After successful installation, find the plugin by opening **QGIS** --> Plugins -
 
 **Layout**:
 
-1.  Data type tabs: Functions are arranged according to the data dype (full-, compact- and dual-pol).
-2.  Function detials viewer: Contains list of functions for respective data tab. 
+1. Data type tabs: Functions are arranged according to the data dype (full-, compact- and dual-pol).
+2. Function detials viewer: Contains list of functions for respective data tab. 
 3. Derived arameter selection, required input variables and constraints.
 4. Input data folder
 5. Logger: displays the log of procesing parameters
@@ -53,25 +53,27 @@ Additional ``reset`` button to clear the envirinment, ``view data`` button to im
 
 Available functionalities
 --------------------------
+  1. **Full-pol** 
 
-  * Full-pol :
     * Model free 3-Component decomposition for full-pol data (MF3CF)
-  * Radar Vegetation Index (RVI) 
+    * Radar Vegetation Index (RVI) 
     * Generalized volume Radar Vegetation Index (GRVI) 
     * Polarimetric Radar Vegetation Index (PRVI) 
     * Degree of Polarization (DOP) 
 
-  * Compact-pol : 
+  2. **Compact-pol**
+
     * Model free 3-Component decomposition for compact-pol data (MF3CC) 
     * Improved S-Omega decomposition for compact-pol data (iS-Omega) 
     * Compact-pol Radar Vegetation Index (CpRVI) 
     * Degree of Polarization (DOP)  
 
-  * Dual-pol:
-  * Dual-pol Radar Vegetation Index (DpRVI) 
-  * Radar Vegetation Index (RVI) 
-    * Degree of Polarization (DOP) 
-    * Polarimetric Radar Vegetation Index (PRVI)
+  3. **Dual-pol**
+
+    * Dual-pol Radar Vegetation Index (`DpRVI <functions/dual_pol/DpRVI.html>`_)
+    * Radar Vegetation Index (`RVI <functions/dual_pol/RVI_dp.html>`_) 
+    * Degree of Polarization (`DOP <functions/dual_pol/DOP_dp.html>`_) 
+    * Polarimetric Radar Vegetation Index (`PRVI <functions/dual_pol/PRVI_dp.html>`_)
 
 Example usage
 --------------
@@ -143,7 +145,7 @@ Example usage
 Functions description
 ---------------------
 
-Description and the details of all the core functions of this plugin are available here: [Functions_description](help/Functions_description.md)
+Description and the details of all the core functions of this plugin are available here: (`Functions description <functions_description.html>`_)
 
 Contributions
 -------------

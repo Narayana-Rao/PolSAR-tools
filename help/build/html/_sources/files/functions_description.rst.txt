@@ -28,6 +28,7 @@ Full-pol functionalities require the SAR data in the form of covariance (C3) or 
 | C33.bin      | C33.hdr      | T33.bin      | T33.hdr      |
 +--------------+--------------+--------------+--------------+
 
+Following are the avaialble functions for full-pol data:
 
 .. toctree::
     :maxdepth: 3
@@ -35,6 +36,8 @@ Full-pol functionalities require the SAR data in the form of covariance (C3) or 
     functions/full_pol/RVI_fp
     functions/full_pol/GRVI
     functions/full_pol/MF3CF
+    functions/full_pol/PRVI_fp
+    functions/full_pol/DOP_fp
  
 
 
@@ -60,6 +63,7 @@ Compact-pol functionalities require the SAR data in the form of 2x2 covariance m
     functions/compact_pol/cprvi
     functions/compact_pol/iS_Omega
     functions/compact_pol/MF3CC
+    functions/compact_pol/DOP_cp
 
 
 
@@ -84,6 +88,7 @@ Dual-pol functionalities require the SAR data in the form of 2x2 covariance matr
 
     functions/dual_pol/RVI_dp
     functions/dual_pol/DpRVI
+    functions/dual_pol/PRVI_dp
     functions/dual_pol/DOP_dp
-
+    
 
