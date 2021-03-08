@@ -144,7 +144,7 @@ Full-pol functionalities require the SAR data in the form of covariance (C3) or 
 </center>  -->
 
 
- * PRVI (Polarimetric Radar Vegetation Index) : This functionality computes the polarimetric Radar vegetation index for full polarimetric SAR data. The required input and the computed output are as follows:
+ * ```PRVI``` (Polarimetric Radar Vegetation Index) : This functionality computes the polarimetric Radar vegetation index for full polarimetric SAR data. The required input and the computed output are as follows:
     
     ````python
         input : input_T3/C3_folder, window_size
@@ -159,7 +159,7 @@ Full-pol functionalities require the SAR data in the form of covariance (C3) or 
 
     where DOP<sub>fp</sub> 3D Barakt degree of polarization and can be expressed as shown below. Further details on the PRVI can be found in [[1]](#1)
 
- * DOP (Degree of Polarization):  This functionality computes the 3D Barakat degree of polarization for full polarimetric SAR data. The required input and the computed output are as follows:
+ * ```DOP``` (Degree of Polarization):  This functionality computes the 3D Barakat degree of polarization for full polarimetric SAR data. The required input and the computed output are as follows:
 
     ````python
         input : input_T3/C3_folder, window_size
@@ -247,7 +247,7 @@ Compact-pol functionalities require the SAR data in the form of 2x2 covariance m
 
 
 
- * CpRVI (Compact-pol Radar Vegetation Index): This functionality computes the compact-pol radar vegetation index for compact polarimetric SAR data. The required input and the computed output are as follows:
+ * ```CpRVI``` (Compact-pol Radar Vegetation Index): This functionality computes the compact-pol radar vegetation index for compact polarimetric SAR data. The required input and the computed output are as follows:
 
     ````python
         input : input_C2_folder, window_size
@@ -274,7 +274,7 @@ Compact-pol functionalities require the SAR data in the form of 2x2 covariance m
 
 
 
- * iS-Omega (improved S-&Omega; decomposition): 
+ * ```iS-Omega``` (improved S-&Omega; decomposition): 
     This functionality computes the scattering powers for compact polarimetric SAR data. This is an improved decomposition technique based on Stokes vector(S) and the polarized power fraction (&Omega;). The required input and the computed output are as follows:
     
     ````python
@@ -308,7 +308,7 @@ Compact-pol functionalities require the SAR data in the form of 2x2 covariance m
     <br>
     <center>
 
-    ![cparm](https://latex.codecogs.com/svg.latex?\Large&space;\text{SC/OC}<1;\qquad{}\qquad{}\qquad{}\text{SC/OC}>1\\\P_s=\Omega\left(S_{r0}-\left(1-\Omega\right)\text{SC}\right);\qquad{}P_s=\Omega\left(1-\Omega\right)\text{OC}\\\P_d=\Omega\left(1-\Omega\right)\text{SC};\qquad{}P_d=\Omega\left(S_{r0}-\left(1-\Omega\right)\text{OC}\right))
+    ![cparm](https://latex.codecogs.com/svg.latex?\Large&space;\text{SC/OC}<1;\qquad{}\qquad{}\qquad{}\text{SC/OC}>1\\\P_s=\Omega\left(S_{0}-\left(1-\Omega\right)\text{SC}\right);\qquad{}P_s=\Omega\left(1-\Omega\right)\text{OC}\\\P_d=\Omega\left(1-\Omega\right)\text{SC};\qquad{}P_d=\Omega\left(S_{0}-\left(1-\Omega\right)\text{OC}\right))
 
     ![cparm](https://latex.codecogs.com/svg.latex?\Large&space;P_v=S_{r0}\left(1-\Omega\right))
 
@@ -317,7 +317,7 @@ Compact-pol functionalities require the SAR data in the form of 2x2 covariance m
 
 
 
- * DOP (Degree of Polarization): This functionality computes the degree of polarization for compact polarimetric SAR data. The required input and the computed output are as follows:
+ * ```DOP``` (Degree of Polarization): This functionality computes the degree of polarization for compact polarimetric SAR data. The required input and the computed output are as follows:
     
 
     ````python
@@ -383,7 +383,7 @@ Dual-pol functionalities require the SAR data in the form of 2x2 covariance matr
 </center>
 <br>
 
- * DpRVI (Dual-pol Radar Vegetation Index): This functionality computes the dual polarimetric radar vegetation index for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
+ * ```DpRVI``` (Dual-pol Radar Vegetation Index): This functionality computes the dual polarimetric radar vegetation index for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
 
     ````python
         input : input_C2_folder, window_size
@@ -404,7 +404,7 @@ Dual-pol functionalities require the SAR data in the form of 2x2 covariance matr
 
 
 
- * RVI (Radar Vegetation Index): This functionality computes the radar vegetation index for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
+ * ```RVI``` (Radar Vegetation Index): This functionality computes the radar vegetation index for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
 
     ````python
         input : input_c2_folder, window_size
@@ -420,7 +420,7 @@ Dual-pol functionalities require the SAR data in the form of 2x2 covariance matr
 
     where, &sigma;<sup>o</sup><sub>XX</sub> and &sigma;<sup>o</sup><sub>XY</sub> co- and cross-pol backscatter intensities.
 
- * PRVI (Polarimetric Radar Vegetation Index): This functionality computes the polarimetric radar vegetation index for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
+ * ```PRVI``` (Polarimetric Radar Vegetation Index): This functionality computes the polarimetric radar vegetation index for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
 
     ````python
         input : input_c2_folder, window_size
@@ -439,7 +439,7 @@ Dual-pol functionalities require the SAR data in the form of 2x2 covariance matr
 
 
 
- * DOP (Degree of Polarization):  This functionality computes the 2D Barakat degree of polarization for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
+ * ```DOP``` (Degree of Polarization):  This functionality computes the 2D Barakat degree of polarization for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
     
     ````python
         input : input_c2_folder, window_size

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DOP &mdash; SAR tools v0.6.2 documentation</title>
+  <title>DOP (Degree of Polarization) &mdash; SAR tools v0.6.2 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="RVI dual-pol" href="../dual_pol/RVI_dp.html" />
+    <link rel="next" title="RVI (Radar Vegetation Index)" href="../dual_pol/RVI_dp.html" />
     <link rel="prev" title="MF3CC" href="MF3CC.html" /> 
 </head>
 
@@ -89,10 +89,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../functions_description.html">Functions Description</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../functions_description.html#full-pol-functions"><strong>Full-pol functions</strong></a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../functions_description.html#compact-pol-functions"><strong>Compact-pol functions</strong></a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="cprvi.html">CpRVI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cprvi.html"><code class="docutils literal notranslate"><span class="pre">CpRVI</span></code> (Compact-pol Radar Vegetation Index)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="iS_Omega.html">iS-Omega</a></li>
 <li class="toctree-l3"><a class="reference internal" href="MF3CC.html">MF3CC</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">DOP</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">DOP</span></code> (Degree of Polarization)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../functions_description.html#dual-pol"><strong>Dual-pol</strong></a></li>
@@ -147,7 +147,7 @@
         
           <li><a href="../../functions_description.html">Functions Description</a> &raquo;</li>
         
-      <li>DOP</li>
+      <li><code class="docutils literal notranslate"><span class="pre">DOP</span></code> (Degree of Polarization)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -166,12 +166,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="dop">
-<h1>DOP<a class="headerlink" href="#dop" title="Permalink to this headline">¶</a></h1>
-<p>Generalized volume Radar Vegetation Index for full-pol SAR data.</p>
+  <div class="section" id="dop-degree-of-polarization">
+<h1><code class="docutils literal notranslate"><span class="pre">DOP</span></code> (Degree of Polarization)<a class="headerlink" href="#dop-degree-of-polarization" title="Permalink to this headline">¶</a></h1>
+<p>This functionality computes the degree of polarization for compact polarimetric SAR data. The required input and the computed output are as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">input</span> <span class="p">:</span> <span class="n">input_c2_folder</span><span class="p">,</span> <span class="n">window_size</span><span class="p">,</span> <span class="n">tau</span>
+<span class="n">output</span><span class="p">:</span> <span class="n">DOP_CP</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>The conventional degree of polarization in terms of stokes paramters can be written as follows:</p>
 <div class="math notranslate nohighlight">
-\[\text{GRVI} = \left(1 - \text{GD}_{\text{GV}}\right)\Big(\frac{p}{q}\Big)^{2\,\text{GD}_{\text{GV}}}, \quad 0\le \text{GRVI} \le 1\]</div>
-<p>where, <span class="math notranslate nohighlight">\(\text{GD}_{\text{GV}}\)</span> is the geodesic distance between Kennaugh <span class="math notranslate nohighlight">\((\mathbf{K})\)</span> matrices of the observed and the generalized volume scattering model, <span class="math notranslate nohighlight">\(p,q\)</span> are minimum and maximum value of distances between <span class="math notranslate nohighlight">\(\mathbf{K}\)</span> matrices of the observed and elementary targets respectively. A detailed explanation of GRVI is available in.</p>
+\[\text{DOP}_{cp}=\frac{\sqrt{S^2_1+S^2_2+S^2_3}}{S_0}\]</div>
+<p>where,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}S_0=\text{C11+C22};\qquad{}S_1=\text{C11-C22};\\
+S_2=\text{C12+C21};\qquad{}S_3=\pm\text{j(C12-C21)}\end{split}\]</div>
 </div>
 
 
@@ -182,7 +190,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../dual_pol/RVI_dp.html" class="btn btn-neutral float-right" title="RVI dual-pol" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../dual_pol/RVI_dp.html" class="btn btn-neutral float-right" title="RVI (Radar Vegetation Index)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="MF3CC.html" class="btn btn-neutral float-left" title="MF3CC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

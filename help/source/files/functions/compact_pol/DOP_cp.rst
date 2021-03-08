@@ -1,13 +1,24 @@
-DOP
-===================
-Generalized volume Radar Vegetation Index for full-pol SAR data.
+``DOP`` (Degree of Polarization)
+=================================
+This functionality computes the degree of polarization for compact polarimetric SAR data. The required input and the computed output are as follows:
+
+.. code-block:: python
+
+        input : input_c2_folder, window_size, tau
+        output: DOP_CP.bin
+
+The conventional degree of polarization in terms of stokes paramters can be written as follows:
 
 .. math::
 
-    \text{GRVI} = \left(1 - \text{GD}_{\text{GV}}\right)\Big(\frac{p}{q}\Big)^{2\,\text{GD}_{\text{GV}}}, \quad 0\le \text{GRVI} \le 1
+    \text{DOP}_{cp}=\frac{\sqrt{S^2_1+S^2_2+S^2_3}}{S_0}
 
-where, :math:`\text{GD}_{\text{GV}}` is the geodesic distance between Kennaugh :math:`(\mathbf{K})` matrices of the observed and the generalized volume scattering model, :math:`p,q` are minimum and maximum value of distances between :math:`\mathbf{K}` matrices of the observed and elementary targets respectively. A detailed explanation of GRVI is available in.
+where, 
 
+.. math::
+    
+    S_0=\text{C11+C22};\qquad{}S_1=\text{C11-C22};\\
+    S_2=\text{C12+C21};\qquad{}S_3=\pm\text{j(C12-C21)}
 
 
 
