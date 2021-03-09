@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
-                                    SAR Tools
-                                 A QGIS plugin
+                                PolSAR Tools
+                                A QGIS plugin
                              -------------------
         begin                : 2020-02-03
         git sha              : $Format:%H$

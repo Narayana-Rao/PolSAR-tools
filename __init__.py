@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- MRSLab
-                                 A QGIS plugin
+                                PolSAR
+                                A QGIS plugin
  This plugin generates derived SAR parameters from input polarimetric matrix (C3, T3, C2, T2).
                              -------------------
         begin                : 2020-02-03

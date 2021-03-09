@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/plugins/SAR_Tools" >
+    <qresource prefix="/plugins/PolSAR_Tools" >
         <file>icon.png</file>
     </qresource>
 </RCC>

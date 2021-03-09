@@ -101,7 +101,7 @@ class MRSLab(object):
         # Declare instance attributes
         self.actions = []
         icon_path = ':/plugins/SAR_Tools/icon.png'
-        self.menu = self.tr(u'&SAR tools')
+        self.menu = self.tr(u'&PolSAR tools')
 
         # Check if plugin was started the first time in current QGIS session
         # Must be set in initGui() to survive plugin reloads
@@ -112,8 +112,8 @@ class MRSLab(object):
         self.inFolder=''
         # self.ws = 5
         
-        self.toolbar = self.iface.addToolBar(u'SAR Tools')
-        self.toolbar.setObjectName(u'SAR Tools')
+        self.toolbar = self.iface.addToolBar(u'PolSAR Tools')
+        self.toolbar.setObjectName(u'PolSAR Tools')
         
         
         # self.dlg.fp_browse.setEnabled(True)
@@ -948,7 +948,7 @@ class MRSLab(object):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
             self.iface.removePluginMenu(
-                self.tr(u'&SAR tools'),
+                self.tr(u'&PolSAR tools'),
                 action)
             self.iface.removeToolBarIcon(action)
 
@@ -974,7 +974,7 @@ class MRSLab(object):
     def Startup(self):
         # For terminal outputs
         logger = self.dlg.terminal
-        logger.append('\t                       Welcome to SAR_tools.'+
+        logger.append('\t                       Welcome to PolSAR tools.'+
                       '\n\t This plugin generates derived SAR parameters')
         logger.append('\t     SAR indices | Decomposition parameters')        
         logger.append('---------------------------------------------------------------------------------------------')

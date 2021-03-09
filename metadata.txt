@@ -3,10 +3,10 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=SAR tools
+name=PolSAR tools
 qgisMinimumVersion=3.0
 description=This plugin generates polarimetric descriptors from SAR data.
-version=0.6.2
+version=0.6.3
 author=Narayanarao; Subhadip; Dipankar
 email=bnarayanarao@iitb.ac.in
 owners=bnarayanarao
@@ -22,6 +22,7 @@ repository=https://github.com/Narayana-Rao/sar_tools.git
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog= 
+
 	0.6.2
 	- minor updates and bug fixes
 	

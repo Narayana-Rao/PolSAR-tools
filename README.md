@@ -12,7 +12,7 @@ This plugin generates derived SAR parameters (viz. vegetation indices, polarimet
 
 ## Installation
 
-> **__Note:__** SAR tools requires QGIS version >=3.0.
+> **__Note:__** PolSAR tools requires QGIS version >=3.0.
 
 * The easiest way (requires internet connection) : 
     - Open QGIS -> Plugins -> Manage and Install Plugins... -> select ```All``` tab -> search for ```PolSAR tools``` --> select and install plugin
