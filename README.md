@@ -1,4 +1,4 @@
-SAR tools
+PolSAR tools
 ======================================
 ### A python based [QGIS](https://qgis.org/en/site/index.html) plugin
 [![DOI](https://zenodo.org/badge/238603440.svg)](https://zenodo.org/badge/latestdoi/238603440)
@@ -15,14 +15,14 @@ This plugin generates derived SAR parameters (viz. vegetation indices, polarimet
 > **__Note:__** SAR tools requires QGIS version >=3.0.
 
 * The easiest way (requires internet connection) : 
-    - Open QGIS -> Plugins -> Manage and Install Plugins... -> select ```All``` tab -> search for ```SAR tools``` --> select and install plugin
+    - Open QGIS -> Plugins -> Manage and Install Plugins... -> select ```All``` tab -> search for ```PolSAR tools``` --> select and install plugin
 * Alternative way (offline installation) : 
     - Go to [releases](https://github.com/Narayana-Rao/SAR-tools/releases) of this repository -> select desired version -> download the ```.zip``` file.
     - Open QGIS -> Plugins -> Manage and Install Plugins... -> ```install from ZIP``` tab --> select the downloaded zip --> install plugin (ignore warnings, if any).
  
 ## Up and running
 
-After successful installation, find the plugin by opening **QGIS** --> Plugins --> ``SAR tools`` --> Process. As shown in the following figure.
+After successful installation, find the plugin by opening **QGIS** --> Plugins --> ``PolSAR tools`` --> Process. As shown in the following figure.
 
 <p align="center">
   <img src="help/source/files/figures/open_ui.png" alt="Opening the plugin"/>
