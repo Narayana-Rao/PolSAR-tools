@@ -3,8 +3,8 @@
 Contribute to the software
 
   * Setting up environment
-    - Download and install anaconda (python version: >3.0)
-    - Download and install Qt Designer (Qt version: 5.0)
+    - Download and install [anaconda](https://www.anaconda.com/products/individual) (python version: >3.0)
+    - Download and install [Qt Designer](https://build-system.fman.io/qt-designer-download) (Qt version: 5.0)
 
   * Preparing your own descriptor function:
 
@@ -29,6 +29,6 @@ Contribute to the software
     - Open the **mainWindow.ui** file in the Qt Designer and update the elements.
     - link the module with the ui elements in [SAR_Tools.py](../SAR_Tools.py)
 
-> Alternatively create your function and share it with us. We will update the plugin. 
+> Please contribute by [forking](http://help.github.com/forking/) and sending a [pull request](https://docs.github.com/en/github/getting-started-with-github/github-glossary#pull).
 
 
