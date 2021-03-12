@@ -8,13 +8,13 @@ Installation
 
 .. note::
 
-    SAR tools requires QGIS version >=3.0.
+    PolSAR tools requires QGIS version >=3.0.
 
 
 * The easiest way (requires internet connection) : 
-	- Open QGIS -> Plugins -> Manage and Install Plugins... --> select ``All`` tab -> search for ``SAR tools`` --> select and install plugin
+	- Open QGIS -> Plugins -> Manage and Install Plugins... --> select ``All`` tab -> search for ``PolSAR tools`` --> select and install plugin
 * Alternative way (offline installation) : 
-	- Go to `releases`_ of SAR tools -> select desired version -> download the ``.zip`` file.
+	- Go to `releases`_ of PolSAR tools -> select desired version -> download the ``.zip`` file.
 	- Open QGIS -> Plugins -> Manage and Install Plugins... --> ``install from ZIP`` tab --> select the downloaded zip --> install plugin (ignore warnings, if any).
 
 .. _Up and running:
@@ -22,7 +22,7 @@ Installation
 Up and running
 --------------------
 
-After successful installation, find the plugin by opening **QGIS** --> Plugins --> ``SAR tools`` --> Process. As shown in the following figure.
+After successful installation, find the plugin by opening **QGIS** --> Plugins --> ``PolSAR tools`` --> Process. As shown in the following figure.
 
 .. figure:: figures/open_ui.png
     :scale: 80%
@@ -70,10 +70,10 @@ Available functionalities
 
   3. **Dual-pol**
 
-    * Dual-pol Radar Vegetation Index (`DpRVI <functions/dual_pol/DpRVI.html>`_) :cite:`mandal2020dual`
-    * Radar Vegetation Index (`RVI <functions/dual_pol/RVI_dp.html>`_) :cite:`Kim_2009`
-    * Degree of Polarization (`DOP <functions/dual_pol/DOP_dp.html>`_) :cite:`barakat1977degree`
-    * Polarimetric Radar Vegetation Index (`PRVI <functions/dual_pol/PRVI_dp.html>`_) :cite:`chang2018polarimetric`
+    * Dual-pol Radar Vegetation Index (`DpRVI <functions/dual_pol/DpRVI.html>`_) 
+    * Radar Vegetation Index (`RVI <functions/dual_pol/RVI_dp.html>`_) 
+    * Degree of Polarization (`DOP <functions/dual_pol/DOP_dp.html>`_)
+    * Polarimetric Radar Vegetation Index (`PRVI <functions/dual_pol/PRVI_dp.html>`_) 
 
 Example usage
 --------------
@@ -152,12 +152,12 @@ Contributions
 
 1) Contribute to the software
 
-    `Contribution guidelines for this project  <https://github.com/Narayana-Rao/SAR-tools/blob/master/help/CONTRIBUTING.md>`_
+    `Contribution guidelines for this project  <https://github.com/Narayana-Rao/PolSAR-tools/blob/master/help/CONTRIBUTING.md>`_
 
 
 2) Report issues or problems with the software
   
-  Please raise your issues here : https://github.com/Narayana-Rao/SAR-tools/issues
+  Please raise your issues here : https://github.com/Narayana-Rao/PolSAR-tools/issues
 
 3) Seek support
 
