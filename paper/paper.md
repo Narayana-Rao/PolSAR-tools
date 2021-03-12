@@ -48,7 +48,7 @@ Recently, we proposed three vegetation indices: ```GRVI``` (Generalized Radar Ve
 
 # PolSAR tools Functionality
 
-The functionalities of ```PolSAR tools``` are organized into three modules to handle the data from three different SAR polarization modes. The following is the list of the available functions in the ```PolSAR tool```:
+The functionalities of ```PolSAR tools``` are organized into three modules to handle the data from three different SAR polarization modes. The following is the list of the available functions in the ```PolSAR tools```:
 
 * Full-pol : 
     * Radar Vegetation Index (RVI) [@Kim_2009]
