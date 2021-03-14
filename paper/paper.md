@@ -19,6 +19,7 @@ authors:
     orcid: 0000-0001-6720-6108
     affiliation: 1
   - name: Y. S. Rao
+    orcid: 0000-0002-6351-2391
     affiliation: 1
 affiliations:
  - name: Microwave Remote Sensing Lab, Centre of Studies in Resources Engineering, Indian Institute of Technology Bombay, Mumbai-400076, India
