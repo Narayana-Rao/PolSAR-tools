@@ -29,6 +29,8 @@ from qgis.core import *
 import requests
 import numpy as np
 import multiprocessing
+import webbrowser
+
 
 from .resources import *
 # Import the code for the dialog
@@ -300,8 +302,9 @@ class MRSLab(object):
         self.dlg.pb_view.clicked.connect(self.viewData)
         self.dlg.clear_terminal.clicked.connect(self.clear_log)
         self.dlg.pb_process.clicked.connect(self.startProcess)
-        
-        
+        self.dlg.help_btn.clicked.connect(lambda: webbrowser.open('https://sar-tools.readthedocs.io/en/latest/'))
+        self.dlg.close_btn.clicked.connect(self.closeui_fn)
+
         # self.dlg.pb_cancel.clicked.connect(self.cancel_fn)
         # self.dlg.pb_cancel.clicked.connect(lambda: self.worker.stop())
         return action
@@ -366,9 +369,10 @@ class MRSLab(object):
     #     if i==0:
     #         self.dlg.dp_cb_T2.setChecked(True)
 
-
+    # def open_help():
+        # webbrowser.open('http://www.google.com')
             
-    def cancel_fn(self):
+    def closeui_fn(self):
         # try:
         # sys.exit()
         # sys.exitfunc()
