@@ -30,7 +30,7 @@ import requests
 import numpy as np
 import multiprocessing
 import webbrowser
-
+import os, sys, subprocess
 
 from .resources import *
 # Import the code for the dialog
@@ -371,31 +371,7 @@ class MRSLab(object):
 
     # def open_help():
         # webbrowser.open('http://www.google.com')
-    def cancel_fn(self):
-        # try:
-        # sys.exit()
-        # sys.exitfunc()
-        # self.worker.delete()
-        # self.killed=self.worker.kill()
-        # 
-        # if self.killed:
-            # self.dlg.close()
-            # self.clear_log()
-            # raise UserAbortedNotification('USER Killed')
-        # self.dlg.close()
-        # sys.exitfunc()
-        self.dlg.close()
-        # self.thread.terminate()
-        # self.thread.wait()
-        # self.thread.running = False
-        # self.thread.exit(0)
-        # self.worker.deleteLater()
-        # self.thread.quit()
-        # self.thread.wait()
-        # self.thread.deleteLater()
-        # 
-        # except:
-            # self.dlg.close()       
+    
 
     def closeui_fn(self):
         # try:
@@ -1283,22 +1259,24 @@ class MRSLab(object):
     def startGRVI(self):
         
         self.dlg.terminal.append('->> Calculating GRVI...')
-        worker = GRVI(self.inFolder,self.T3_stack,self.ws)
+        self.worker1 = GRVI(self.inFolder,self.T3_stack,self.ws)
 
         # start the worker in a new thread
-        thread = QtCore.QThread()
-        worker.moveToThread(thread)
-        self.thread = thread
-        self.worker = worker
+        self.thread1 = QtCore.QThread()
+        self.worker1.moveToThread(self.thread1)
+        # self.thread = thread
+        # self.worker = worker
         # self.workerFinished =1
-        self.worker.finished.connect(self.workerFinished)
-        self.worker.error.connect(self.workerError)
+        self.worker1.finished.connect(self.workerFinished)
+        self.worker1.error.connect(self.workerError)
 
-        self.worker.progress.connect(self.showmsg)
-        self.worker.pBar.connect(self.pBarupdate)
-        self.thread.started.connect(self.worker.run)
-        self.thread.start()
+        self.worker1.progress.connect(self.showmsg)
+        self.worker1.pBar.connect(self.pBarupdate)
+        self.thread1.started.connect(self.worker1.run)
+        self.thread1.start()
         
+        self.thread = self.thread1
+        self.worker = self.worker1
 
         # time.sleep(0.1)
         # worker.kill
@@ -1307,6 +1285,14 @@ class MRSLab(object):
         pB = self.dlg.progressBar
         pB.setValue(int(signal))
         # log.append(str(signal))  
+
+
+    def open_file(self,path):
+        if sys.platform == "win32":
+            os.startfile(path)
+        else:
+            opener = "open" if sys.platform == "darwin" else "xdg-open"
+            subprocess.call([opener, path])
 
     def workerFinished(self,finish_cond):
 
@@ -1318,7 +1304,7 @@ class MRSLab(object):
         # self.viewData() # Load data into QGIS
         #Open output folder after finishing the process
         path = os.path.realpath(self.inFolder)
-        os.startfile(path)
+        self.open_file(path)
 
         #set progress bar to Zero
         pB = self.dlg.progressBar
@@ -1338,6 +1324,42 @@ class MRSLab(object):
         logger = self.dlg.terminal
         logger.append('->> :-( Error:\n\n %s' %str(exception_string))
     
+    def cancel_fn(self):
+
+        # self.worker1.stop()
+        # self.thread1.quit()
+        # self.thread1.wait()
+        # self.thread1.deleteLater()
+        # self.worker1.kill
+        # self.thread.quit()
+        # self.thread.wait()
+        # self.thread.deleteLater()
+        # try:
+        # sys.exit()
+        # sys.exitfunc()
+        # self.worker.delete()
+        # self.killed=self.worker.kill()
+        # 
+        # if self.killed:
+            # self.dlg.close()
+            # self.clear_log()
+            # raise UserAbortedNotification('USER Killed')
+        self.dlg.close()
+        # sys.exitfunc()
+        # p = multiprocessing.Process(target= GRVI.run)
+        # p.terminate()
+        # self.dlg.close()
+        # self.thread.terminate()
+        # self.thread.wait()
+        # self.thread.running = False
+        # self.thread.exit(0)
+        # self.worker.deleteLater()
+        # self.thread.quit()
+        # self.thread.wait()
+        # self.thread.deleteLater()
+        # 
+        # except:
+            # self.dlg.close()   
 class UserAbortedNotification(Exception):
     pass 
         
