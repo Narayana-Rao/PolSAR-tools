@@ -30,7 +30,7 @@ import requests
 import numpy as np
 import multiprocessing
 import webbrowser
-import os, sys, subprocess
+
 
 from .resources import *
 # Import the code for the dialog
@@ -71,7 +71,7 @@ p_lock = multiprocessing.Lock()
 
 class MRSLab(object):
     """QGIS Plugin Implementation."""
-
+    sig_abort_workers = pyqtSignal()
     def __init__(self, iface):
         """Constructor.
 
@@ -304,7 +304,7 @@ class MRSLab(object):
         self.dlg.pb_process.clicked.connect(self.startProcess)
         self.dlg.help_btn.clicked.connect(lambda: webbrowser.open('https://sar-tools.readthedocs.io/en/latest/'))
         self.dlg.close_btn.clicked.connect(self.closeui_fn)
-        self.dlg.close_btn.clicked.connect(self.cancel_fn)
+        # self.dlg.close_btn.clicked.connect(self.cancel_fn)
         # self.dlg.pb_cancel.clicked.connect(self.cancel_fn)
         # self.dlg.pb_cancel.clicked.connect(lambda: self.worker.stop())
         return action
@@ -325,71 +325,11 @@ class MRSLab(object):
             pol_mode = i
             # logger.append(str(pol_mode))
             
-    # # update the T3/C3 or T2/C2 check relative to each other
-    # def fpt3_state_changed(self, i):
-    #     # logger.append(str(i))
-    #     if i==2:
-    #         self.dlg.fp_cb_C3.setChecked(False)
-    #     if i==0:
-    #         self.dlg.fp_cb_C3.setChecked(True)
-    
-    # def fpc3_state_changed(self, i):
-        
-    #     if i==2:
-    #         self.dlg.fp_cb_T3.setChecked(False)
-    #     if i==0:
-    #         self.dlg.fp_cb_T3.setChecked(True)
-
-    # def cpt2_state_changed(self, i):
-    #     # logger.append(str(i))
-    #     if i==2:
-    #         self.dlg.cp_cb_C2.setChecked(False)
-    #     if i==0:
-    #         self.dlg.cp_cb_C2.setChecked(True)
-    
-    # def cpc2_state_changed(self, i):
-        
-    #     if i==2:
-    #         self.dlg.cp_cb_T2.setChecked(False)
-    #     if i==0:
-    #         self.dlg.cp_cb_T2.setChecked(True)
-            
-
-    # def dpt2_state_changed(self, i):
-    #     # logger.append(str(i))
-    #     if i==2:
-    #         self.dlg.dp_cb_C2.setChecked(False)
-    #     if i==0:
-    #         self.dlg.dp_cb_C2.setChecked(True)
-    
-    # def dpc2_state_changed(self, i):
-        
-    #     if i==2:
-    #         self.dlg.dp_cb_T2.setChecked(False)
-    #     if i==0:
-    #         self.dlg.dp_cb_T2.setChecked(True)
-
-    # def open_help():
-        # webbrowser.open('http://www.google.com')
-    
+   
 
     def closeui_fn(self):
-        # try:
-        # sys.exit()
-        # sys.exitfunc()
-        # self.worker.delete()
-        # self.killed=self.worker.kill()
-        # 
-        # if self.killed:
-            # self.dlg.close()
-            # self.clear_log()
-            # raise UserAbortedNotification('USER Killed')
+
         self.dlg.close()
-        # self.thread.wait()
-        # self.thread.delete()
-        # 
-        # except:
-            # self.dlg.close()
             
         
     def psi_update(self):
@@ -1259,40 +1199,56 @@ class MRSLab(object):
     def startGRVI(self):
         
         self.dlg.terminal.append('->> Calculating GRVI...')
-        self.worker1 = GRVI(self.inFolder,self.T3_stack,self.ws)
+        
+        self.__threads = []
+        worker = GRVI(self.inFolder,self.T3_stack,self.ws)
+
+        # messageBar = self.iface.messageBar().createMessage('Doing something time consuming...', )
+        # progressBar = QtGui.QProgressBar()
+        # progressBar.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        # cancelButton = QtGui.QPushButton()
+        # cancelButton.setText('Cancel')
+        # cancelButton.clicked.connect(worker.kill)
+        # messageBar.layout().addWidget(progressBar)
+        # messageBar.layout().addWidget(cancelButton)
+        # self.iface.messageBar().pushWidget(messageBar, self.iface.messageBar().INFO)
+        # self.messageBar = messageBar
 
         # start the worker in a new thread
-        self.thread1 = QtCore.QThread()
-        self.worker1.moveToThread(self.thread1)
-        # self.thread = thread
-        # self.worker = worker
+        thread = QtCore.QThread()
+        self.__threads.append((thread, worker))
+        worker.moveToThread(thread)
         # self.workerFinished =1
-        self.worker1.finished.connect(self.workerFinished)
-        self.worker1.error.connect(self.workerError)
 
-        self.worker1.progress.connect(self.showmsg)
-        self.worker1.pBar.connect(self.pBarupdate)
-        self.thread1.started.connect(self.worker1.run)
-        self.thread1.start()
+
+        worker.progress.connect(self.showmsg)
+        worker.pBar.connect(self.pBarupdate)
+
         
-        self.thread = self.thread1
-        self.worker = self.worker1
+        thread.started.connect(worker.run)
+        thread.start()
+        # self.sig_abort_workers.connect(worker.abort)
 
+        self.thread = thread
+        self.worker = worker
+
+        worker.finished.connect(self.workerFinished)
+        worker.error.connect(self.workerError)
         # time.sleep(0.1)
         # worker.kill
-            
+    def cancel_fn(self):
+        # self.sig_abort_workers.emit()
+        self.dlg.terminal.append('->> cancelling...')
+        for thread, worker in self.__threads:  # note nice unpacking by Python, avoids indexing
+            thread.quit()  # this will quit **as soon as thread event loop unblocks**
+            thread.wait()  # <- so you need to wait for it to *actually* quit
+            # worker.kill()
+
+
     def pBarupdate(self, signal):
         pB = self.dlg.progressBar
         pB.setValue(int(signal))
         # log.append(str(signal))  
-
-
-    def open_file(self,path):
-        if sys.platform == "win32":
-            os.startfile(path)
-        else:
-            opener = "open" if sys.platform == "darwin" else "xdg-open"
-            subprocess.call([opener, path])
 
     def workerFinished(self,finish_cond):
 
@@ -1304,7 +1260,7 @@ class MRSLab(object):
         # self.viewData() # Load data into QGIS
         #Open output folder after finishing the process
         path = os.path.realpath(self.inFolder)
-        self.open_file(path)
+        os.startfile(path)
 
         #set progress bar to Zero
         pB = self.dlg.progressBar
@@ -1324,42 +1280,6 @@ class MRSLab(object):
         logger = self.dlg.terminal
         logger.append('->> :-( Error:\n\n %s' %str(exception_string))
     
-    def cancel_fn(self):
-
-        # self.worker1.stop()
-        # self.thread1.quit()
-        # self.thread1.wait()
-        # self.thread1.deleteLater()
-        # self.worker1.kill
-        # self.thread.quit()
-        # self.thread.wait()
-        # self.thread.deleteLater()
-        # try:
-        # sys.exit()
-        # sys.exitfunc()
-        # self.worker.delete()
-        # self.killed=self.worker.kill()
-        # 
-        # if self.killed:
-            # self.dlg.close()
-            # self.clear_log()
-            # raise UserAbortedNotification('USER Killed')
-        self.dlg.close()
-        # sys.exitfunc()
-        # p = multiprocessing.Process(target= GRVI.run)
-        # p.terminate()
-        # self.dlg.close()
-        # self.thread.terminate()
-        # self.thread.wait()
-        # self.thread.running = False
-        # self.thread.exit(0)
-        # self.worker.deleteLater()
-        # self.thread.quit()
-        # self.thread.wait()
-        # self.thread.deleteLater()
-        # 
-        # except:
-            # self.dlg.close()   
 class UserAbortedNotification(Exception):
     pass 
         
