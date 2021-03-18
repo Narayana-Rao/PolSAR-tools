@@ -304,7 +304,7 @@ class MRSLab(object):
         self.dlg.pb_process.clicked.connect(self.startProcess)
         self.dlg.help_btn.clicked.connect(lambda: webbrowser.open('https://sar-tools.readthedocs.io/en/latest/'))
         self.dlg.close_btn.clicked.connect(self.closeui_fn)
-
+        self.dlg.close_btn.clicked.connect(self.cancel_fn)
         # self.dlg.pb_cancel.clicked.connect(self.cancel_fn)
         # self.dlg.pb_cancel.clicked.connect(lambda: self.worker.stop())
         return action
@@ -371,7 +371,32 @@ class MRSLab(object):
 
     # def open_help():
         # webbrowser.open('http://www.google.com')
-            
+    def cancel_fn(self):
+        # try:
+        # sys.exit()
+        # sys.exitfunc()
+        # self.worker.delete()
+        # self.killed=self.worker.kill()
+        # 
+        # if self.killed:
+            # self.dlg.close()
+            # self.clear_log()
+            # raise UserAbortedNotification('USER Killed')
+        # self.dlg.close()
+        # sys.exitfunc()
+        self.dlg.close()
+        # self.thread.terminate()
+        # self.thread.wait()
+        # self.thread.running = False
+        # self.thread.exit(0)
+        # self.worker.deleteLater()
+        # self.thread.quit()
+        # self.thread.wait()
+        # self.thread.deleteLater()
+        # 
+        # except:
+            # self.dlg.close()       
+
     def closeui_fn(self):
         # try:
         # sys.exit()
@@ -1263,17 +1288,18 @@ class MRSLab(object):
         # start the worker in a new thread
         thread = QtCore.QThread()
         worker.moveToThread(thread)
-        # self.workerFinished =1
-        worker.finished.connect(self.workerFinished)
-        worker.error.connect(self.workerError)
-
-        worker.progress.connect(self.showmsg)
-        worker.pBar.connect(self.pBarupdate)
-        thread.started.connect(worker.run)
-        thread.start()
-        
         self.thread = thread
         self.worker = worker
+        # self.workerFinished =1
+        self.worker.finished.connect(self.workerFinished)
+        self.worker.error.connect(self.workerError)
+
+        self.worker.progress.connect(self.showmsg)
+        self.worker.pBar.connect(self.pBarupdate)
+        self.thread.started.connect(self.worker.run)
+        self.thread.start()
+        
+
         # time.sleep(0.1)
         # worker.kill
             
