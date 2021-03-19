@@ -6,7 +6,7 @@
 name=PolSAR tools
 qgisMinimumVersion=3.0
 description=This plugin generates polarimetric descriptors from SAR data.
-version=0.6.3
+version=0.7
 author=Narayanarao; Subhadip; Dipankar
 email=bnarayanarao@iitb.ac.in
 owners=bnarayanarao
@@ -23,11 +23,13 @@ hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog= 
 
-	0.6.2
-	- minor updates and bug fixes
+	0.7
+	- Added MF4CF functionality. 
 	
 	0.6.1
 	- Extended compatibility for linux distributions.
+	- minor updates and bug fixes
+	- UI updates
 	
 	0.6
 	- Added Compact-pol Radar Vegetation Index (CpRVI)
@@ -43,7 +45,7 @@ changelog=
 	- Added Degree of Polarization (Full-pol and dual-pol)
 
 # Tags are comma separated with spaces allowed
-tags=sar,polsar,dprvi,rvi,prvi,cprvi,mf3cf,mf3cc,dop,grvi,decomposition,vegetation, vegetation index, sarindex, isomega, compactpol,dualpol,fullpol,mrslab
+tags=sar,polsar,dprvi,rvi,prvi,cprvi,mf3cf,mf4cf,mf3cc,dop,grvi,decomposition,vegetation, vegetation index, sarindex, isomega, compactpol,dualpol,fullpol,mrslab
 
 homepage=https://github.com/Narayana-Rao/sar_tools/blob/master/README.md
 category=Plugins
