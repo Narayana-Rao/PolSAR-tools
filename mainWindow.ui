@@ -94,7 +94,9 @@ MF3CF: Model Free 3-component Scattering Power Decomposition
 
 PRVI: Polarimetric Radar Vegetation Index
 
-DOP: Degree of polarization for Full Polarimetric SAR Data</string>
+DOP: Degree of polarization for Full Polarimetric SAR Data
+
+MF4CF: Model Free 4-component Scattering Power Decomposition</string>
            </property>
           </widget>
          </item>
@@ -199,6 +201,11 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
                <string>RVI</string>
               </property>
              </item>
+             <item>
+              <property name="text">
+               <string>MF4CF</string>
+              </property>
+             </item>
             </widget>
            </item>
            <item>
@@ -219,7 +226,7 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
                 <number>2</number>
                </property>
                <property name="value">
-                <number>5</number>
+                <number>7</number>
                </property>
               </widget>
              </item>
@@ -309,7 +316,7 @@ DOP: Degree of polarization for Full Polarimetric SAR Data</string>
                 <number>2</number>
                </property>
                <property name="value">
-                <number>5</number>
+                <number>7</number>
                </property>
               </widget>
              </item>
@@ -540,7 +547,7 @@ iS-Omega: Improved S-Omega decomposition for compact-pol data</string>
                 <number>2</number>
                </property>
                <property name="value">
-                <number>5</number>
+                <number>7</number>
                </property>
               </widget>
              </item>
