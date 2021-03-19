@@ -52,6 +52,7 @@ from .functions.dp.mod_dop_dp import dop_dp
 from .functions.dp.mod_RVI_dp import RVIdp
 
 from .functions.fp.mod_NM3CF import NM3CF
+from .functions.fp.mod_MF4CF import MF4CF
 from .functions.fp.mod_GRVI import GRVI
 from .functions.fp.mod_PRVI import PRVI
 from .functions.fp.mod_dop_fp import dop_FP
@@ -398,6 +399,12 @@ class MRSLab(object):
                     self.startRVIFP()
                 except:
                     self.dtype_error()
+            if indX==6:
+                try:
+                    logger.append('->> --------------------')
+                    self.startMF4CF()
+                except:
+                    self.dtype_error()
             else:
                 pass
             
@@ -521,6 +528,14 @@ class MRSLab(object):
                 # self.dlg.fp_cb_T3.setChecked(True)
                 # self.dlg.fp_ws.setEnabled(True)
                 self.dlg.pb_process.setEnabled(True)
+            elif parm == 6:
+                # logger.append('->>      MF4CF')
+                self.dlg.inFolder_fp.setEnabled(True)
+                self.dlg.fp_browse.setEnabled(True)
+                # self.dlg.fp_cb_T3.setChecked(True)
+                # self.dlg.fp_ws.setEnabled(True)
+                self.dlg.pb_process.setEnabled(True)
+            
 
             elif parm==0:
                 self.dlg.inFolder_fp.setEnabled(False)
@@ -1090,6 +1105,30 @@ class MRSLab(object):
         tau = self.dlg.cp_cb_tau.currentIndex()
             
         worker = NM3CC(self.inFolder,self.C2_stack,self.ws,tau)
+
+        # start the worker in a new thread
+        thread = QtCore.QThread()
+        worker.moveToThread(thread)
+        # self.workerFinished =1
+        worker.finished.connect(self.workerFinished)
+        worker.error.connect(self.workerError)
+
+        worker.progress.connect(self.showmsg)
+        worker.pBar.connect(self.pBarupdate)
+        thread.started.connect(worker.run)
+        thread.start()
+        
+        self.thread = thread
+        self.worker = worker
+        # time.sleep(0.1)
+        # worker.
+    
+    def startMF4CF(self):
+        
+        self.dlg.terminal.append('->> Calculating MF4CF...')
+        tau = self.dlg.cp_cb_tau.currentIndex()
+            
+        worker = MF4CF(self.inFolder,self.T3_stack,self.ws)
 
         # start the worker in a new thread
         thread = QtCore.QThread()
