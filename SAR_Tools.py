@@ -776,7 +776,8 @@ class MRSLab(object):
         """Open raster from file dialog"""
         # logger.append(str(self.dlg.tabWidget.currentIndex()))
         self.showTip() # pop-up tip
-        
+        pB = self.dlg.progressBar
+        pB.setValue(0)
         if self.dlg.tabWidget.currentIndex() == 0:
             self.inFolder = str(QFileDialog.getExistingDirectory(
                             self.dlg, "Select T3/C3 Folder"))                   
@@ -842,7 +843,7 @@ class MRSLab(object):
                     logger.append('->> Error! \n->> Please select a valid C2 folder')
                     self.showError2()
 
-
+        pB.setValue(0)
 
             
 ###############################################################
