@@ -5,3 +5,6 @@ help/* linguist-documentation
 *.js linguist-detectable=false
 *.css linguist-detectable=false
 *.rst linguist-detectable=false
+*.sh linguist-detectable=false
+*.bat linguist-detectable=false
+*.bib linguist-detectable=false
