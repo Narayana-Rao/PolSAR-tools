@@ -8,3 +8,5 @@ help/* linguist-documentation
 *.sh linguist-detectable=false
 *.bat linguist-detectable=false
 *.bib linguist-detectable=false
+/Makefile linguist-vendored=false
+help/Makefile linguist-vendored=false
