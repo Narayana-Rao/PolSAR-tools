@@ -59,6 +59,7 @@ Additional ``reset`` button to clear the environment, ``view data`` button to im
 ## Available functionalities:
 -----------------------------
   * Full-pol :
+    * Model free 4-Component decomposition for full-pol data (MF3CF)[[11]](#11)
     * Model free 3-Component decomposition for full-pol data (MF3CF)[[4]](#4)
 	* Radar Vegetation Index (RVI) [[8]](#8) 
     * Generalized volume Radar Vegetation Index (GRVI) [[2]](#2)
@@ -179,3 +180,5 @@ Trudel, M., Charbonneau, F. and Leconte, R., 2012. Using RADARSAT-2 polarimetric
 
 <a id="10">[10]</a> 
 Barakat, R., 1977. Degree of polarization and the principal idempotents of the coherency matrix. Optics Communications, 23(2), pp.147-150.
+
+<a id="11">[11]</a> S. Dey, A. Bhattacharya, A. C. Frery, C. Lopez-Martinez and Y. S. Rao, "A Model-free Four Component Scattering Power Decomposition for Polarimetric SAR Data," in IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing, 2021. doi: [10.1109/JSTARS.2021.3069299](https://doi.org/10.1109/JSTARS.2021.3069299). 
