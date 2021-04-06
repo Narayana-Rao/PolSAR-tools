@@ -2,5 +2,6 @@
 * text=auto
 help/* linguist-documentation
 *.html linguist-detectable=false
-*.jss linguist-detectable=false
+*.js linguist-detectable=false
+*.css linguist-detectable=false
 *.rst linguist-detectable=false
