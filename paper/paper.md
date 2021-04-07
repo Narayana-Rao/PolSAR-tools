@@ -56,6 +56,7 @@ The functionalities of ```PolSAR tools``` are organized into three modules to ha
     * Generalized volume Radar Vegetation Index (GRVI) [@ratha2019generalized]
     * Polarimetric Radar Vegetation Index (PRVI) [@chang2018polarimetric] 
     * Model free 3-Component decomposition for full-pol data (MF3CF) [@dey2020target]
+    * Model free 4-Component decomposition for full-pol data (MF4CF) [@dey2021mf4cf]
     * Degree of Polarization (DOP) [@barakat1977degree]
 * Compact-pol :
     * Model free 3-Component decomposition for compact-pol data (MF3CC) [@dey2020target]
