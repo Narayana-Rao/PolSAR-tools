@@ -59,7 +59,7 @@ Additional ``reset`` button to clear the environment, ``view data`` button to im
 ## Available functionalities:
 -----------------------------
   * Full-pol :
-    * Model free 4-Component decomposition for full-pol data (MF3CF)[[11]](#11)
+    * Model free 4-Component decomposition for full-pol data (MF4CF)[[11]](#11)
     * Model free 3-Component decomposition for full-pol data (MF3CF)[[4]](#4)
 	* Radar Vegetation Index (RVI) [[8]](#8) 
     * Generalized volume Radar Vegetation Index (GRVI) [[2]](#2)
@@ -68,8 +68,8 @@ Additional ``reset`` button to clear the environment, ``view data`` button to im
 
   * Compact-pol : 
     * Model free 3-Component decomposition for compact-pol data (MF3CC) [[4]](#4)
-    * Improved S-Omega decomposition for compact-pol data (iS-Omega) [[1]](#1)
-    * Compact-pol Radar Vegetation Index (CpRVI)  [[7]](#7)
+    * Improved S-Omega decomposition for compact-pol data (iS-Omega) [[7]](#7)
+    * Compact-pol Radar Vegetation Index (CpRVI)  [[6]](#6)
     * Degree of Polarization (DOP)  [[10]](#10) 
 
   * Dual-pol:
