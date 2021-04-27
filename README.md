@@ -1,8 +1,8 @@
 <p align="center">
   <img src="logo.png" alt=""/>
 </p>
-======================================
-### A python based [QGIS](https://qgis.org/en/site/index.html) plugin
+
+### A python based [QGIS](https://qgis.org/en/site/index.html) plugin 
 [![status](https://joss.theoj.org/papers/aba2f441ab3c99e7694c97345e1255a0/status.svg)](https://joss.theoj.org/papers/aba2f441ab3c99e7694c97345e1255a0)
 [![Documentation Status](https://readthedocs.org/projects/sar-tools/badge/?version=latest)](https://sar-tools.readthedocs.io/en/latest/?badge=latest)
 [![License: GPL 3.0](https://img.shields.io/badge/License-GPL_3.0-green.svg)](https://opensource.org/licenses/gpl-license)
