@@ -58,6 +58,8 @@ from .functions.fp.mod_PRVI import PRVI
 from .functions.fp.mod_dop_fp import dop_FP
 from .functions.fp.mod_RVIFP import RVI_FP
 
+from .functions.dcop.mod_MF3CD import MF3CD
+
 from .functions.cp.mod_dop_cp import dop_cp
 from .functions.cp.mod_CpRVI import CpRVI
 from .functions.cp.mod_iS_Omega import iS_Omega
@@ -898,6 +900,18 @@ class MRSLab(object):
         
         return np.dstack((T11,T12,T13,np.conj(T12),T22,T23,np.conj(T13),np.conj(T23),T33))
     
+    def load_T2(self,folder):
+    
+        T11 = self.read_bin(folder+"/T11.bin")
+        T22 = self.read_bin(folder+"/T22.bin")
+    
+        T12_i = self.read_bin(folder+'/T12_imag.bin')
+        T12_r = self.read_bin(folder+'/T12_real.bin')
+    
+        T12 = T12_r + 1j*T12_i
+    
+        return np.dstack((T11,T12,np.conj(T12),T22))
+
     def read_bin(self,file):
         ds = gdal.Open(file)
         band = ds.GetRasterBand(1)
@@ -1276,6 +1290,29 @@ class MRSLab(object):
         worker.error.connect(self.workerError)
         # time.sleep(0.1)
         # worker.kill
+
+    def startMF3CD(self):
+        
+        self.dlg.terminal.append('->> Calculating MF3CD...')
+        worker = MF3CD(self.inFolder,self.T2_stack,self.ws)
+
+        # start the worker in a new thread
+        thread = QtCore.QThread()
+        worker.moveToThread(thread)
+        # self.workerFinished =1
+        worker.finished.connect(self.workerFinished)
+        worker.error.connect(self.workerError)
+
+        worker.progress.connect(self.showmsg)
+        worker.pBar.connect(self.pBarupdate)
+        thread.started.connect(worker.run)
+        thread.start()
+        
+        self.thread = thread
+        self.worker = worker
+        # time.sleep(0.1)
+        # worker.kill
+
     def cancel_fn(self):
         # self.sig_abort_workers.emit()
         self.dlg.terminal.append('->> cancelling...')
