@@ -145,6 +145,21 @@ It is possible that the plugin may show not responding for larger datasets but p
 
 Description and the details of all the core functions of this plugin are available here: [Functions_description](help/Functions_description.md)
 
+
+```bibtex
+@article{bhogapurapu2021polsar,
+  title={PolSAR tools: A QGIS plugin for generating SAR descriptors},
+  author={Bhogapurapu, Narayanarao and Dey, Subhadip and Mandal, Dipankar and Bhattacharya, Avik and Rao, YS},
+  journal={Journal of Open Source Software},
+  volume={6},
+  number={60},
+  pages={2970},
+  year={2021},
+  doi= {10.21105/joss.02970}
+}
+
+```
+
 ## Contributions
 1) Contribute to the software
 
