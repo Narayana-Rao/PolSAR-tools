@@ -2,6 +2,7 @@ on: [push]
 
 jobs:
   paper:
+    if: contains(github.event.head_commit.message, 'paper') || contains(github.event.pull_request.title, 'paper')
     runs-on: ubuntu-latest
     name: Paper Draft
     steps:
